@@ -19,13 +19,13 @@ public class CustomerDAOImpl implements CustomersDAO {
     @PersistenceContext
     private EntityManager em;
 
-    public void persist(Customers customers) {
-        em.persist(customers);
-    }
-
     //@Transactional
     public List<Customers> listCustomers() {
         return em.createQuery("SELECT c FROM Customers c").getResultList();
+    }
+
+    public void addCustomer(Customers customer){
+        em.persist(customer);
     }
 
 }

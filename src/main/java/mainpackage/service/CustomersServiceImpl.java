@@ -27,6 +27,8 @@ public class CustomersServiceImpl implements CustomersService {
     @Transactional
     public List<Customers> listCustomers(){return customersDAO.listCustomers();}
 
-
+    @Override
+    @Transactional
+    public void addCustomer(Customers customer){this.customersDAO.addCustomer(customer);}
 
 }
