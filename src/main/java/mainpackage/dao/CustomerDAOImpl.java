@@ -7,9 +7,13 @@ import javax.persistence.PersistenceContext;
 
 import mainpackage.model.Customers;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+//@Component
+
+@Repository("CustomersDAO")
+//@Transactional
 public class CustomerDAOImpl implements CustomersDAO {
 
     @PersistenceContext
@@ -19,6 +23,7 @@ public class CustomerDAOImpl implements CustomersDAO {
         em.persist(customers);
     }
 
+    //@Transactional
     public List<Customers> listCustomers() {
         return em.createQuery("SELECT c FROM Customers c").getResultList();
     }

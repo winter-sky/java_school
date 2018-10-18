@@ -46,6 +46,7 @@ public class PersistenceJPAConfig{
     }
 
     @Bean
+    //@Autowired
     public PlatformTransactionManager transactionManager(
             EntityManagerFactory emf){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
