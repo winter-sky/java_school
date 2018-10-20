@@ -41,6 +41,11 @@ public class Items {
     )
     List<Params> params;
 
+    @Override
+    public String toString() {
+        return "Items [id=" + itemId + ",item name= " + itemName + "]";
+    }
+
     public int getItemId() {
         return itemId;
     }

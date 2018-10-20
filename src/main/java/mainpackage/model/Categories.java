@@ -18,7 +18,7 @@ public class Categories {
     private int categoryLevel;
 
     @Column(name = "parent_id",insertable = false, updatable = false)
-    private int parentId;
+    private Integer parentId;
 
     @ManyToOne
     @JoinColumn(name="parent_id")
@@ -51,11 +51,11 @@ public class Categories {
         this.categoryLevel = categoryLevel;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 

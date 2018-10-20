@@ -2,6 +2,7 @@ package mainpackage;
 
 import mainpackage.configuration.PersistenceJPAConfig;
 import mainpackage.service.CustomersService;
+import mainpackage.service.ItemsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +23,11 @@ public class SpringMain {
 
        CustomersService customersService = annotationConfigApplicationContext.getBean(CustomersService.class);
 
-       System.out.println("listAll: " + customersService.listCustomers());
+       System.out.println("list all customers from customers table: " + customersService.listCustomers());
+
+        ItemsService itemsService = annotationConfigApplicationContext.getBean(ItemsService.class);
+
+        System.out.println("list all items from items table: " + itemsService.listItems());
 
         //ctx.close();
         annotationConfigApplicationContext.close();
