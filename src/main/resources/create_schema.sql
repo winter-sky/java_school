@@ -14,7 +14,7 @@ create table logins (
   login_id INTEGER(18) NOT NULL AUTO_INCREMENT,
   login VARCHAR(256) NOT NULL,
   password VARCHAR(256) NOT NULL,
-  role INTEGER(2)   NOT NULL,
+  role VARCHAR(18)   NOT NULL,
   CONSTRAINT user_id_pk PRIMARY KEY (login_id)
 );
 
@@ -35,23 +35,23 @@ create table clients (
   birthdate DATE NOT NULL, -- TODO: maybe not null, discuss
   email VARCHAR(256) NOT NULL,
   client_login INTEGER(18) NOT NULL,
-  client_adress INTEGER(18) NOT NULL,
+  client_address INTEGER(18) NOT NULL,
   CONSTRAINT client_id_pk PRIMARY KEY (client_id),
   FOREIGN KEY (client_login) REFERENCES logins (login_id),
-  FOREIGN KEY (client_adress) REFERENCES client_addresses (client_address_id)
+  FOREIGN KEY (client_address) REFERENCES client_addresses (client_address_id)
 );
 
 create table orders (
   order_id  INTEGER (18) NOT NULL AUTO_INCREMENT,
   orders_client INTEGER(18)  NOT NULL,
   orders_client_address INTEGER(18)  NOT NULL,
-  payment_method  INTEGER(2)   NOT NULL, -- TODO: may need to foreign key to payment_method table, but probably java enumeration is ok
-  delivery_method INTEGER(2)   NOT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
-  payment_status INTEGER(2)   NOT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
-  order_status INTEGER(2)   NOT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
-  CONSTRAINT order_id_pk PRIMARY KEY (order_id),
-  FOREIGN KEY (orders_client) REFERENCES clients (client_id),
-  FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
+  payment_method  VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to payment_method table, but probably java enumeration is ok
+  delivery_method VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
+  payment_state VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
+  order_status VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
+CONSTRAINT order_id_pk PRIMARY KEY (order_id),
+FOREIGN KEY (orders_client) REFERENCES clients (client_id),
+FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
 );
 
 create table categories (
@@ -68,8 +68,8 @@ create table items (
   item_id INTEGER(18) NOT NULL AUTO_INCREMENT,
   item_name VARCHAR(60) NOT NULL,
   item_category INTEGER(18) NOT NULL,
-  price NUMERIC(30, 2) NOT NULL, -- Price in roubles, 2 digits after dot.
-  weight NUMERIC(8, 3)  NOT NULL, -- Weight in kilograms.
+  price DOUBLE(30, 2) NOT NULL, -- Price in roubles, 2 digits after dot.
+  weight DOUBLE(8, 3)  NOT NULL, -- Weight in kilograms.
   volume VARCHAR(60) NOT NULL, -- TODO: what volume means. Is it dimensions like 34x20x60?
   available_count INTEGER(18) NOT NULL,
   pic VARCHAR(256) NOT NULL,
