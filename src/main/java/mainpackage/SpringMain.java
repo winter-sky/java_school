@@ -1,6 +1,7 @@
 package mainpackage;
 
 import mainpackage.configuration.PersistenceJPAConfig;
+import mainpackage.configuration.WebAppInit;
 import mainpackage.service.CustomersService;
 import mainpackage.service.ItemsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -13,7 +14,7 @@ public class SpringMain {
     public static void main(String[] args) {
 
         AnnotationConfigApplicationContext  annotationConfigApplicationContext =
-               new AnnotationConfigApplicationContext(PersistenceJPAConfig.class);
+               new AnnotationConfigApplicationContext(PersistenceJPAConfig.class, WebAppInit.class);
 
         //Create Spring application context
        // ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/spring-servlet.xml");
