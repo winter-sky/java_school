@@ -2,6 +2,7 @@ package mainpackage;
 
 import mainpackage.configuration.PersistenceJPAConfig;
 import mainpackage.configuration.WebAppInit;
+import mainpackage.service.CategoriesService;
 import mainpackage.service.CustomersService;
 import mainpackage.service.ItemsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,6 +31,9 @@ public class SpringMain {
 
         System.out.println("list all items from items table: " + itemsService.listItems());
 
+        CategoriesService categoriesService = annotationConfigApplicationContext.getBean(CategoriesService.class);
+
+        System.out.println("list of categories with level 0 from categories table: " + categoriesService.listCategories());
         //ctx.close();
         annotationConfigApplicationContext.close();
 

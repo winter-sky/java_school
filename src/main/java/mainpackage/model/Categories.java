@@ -27,6 +27,12 @@ public class Categories {
     @OneToMany(mappedBy = "category")
     private List<Categories> categories;
 
+    @Override
+    public String toString() {
+        return "catergory [id=" + categoryId + ", category_name = " + categoryName + ", category_level "+categoryLevel+
+                ", parent_id "+parentId+"]";
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
