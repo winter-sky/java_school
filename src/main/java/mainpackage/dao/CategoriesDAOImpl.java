@@ -15,7 +15,12 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
     public List<Categories> listCategories(){
         int level = 0;
-        Query query = em.createQuery("from Categories where category_level=:categoryLevel");
+        Query query = em.createQuery("from Categories where category_level=:categoryLevel");//level field is rebundant
         return  query.setParameter("categoryLevel", level).getResultList();
+    }
+
+    public List<Categories> listSubCategories(int parentId){
+        Query query = em.createQuery("from Categories where parent_id=:parentId");
+        return  query.setParameter("parentId", parentId).getResultList();
     }
 }

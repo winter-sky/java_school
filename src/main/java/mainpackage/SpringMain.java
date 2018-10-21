@@ -35,6 +35,7 @@ public class SpringMain {
 
         System.out.println("list of categories with level 0 from categories table: " + categoriesService.listCategories());
         //ctx.close();
+        System.out.println("list of subcategories: " + categoriesService.listSubCategories(2));
         annotationConfigApplicationContext.close();
 
     }

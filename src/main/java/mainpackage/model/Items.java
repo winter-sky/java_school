@@ -43,7 +43,7 @@ public class Items {
 
     @Override
     public String toString() {
-        return "Items [id=" + itemId + ",item name= " + itemName + "]";
+        return "Items [id=" + itemId + ",item name= " + itemName + ", category= "+category+"]";
     }
 
     public int getItemId() {
