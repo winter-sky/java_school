@@ -7,4 +7,5 @@ import java.util.List;
 public interface CategoriesDAO {
     List<Categories> listCategories();
     List<Categories> listSubCategories(int parentId);
+    List<Categories> listAllCategories();
 }

@@ -24,13 +24,13 @@ public class Categories {
     @JoinColumn(name="parent_id")
     private Categories category;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")
     private List<Categories> categories;
 
     @Override
     public String toString() {
         return "catergory [id=" + categoryId + ", category_name = " + categoryName + ", category_level "+categoryLevel+
-                ", parent_id "+parentId+"]";
+                ", parent_id "+parentId+"subcategories "+categories+"]";
     }
 
     public int getCategoryId() {
@@ -74,6 +74,7 @@ public class Categories {
     }
 
     public List<Categories> getCategories() {
+
         return categories;
     }
 

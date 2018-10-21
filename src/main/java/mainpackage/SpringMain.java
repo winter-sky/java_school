@@ -25,17 +25,19 @@ public class SpringMain {
 
        CustomersService customersService = annotationConfigApplicationContext.getBean(CustomersService.class);
 
-       System.out.println("list all customers from customers table: " + customersService.listCustomers());
+      // System.out.println("list all customers from customers table: " + customersService.listCustomers());
 
         ItemsService itemsService = annotationConfigApplicationContext.getBean(ItemsService.class);
 
-        System.out.println("list all items from items table: " + itemsService.listItems());
+        //System.out.println("list all items from items table: " + itemsService.listItems());
 
         CategoriesService categoriesService = annotationConfigApplicationContext.getBean(CategoriesService.class);
 
         System.out.println("list of categories with level 0 from categories table: " + categoriesService.listCategories());
         //ctx.close();
-        System.out.println("list of subcategories: " + categoriesService.listSubCategories(2));
+//        System.out.println("list of subcategories: " + categoriesService.listSubCategories(2));
+//
+//        System.out.println("list of subcategories: " + categoriesService.listAllCategories());
         annotationConfigApplicationContext.close();
 
     }

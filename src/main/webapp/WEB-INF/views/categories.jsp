@@ -15,10 +15,7 @@
 <body>
 <a href="<c:url value='/catalog' />" >Catalog</a><br>
 <c:forEach var="category" items="${listCategories}">
-
-        ${category.parentId}
-        ${category.categoryName}
-        <a href="<c:url value='/listsubcategories/${category.categoryId}' />" >Choose</a><br>
+        <a href="<c:url value='/listsubcategories/${category.categoryId}' />" > ${category.categoryName}</a><br>
 
 </c:forEach>
 </body>

@@ -23,4 +23,6 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         Query query = em.createQuery("from Categories where parent_id=:parentId");
         return  query.setParameter("parentId", parentId).getResultList();
     }
+
+    public List<Categories> listAllCategories(){return em.createQuery("SELECT c FROM Categories c").getResultList();}
 }

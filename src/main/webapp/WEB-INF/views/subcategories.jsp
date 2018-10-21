@@ -12,12 +12,16 @@
     <title>Title</title>
 </head>
 <body>
+<ul>
+    <li>
 <a href="<c:url value='/catalog' />" >Catalog</a><br>
 <c:forEach var="category" items="${listSubCategories}">
     <tr>
-        ${category.categoryName}<br>
-
+            <a href="<c:url value='/listsubcategories/${category.categoryId}' />" >${category.categoryName}</a><br>
     </tr>
 </c:forEach>
+    </li>
+</ul>
+
 </body>
 </html>

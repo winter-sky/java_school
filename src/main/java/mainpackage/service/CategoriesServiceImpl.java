@@ -23,4 +23,8 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     @Transactional
     public List<Categories> listSubCategories(int parentId){return  categoriesDAO.listSubCategories(parentId);}
+
+    @Override
+    @Transactional
+    public List<Categories> listAllCategories(){return  categoriesDAO.listAllCategories();}
 }
