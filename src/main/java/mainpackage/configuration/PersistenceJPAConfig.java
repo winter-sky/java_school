@@ -33,7 +33,7 @@ public class PersistenceJPAConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/WEB-INF/views/**").addResourceLocations("/views/");
+        registry.addResourceHandler("/WEB-INF/**").addResourceLocations("/views/");
     }
 
     @Bean

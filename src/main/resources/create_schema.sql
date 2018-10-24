@@ -63,6 +63,12 @@ create table categories (
   FOREIGN KEY (parent_id) REFERENCES categories (catergory_id),
   CONSTRAINT catergory_id_pk PRIMARY KEY (catergory_id)
 );
+insert into categories (category_id, category_name, category_level,parent_id )
+values (1,'Book Category',0,null);
+insert into categories (category_id, category_name, category_level,parent_id )
+values (2,'Art',1,1);
+insert into categories (category_id, category_name, category_level,parent_id )
+values (3,'Literature & Fiction',1,1);
 
 create table items (
   item_id INTEGER(18) NOT NULL AUTO_INCREMENT,

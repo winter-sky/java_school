@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -21,7 +22,9 @@
         <td>${items.weight}</td>
         <td>${items.volume}</td>
         <td>${items.availableCount}</td>
-        <td>${items.pic}</td>
+        <td><img src="${items.pic}" alt="some pic" style="width:50px;height:50px;"></td> -->
+        <%--<td><img src="/images/mabon2.jpg" alt="mabon.jpg"></td> -->--%>
+
     </tr>
 </c:forEach>
 </body>

@@ -33,8 +33,11 @@ public class CategoriesController {
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)
     public String listCategories(Model model) {
         //model.addAttribute("categories", new Categories());
-        List<Categories> list = this.categoriesService.listCategories();
-        model.addAttribute("listCategories", list);
+//        List<Categories> list = this.categoriesService.listCategories();
+//        model.addAttribute("listCategories", list);
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        System.out.println(rootCategory);
+        model.addAttribute("rootCategory", rootCategory);
         return "categories";
     }
 

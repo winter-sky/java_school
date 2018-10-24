@@ -14,5 +14,6 @@
 </head>
 <body>
  <td><a href="<c:url value='/listcategories' />" >Catalog</a></td>
+
 </body>
 </html>

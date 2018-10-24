@@ -8,4 +8,5 @@ public interface CategoriesService {
     List<Categories> listCategories();
     List<Categories> listSubCategories(int parentId);
     List<Categories> listAllCategories();
+    public Categories getRootCategory();
 }

@@ -27,4 +27,8 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     @Transactional
     public List<Categories> listAllCategories(){return  categoriesDAO.listAllCategories();}
+
+    @Override
+    @Transactional
+    public Categories getRootCategory(){return categoriesDAO.getRootCategory();}
 }

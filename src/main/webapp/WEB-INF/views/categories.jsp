@@ -9,14 +9,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<script>
+    function changeContent(name) {
+        $('#content').load(name);
+    }
+</script>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <head>
     <title>Title</title>
 </head>
 <body>
-<a href="<c:url value='/catalog' />" >Catalog</a><br>
-<c:forEach var="category" items="${listCategories}">
-        <a href="<c:url value='/listsubcategories/${category.categoryId}' />" > ${category.categoryName}</a><br>
+<div class="container">
+    <%--<a href="<c:url value='/catalog'/>" class="btn">Catalog</a><br>--%>
+    <c:forEach var="rootCategory" items="${rootCategory.categories}">
+        <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
+           <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
+        ${rootCategory.categoryName}
+        <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
+        <jsp:include page="categories.jsp"/>
+    </c:forEach>
 
-</c:forEach>
+    </div>
 </body>
 </html>
