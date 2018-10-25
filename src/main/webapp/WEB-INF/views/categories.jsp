@@ -29,9 +29,18 @@
     <c:forEach var="rootCategory" items="${rootCategory.categories}">
         <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
            <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
-        ${rootCategory.categoryName}
+        <%--${rootCategory.categoryName}<br>--%>
+        <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>
+        <%--<a href="<c:url value='/showitems/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>--%>
+        <%--<c:if test="${!empty rootCategory.items}">--%>
+        <%--<c:forEach var="item" items="${rootCategory.items}">--%>
+            <%--<tr>--%>
+                    <%--${item.itemName}--%>
+            <%--</tr>--%>
+        <%--</c:forEach></c:if>--%>
         <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
         <jsp:include page="categories.jsp"/>
+
     </c:forEach>
 
     </div>

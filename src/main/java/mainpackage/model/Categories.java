@@ -2,13 +2,14 @@ package mainpackage.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Entity
 @Table(name="categories")
 public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "catergory_id")
+    @Column(name = "category_id")
     private int categoryId;
 
     @Column(name = "category_name")
@@ -24,8 +25,11 @@ public class Categories {
     @JoinColumn(name="parent_id")
     private Categories category;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
     private List<Categories> categories;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
+    private List<Items> items;
 
     @Override
     public String toString() {
@@ -78,7 +82,25 @@ public class Categories {
         return categories;
     }
 
-    public void setCategories(List<Categories> categories) {
+    public void setCategories(List<Categories>categories) {
         this.categories = categories;
     }
+
+    public List<Items> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Items> items) {
+        this.items = items;
+    }
+
+//    public List<Categories> getAllSubCategories() {
+//    List<Categories> list = null;
+//        for(Categories c:this.getCategories()){
+//            list.add(c);
+//            if(!c.getCategories().isEmpty())
+//                c.getAllSubCategories();
+//        }
+//        return list;
+//    }
 }

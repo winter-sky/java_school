@@ -32,12 +32,15 @@ public class SpringMain {
         //System.out.println("list all items from items table: " + itemsService.listItems());
 
         CategoriesService categoriesService = annotationConfigApplicationContext.getBean(CategoriesService.class);
-
-        System.out.println("list of categories with level 0 from categories table: " + categoriesService.listCategories());
-        //ctx.close();
+//
+//        System.out.println("list of categories with level 0 from categories table: " + categoriesService.listCategories());
+//        ctx.close();
 //        System.out.println("list of subcategories: " + categoriesService.listSubCategories(2));
 //
 //        System.out.println("list of subcategories: " + categoriesService.listAllCategories());
+        System.out.println("Find category by id : " + categoriesService.findCategoryById(9));
+
+
         annotationConfigApplicationContext.close();
 
     }

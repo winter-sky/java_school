@@ -1,8 +1,6 @@
 delete from iterms;
-insert into items(item_name,item_category,price,weight, volume,available_count,pic)
-values ('Alice in Wonderland',1,1500,2,'20x80x10',5,'file://C://arts//cp5_9cW_xvE.jpg');
-
 delete from categories;
+
 insert into categories ( category_name, category_level,parent_id )
 values ('Book Category',0,null);
 insert into categories ( category_name, category_level,parent_id )
@@ -24,6 +22,19 @@ values ('Mythology & Folk Tales',2,3);
 insert into categories ( category_name, category_level,parent_id )
 values ('Fairy Tales',3,9);
 insert into categories ( category_name, category_level,parent_id )
-                        values ('Folklore',3,9);
+values ('Folklore',3,9);
 insert into categories ( category_name, category_level,parent_id )
 values ('Mythology',3,9);
+insert into categories ( category_name, category_level,parent_id )
+values ('Pen & Ink Drawing',3,5);
+insert into categories ( category_name, category_level,parent_id )
+values ('Oil Painting',3,6);
+
+insert into items(item_name,item_category,price,weight, volume,available_count,pic)
+values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'url');
+insert into items(item_name,item_category,price,weight, volume,available_count,pic)
+values ('Kawaii Doodle Cuties',13,1500,2,'20x80x10',5,'url');
+insert into items(item_name,item_category,price,weight, volume,available_count,pic)
+values ('Russian Fairy Tales',9,1500,2,'20x80x10',5,'url');
+insert into items(item_name,item_category,price,weight, volume,available_count,pic)
+values ('Oil Painting Secrets From a Master',6,1500,2,'20x80x10',5,'url');

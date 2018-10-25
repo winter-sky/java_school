@@ -19,4 +19,7 @@ public class ItemsServiceImpl implements ItemsService {
     @Override
     @Transactional
     public List<Items> listItems(){return this.itemsDAO.listItems();}
+
+
+
 }

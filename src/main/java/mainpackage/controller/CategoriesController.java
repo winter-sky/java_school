@@ -41,11 +41,13 @@ public class CategoriesController {
         return "categories";
     }
 
-    @RequestMapping(value = "/listsubcategories/{parentId}", method = RequestMethod.GET)
-    public String listSubCategories(Model model,@PathVariable("parentId") int parentId) {
-        //model.addAttribute("categories", new Categories());
-        List<Categories> list = this.categoriesService.listSubCategories(parentId);
-        model.addAttribute("listSubCategories", list);
-        return "subcategories";
+    @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)
+    public String listSubCategories(Model model,@PathVariable("categoryId") int categoryId) {
+
+        Categories category = this.categoriesService.findCategoryById(categoryId);
+        List<Items> items =category.getItems();
+        model.addAttribute("items", items);
+        model.addAttribute("category", category);
+        return "listitemsbycategory";
     }
 }

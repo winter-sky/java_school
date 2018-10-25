@@ -1,5 +1,6 @@
 use online_store;
 
+
 drop table IF EXISTS item_params;
 drop table IF EXISTS order_items;
 drop table IF EXISTS params;
@@ -49,26 +50,21 @@ create table orders (
   delivery_method VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
   payment_state VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
   order_status VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
-CONSTRAINT order_id_pk PRIMARY KEY (order_id),
-FOREIGN KEY (orders_client) REFERENCES clients (client_id),
-FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
+  CONSTRAINT order_id_pk PRIMARY KEY (order_id),
+  FOREIGN KEY (orders_client) REFERENCES clients (client_id),
+  FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
 );
 
 create table categories (
-  catergory_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+  category_id INTEGER(18) NOT NULL AUTO_INCREMENT,
   category_name VARCHAR(60)  NOT NULL,
   category_level INTEGER(1) NOT NULL,
   parent_id INTEGER(18) NULL,
 
-  FOREIGN KEY (parent_id) REFERENCES categories (catergory_id),
-  CONSTRAINT catergory_id_pk PRIMARY KEY (catergory_id)
+  FOREIGN KEY (parent_id) REFERENCES categories (category_id),
+  CONSTRAINT category_id_pk PRIMARY KEY (category_id)
 );
-insert into categories (category_id, category_name, category_level,parent_id )
-values (1,'Book Category',0,null);
-insert into categories (category_id, category_name, category_level,parent_id )
-values (2,'Art',1,1);
-insert into categories (category_id, category_name, category_level,parent_id )
-values (3,'Literature & Fiction',1,1);
+
 
 create table items (
   item_id INTEGER(18) NOT NULL AUTO_INCREMENT,
@@ -79,7 +75,7 @@ create table items (
   volume VARCHAR(60) NOT NULL, -- TODO: what volume means. Is it dimensions like 34x20x60?
   available_count INTEGER(18) NOT NULL,
   pic VARCHAR(256) NOT NULL,
-  FOREIGN KEY (item_category) REFERENCES categories (catergory_id),
+  FOREIGN KEY (item_category) REFERENCES categories (category_id),
   CONSTRAINT item_id_pk PRIMARY KEY (item_id)
 );
 
@@ -106,4 +102,4 @@ create table item_params (
   FOREIGN KEY (item) REFERENCES items (item_id),
   FOREIGN KEY (param) REFERENCES params (param_id),
   CONSTRAINT item_param_id_pk PRIMARY KEY (item_param_id)
-)
+);
