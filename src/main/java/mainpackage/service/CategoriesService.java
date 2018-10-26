@@ -13,5 +13,6 @@ public interface CategoriesService {
 
     Categories findCategoryById(int categoryId);
 
+//    List<String> listAuthors();
 
 }

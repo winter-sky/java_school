@@ -31,15 +31,19 @@ public class Items {
 
     @ManyToOne
     @JoinColumn(name="item_category")
-    Categories category;
+    private Categories category;
 
-    @ManyToMany
-    @JoinTable(
-            name = "item_params",
-            joinColumns = { @JoinColumn(name = "item") },
-            inverseJoinColumns = { @JoinColumn(name = "param") }
-    )
-    List<Params> params;
+    @OneToOne
+    @JoinColumn(name="params_id")
+    private Params params;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "item_params",
+//            joinColumns = { @JoinColumn(name = "item") },
+//            inverseJoinColumns = { @JoinColumn(name = "param") }
+//    )
+//    List<Params> params;
 
     @Override
     public String toString() {
@@ -110,11 +114,11 @@ public class Items {
         this.category = category;
     }
 
-    public List<Params> getParams() {
+    public Params getParams() {
         return params;
     }
 
-    public void setParams(List<Params> params) {
+    public void setParams(Params params) {
         this.params = params;
     }
 }

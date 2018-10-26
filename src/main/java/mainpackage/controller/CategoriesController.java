@@ -42,10 +42,12 @@ public class CategoriesController {
     }
 
     @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)
-    public String listSubCategories(Model model,@PathVariable("categoryId") int categoryId) {
+    public String listSubCategories(Model model,@PathVariable("categoryId") int categoryId) {//rename method
 
         Categories category = this.categoriesService.findCategoryById(categoryId);
-        List<Items> items =category.getItems();
+        List<Items> items = category.getItems();
+//        List<String> listAuthors = this.categoriesService.listAuthors();
+//        model.addAttribute("listAuthors",listAuthors);
         model.addAttribute("items", items);
         model.addAttribute("category", category);
         return "listitemsbycategory";

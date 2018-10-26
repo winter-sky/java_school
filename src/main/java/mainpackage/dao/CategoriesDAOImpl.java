@@ -2,11 +2,14 @@ package mainpackage.dao;
 
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
+import mainpackage.model.Params;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Repository("CategoriesDAO")
@@ -37,4 +40,19 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         Query query = em.createQuery("from Categories where category_id=:categoryId");
         return  (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
     }
+
+//    @Override
+//    public List<String> listAuthors(){
+//        Query query = em.createQuery("from Params");
+//        List<Params> listParams = query.getResultList();
+//        List<String> listAuthors=new ArrayList<>();
+//        for(Params p:listParams){
+//            listAuthors.add( p.getAuthor());
+//        }
+//
+//        List<String> listWithoutDuplicates = new ArrayList<>(
+//                new HashSet<>(listAuthors));
+//
+//        return listWithoutDuplicates;
+//    }
 }

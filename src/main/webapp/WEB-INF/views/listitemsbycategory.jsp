@@ -17,31 +17,22 @@
     <c:forEach var="item" items="${items}">
         <tr>
                 ${item.itemName}<br>
+                    <%--<a href="<c:url value='/listauthors/${item.category.categoryId}'/>">${item.itemName}</a><br>--%>
         </tr>
     </c:forEach>
 <%--</c:if>--%>
 
-<%--<c:if test="${empty category.categories}">--%>
-<%--<c:forEach var="item" items="${category.items}">--%>
-    <%--<tr>--%>
-            <%--${item.itemName}<br>--%>
-    <%--</tr>--%>
-<%--</c:forEach>--%>
-
 
 <c:forEach var="category" items="${category.categories}">
      <c:forEach var="item" items="${category.items}">
-            <tr>
             ${item.itemName}<br>
-
-            </tr>
-            </c:forEach>
+         <%--<a href="<c:url value='/listauthors/${item.category.categoryId}'/>">${item.itemName}</a><br>--%>
     <c:if test="${!empty category.categories}">
     <c:set var="category" value="${category}" scope="request"/>
     <jsp:include page="listitemsbycategory.jsp"/>
     </c:if>
 </c:forEach>
-
-
+</c:forEach>
+<h3>Хуй</h3>
 </body>
 </html>

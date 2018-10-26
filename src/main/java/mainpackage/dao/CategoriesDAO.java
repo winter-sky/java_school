@@ -12,4 +12,6 @@ public interface CategoriesDAO {
     Categories getRootCategory();
 
     Categories findCategoryById(int categoryId);
+
+//    List<String> listAuthors();
 }

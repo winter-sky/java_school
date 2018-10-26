@@ -5,6 +5,7 @@ import mainpackage.configuration.WebAppInit;
 import mainpackage.service.CategoriesService;
 import mainpackage.service.CustomersService;
 import mainpackage.service.ItemsService;
+import mainpackage.service.ParamsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
@@ -38,7 +39,12 @@ public class SpringMain {
 //        System.out.println("list of subcategories: " + categoriesService.listSubCategories(2));
 //
 //        System.out.println("list of subcategories: " + categoriesService.listAllCategories());
-        System.out.println("Find category by id : " + categoriesService.findCategoryById(9));
+        //System.out.println("Find category by id : " + categoriesService.findCategoryById(9));
+
+        ParamsService paramsService = annotationConfigApplicationContext.getBean(ParamsService.class);
+//        System.out.println("Items by category : " + paramsService.listItems(13));
+        System.out.println("Items by author : " + paramsService.listItemsByParam("Lewis Carroll"));
+        System.out.println("Items by language : " + paramsService.searchItemsByLanguageParam("russian"));
 
 
         annotationConfigApplicationContext.close();

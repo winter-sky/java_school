@@ -36,6 +36,8 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     @Transactional
     public Categories findCategoryById(int categoryId){return  categoriesDAO.findCategoryById(categoryId);}
-
-
+//
+//    @Override
+//    @Transactional
+//    public List<String> listAuthors(){ return categoriesDAO.listAuthors();};
 }
