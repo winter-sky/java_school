@@ -82,6 +82,7 @@
             </td>
         </tr>
     </table>
+
 </form:form>
 <br>
 <h3>Customers List</h3>
@@ -94,5 +95,7 @@
                 <td>${customers.email}</td>
             </tr>
         </c:forEach>
+
+
 </body>
 </html>

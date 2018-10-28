@@ -3,6 +3,7 @@ package mainpackage.controller;
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
 import mainpackage.service.CategoriesService;
+import mainpackage.service.ParamsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,14 @@ import java.util.List;
 @Controller
 public class CategoriesController {
     private CategoriesService categoriesService;
+
+    ParamsService paramsService;
+
+    @Autowired
+    @Qualifier(value="ParamsService")
+    public void setCustomersService(ParamsService ps){
+        this.paramsService = ps;
+    }
 
     @Autowired
     @Qualifier(value="CategoriesService")
@@ -38,7 +47,16 @@ public class CategoriesController {
         Categories rootCategory = this.categoriesService.getRootCategory();
         System.out.println(rootCategory);
         model.addAttribute("rootCategory", rootCategory);
-        return "categories";
+        List<String> listAuthors = this.paramsService.listAuthors();
+
+        model.addAttribute("listAuthors",listAuthors);
+
+        List<String> listLanguages = this.paramsService.listLanguages();
+        model.addAttribute("listLanguages",listLanguages);
+
+        List<String> listFormats = this.paramsService.listFormats();
+        model.addAttribute("listFormats",listFormats);
+        return "catalog";
     }
 
     @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)
@@ -50,6 +68,7 @@ public class CategoriesController {
 //        model.addAttribute("listAuthors",listAuthors);
         model.addAttribute("items", items);
         model.addAttribute("category", category);
-        return "listitemsbycategory";
+//        return "listitemsbycategory";
+        return "catalog";
     }
 }

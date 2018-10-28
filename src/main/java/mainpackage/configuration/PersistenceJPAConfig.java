@@ -65,7 +65,7 @@ public class PersistenceJPAConfig implements WebMvcConfigurer {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/online_store");
         dataSource.setUsername( "root" );
-        dataSource.setPassword( "Leonid0912" );
+        dataSource.setPassword( "root" );
         return dataSource;
     }
 

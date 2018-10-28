@@ -8,31 +8,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">--%>
+
+<%--<!-- Compiled and minified JavaScript -->--%>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>--%>
 <head>
     <title>Title</title>
 </head>
 <body>
-
-<%--<c:if test="${empty category.categories}">--%>
-    <c:forEach var="item" items="${items}">
-        <tr>
-                ${item.itemName}<br>
-                    <%--<a href="<c:url value='/listauthors/${item.category.categoryId}'/>">${item.itemName}</a><br>--%>
-        </tr>
-    </c:forEach>
-<%--</c:if>--%>
-
-
-<c:forEach var="category" items="${category.categories}">
-     <c:forEach var="item" items="${category.items}">
-            ${item.itemName}<br>
-         <%--<a href="<c:url value='/listauthors/${item.category.categoryId}'/>">${item.itemName}</a><br>--%>
-    <c:if test="${!empty category.categories}">
-    <c:set var="category" value="${category}" scope="request"/>
-    <jsp:include page="listitemsbycategory.jsp"/>
+<div class="container">
+    <c:if test="${empty category.categories}">
+        <c:forEach var="item" items="${category.items}">
+            <tr>
+                    ${item.itemName}<br>
+            </tr>
+        </c:forEach>
     </c:if>
-</c:forEach>
-</c:forEach>
-<h3>оп</h3>
+    <c:forEach var="category" items="${category.categories}">
+        <c:forEach var="item" items="${category.items}">
+            ${item.itemName}<br>
+     </c:forEach>
+        <c:if test="${!empty category.categories}">
+            <c:set var="category" value="${category}" scope="request"/>
+            <jsp:include page="listitemsbycategory.jsp"/>
+        </c:if>
+    </c:forEach>
+</div>
 </body>
 </html>

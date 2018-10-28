@@ -61,6 +61,7 @@ public class ParamsController {
         List<String> listFormats = this.paramsService.listFormats();
         model.addAttribute("listFormats",listFormats);
 
-        return "items_by_author";
+//        return "items_by_author";
+        return "catalog";
     }
 }
