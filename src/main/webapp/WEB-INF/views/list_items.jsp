@@ -22,9 +22,7 @@
         <td>${items.weight}</td>
         <td>${items.volume}</td>
         <td>${items.availableCount}</td>
-        <td><img src="${items.pic}" alt="some pic" style="width:50px;height:50px;"></td> -->
-        <%--<td><img src="/images/mabon2.jpg" alt="mabon.jpg"></td> -->--%>
-
+        <td><img src="${items.pic}" alt="some pic" style="width:50px;height:50px;" alt="mabon.jpg" width="40" height="40"></td>
     </tr>
 </c:forEach>
 </body>

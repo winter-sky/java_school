@@ -1,6 +1,7 @@
 package mainpackage.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -33,8 +34,7 @@ public class Categories {
 
     @Override
     public String toString() {
-        return "catergory [id=" + categoryId + ", category_name = " + categoryName + ", category_level "+categoryLevel+
-                ", parent_id "+parentId+"subcategories "+categories+"]";
+        return "catergory [id=" + categoryId + ", category_name = " + categoryName+" ";
     }
 
     public int getCategoryId() {
@@ -94,13 +94,4 @@ public class Categories {
         this.items = items;
     }
 
-//    public List<Categories> getAllSubCategories() {
-//    List<Categories> list = null;
-//        for(Categories c:this.getCategories()){
-//            list.add(c);
-//            if(!c.getCategories().isEmpty())
-//                c.getAllSubCategories();
-//        }
-//        return list;
-//    }
 }

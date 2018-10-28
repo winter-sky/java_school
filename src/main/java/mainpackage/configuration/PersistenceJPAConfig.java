@@ -27,13 +27,14 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-//@EnableWebMvc
+@EnableWebMvc
 @ComponentScan(basePackages={"mainpackage"})
 public class PersistenceJPAConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/WEB-INF/**").addResourceLocations("/views/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     @Bean
