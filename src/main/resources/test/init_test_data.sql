@@ -38,10 +38,10 @@ insert into params (author, language, format)
 values ('Linda Cateura ','english','hardcover');
 
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
-values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'url',1);
+values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'/resources/alice_in_the_wonderland.jpg',1);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
-values ('Kawaii Doodle Cuties',13,1500,2,'20x80x10',5,'url',2);
+values ('Kawaii Doodle Cuties',13,1500,2,'20x80x10',5,'/resources/Kawaii_Doodle_Cuties.jpg',2);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
-values ('Russian Fairy Tales',12,1500,2,'20x80x10',5,'url',3);
+values ('Russian Fairy Tales',12,1500,2,'20x80x10',5,'/resources/bilibin_russian_fairy_tales.jpg',3);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
-values ('Oil Painting Secrets From a Master',14,1500,2,'20x80x10',5,'url',4);
+values ('Oil Painting Secrets From a Master',14,1500,2,'20x80x10',5,'/Oil_Painting_Secrets_From_A_Master.jpg',4);

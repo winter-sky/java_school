@@ -15,6 +15,7 @@
 <h3>List items</h3>
 <c:forEach var="item" items="${listItems}">
     <tr>
+
             ${item.itemName}<br>
     </tr>
 </c:forEach>

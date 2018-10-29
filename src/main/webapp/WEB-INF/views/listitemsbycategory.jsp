@@ -20,6 +20,7 @@
     <c:if test="${empty category.categories}">
         <c:forEach var="item" items="${category.items}">
             <tr>
+
                     ${item.itemName}<br>
             </tr>
         </c:forEach>
