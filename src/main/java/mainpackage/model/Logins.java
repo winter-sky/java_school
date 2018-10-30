@@ -3,6 +3,7 @@ package mainpackage.model;
 import mainpackage.type.Role;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="logins")
@@ -19,9 +20,15 @@ public class Logins {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(name = "enabled")
+    private boolean enabled;
+
+//    @Column(name = "role")
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
+
+    @OneToMany(mappedBy = "login")
+    private List<Roles> roles;
 
     public int getLoginId() {
         return loginId;
@@ -47,11 +54,11 @@ public class Logins {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Roles> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
     }
 }

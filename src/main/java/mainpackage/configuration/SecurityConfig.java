@@ -17,8 +17,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  * The type Irs security config.
@@ -60,49 +62,72 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new DefaultUserDetailsService(loginSrv);
     }
 
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService);
+//    }
+
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select login, password, enabled"
+                        + " from logins where login=?")
+                .authoritiesByUsernameQuery("select username, role "
+                        + "from roles where username=?")
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (secIgnored != null && !secIgnored.isEmpty()) {
-            http.authorizeRequests().antMatchers(secIgnored).permitAll();
-        }
 
-        http.
-                authorizeRequests().
-                antMatchers("/price/*").permitAll().
-                antMatchers("/login").permitAll().
-                antMatchers("/management/getStatus").permitAll().
-                anyRequest().authenticated().
-                and().
-                csrf().disable().
-                logout().logoutUrl("/logout").
-                permitAll().
-                logoutSuccessHandler((req, resp, auth) -> {
-                    if (auth != null) {
-                        try {
-                            SecurityContextHolder.getContext().setAuthentication(auth);
+        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+                .and()
+                .httpBasic();
 
-                            UserSessionDetails ud = (UserSessionDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-                            loginSrv.logout(ud.getUser().getId());
-                        }
-                        catch (Exception e) {
-                            log.error("Error during logout.", e);
-                        }
-                    }
-
-                    // TODO:
-//                resp.setStatus(HttpServletResponse.SC_OK);
-//                resp.getWriter().print(RestStatus.NORMAL.getValue());
-                });
     }
+
+//    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+    //}
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        if (secIgnored != null && !secIgnored.isEmpty()) {
+//            http.authorizeRequests().antMatchers(secIgnored).permitAll();
+//        }
+//
+//        http.
+//                authorizeRequests().
+//                antMatchers("/price/*").permitAll().
+//                antMatchers("/login").permitAll().
+//                antMatchers("/management/getStatus").permitAll().
+//                anyRequest().authenticated().
+//                and().
+//                csrf().disable().
+//                logout().logoutUrl("/logout").
+//                permitAll().
+//                logoutSuccessHandler((req, resp, auth) -> {
+//                    if (auth != null) {
+//                        try {
+//                            SecurityContextHolder.getContext().setAuthentication(auth);
+//
+//                            UserSessionDetails ud = (UserSessionDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//                            loginSrv.logout(ud.getUser().getId());
+//                        }
+//                        catch (Exception e) {
+//                            log.error("Error during logout.", e);
+//                        }
+//                    }
+//
+//                    // TODO:
+////                resp.setStatus(HttpServletResponse.SC_OK);
+////                resp.getWriter().print(RestStatus.NORMAL.getValue());
+//                });
+//    }
 }
