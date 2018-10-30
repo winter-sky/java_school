@@ -27,7 +27,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /** */
     private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
@@ -57,10 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @param loginSrv Login service
      * @return the user details service
      */
-    @Bean
-    public UserDetailsService userDetailsService(LoginService loginSrv) {
-        return new DefaultUserDetailsService(loginSrv);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(LoginService loginSrv) {
+//        return new DefaultUserDetailsService(loginSrv);
+//    }
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -84,9 +83,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/hello").hasAnyRole("ADMIN", "USER")
                 .and()
-                .httpBasic();
+                .formLogin()
+                .defaultSuccessUrl("/hello")
+                ;
+                //.httpBasic();
+
+    }
+
+    public void encodeString() {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("12345"));
 
     }
 
@@ -130,4 +139,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ////                resp.getWriter().print(RestStatus.NORMAL.getValue());
 //                });
 //    }
+
 }

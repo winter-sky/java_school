@@ -14,7 +14,7 @@ public class Logins {
     @Column(name = "login_id")
     private int loginId;
 
-    @Column(name = "login")
+    @Column(name = "login",insertable = false, updatable = false)
     private String login;
 
     @Column(name = "password")
@@ -27,8 +27,12 @@ public class Logins {
 //    @Enumerated(EnumType.STRING)
 //    private Role role;
 
-    @OneToMany(mappedBy = "login")
-    private List<Roles> roles;
+//    @OneToMany(mappedBy = "login")
+//    private List<Roles> roles;
+
+    @ManyToOne
+    @JoinColumn(name="login")
+    private Roles role;
 
     public int getLoginId() {
         return loginId;
@@ -53,12 +57,28 @@ public class Logins {
     public void setPassword(String password) {
         this.password = password;
     }
+//
+//    public List<Roles> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Roles> roles) {
+//        this.roles = roles;
+//    }
 
-    public List<Roles> getRoles() {
-        return roles;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setRoles(List<Roles> roles) {
-        this.roles = roles;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 }

@@ -1,4 +1,3 @@
-
 insert into categories ( category_name, category_level,parent_id )
 values ('Book Category',0,null);
 insert into categories ( category_name, category_level,parent_id )
@@ -44,10 +43,10 @@ values ('Kawaii Doodle Cuties',13,1500,2,'20x80x10',5,'/resources/Kawaii_Doodle_
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
 values ('Russian Fairy Tales',12,1500,2,'20x80x10',5,'/resources/bilibin_russian_fairy_tales.jpg',3);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
-values ('Oil Painting Secrets From a Master',14,1500,2,'20x80x10',5,'/Oil_Painting_Secrets_From_A_Master.jpg',4);
+values ('Oil Painting Secrets From a Master',14,1500,2,'20x80x10',5,'/resources/Oil_Painting_Secrets_From_A_Master.jpg',4);
 
 
+insert into roles(username,role)
+values('admin','ROLE_ADMIN');
 insert into logins(login,password,enabled)
-values('admin','123',true);
-insert into roles(username,role,logins_id)
-values('admin','ROLE_ADMIN',1);
+values('admin','$2a$10$KMpGzt6iF58WojlOMDDxc.Lo/Q2VWEs2zGWBCVuTALsy1Uh73hSjW',true);

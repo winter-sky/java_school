@@ -1,3 +1,10 @@
+
+DROP DATABASE `online_store`;
+
+create schema online_store;
+
+use online_store;
+
 drop table if exists customers;
 create table customers (
                          customer_id INTEGER(18) NOT NULL AUTO_INCREMENT,
@@ -10,32 +17,32 @@ create table customers (
 
 );
 
+drop table IF EXISTS logins;
 drop table IF EXISTS roles;
 drop table IF EXISTS order_items;
 drop table IF EXISTS orders;
 drop table IF EXISTS clients;
-drop table IF EXISTS logins;
 drop table IF EXISTS client_addresses;
 drop table IF EXISTS items;
 drop table IF EXISTS params;
 drop table IF EXISTS categories;
 
+create table roles (
+                     #                   role_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+                     username VARCHAR(256) NOT NULL,
+                     role VARCHAR(18) NOT NULL,
+                     CONSTRAINT username_pk PRIMARY KEY (username)
+);
 create table logins (
                       login_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                       login VARCHAR(256) NOT NULL,
                       password VARCHAR(256) NOT NULL,
                       enabled boolean not null,
-                      CONSTRAINT user_id_pk PRIMARY KEY (login_id)
+                      CONSTRAINT login_id_pk PRIMARY KEY (login_id),
+                      FOREIGN KEY (login) REFERENCES roles (username)
 );
 
-create table roles (
-                     role_id INTEGER(18) NOT NULL AUTO_INCREMENT,
-                     username VARCHAR(256) NOT NULL,
-                     role VARCHAR(18) NOT NULL,
-                     logins_id INTEGER(18),
-                     CONSTRAINT role_id_pk PRIMARY KEY (role_id),
-                     FOREIGN KEY (logins_id) REFERENCES logins (login_id)
-);
+
 
 create table client_addresses (
                                 client_address_id INTEGER(18) NOT NULL AUTO_INCREMENT,

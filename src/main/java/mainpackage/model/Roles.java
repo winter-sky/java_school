@@ -1,41 +1,47 @@
 package mainpackage.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="roles")
 public class Roles {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "role_id")
+//    private int rolesId;
+
+//    @ManyToOne
+//    @JoinColumn(name="logins_id")
+//    private Logins login;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private int rolesId;
-
-    @ManyToOne
-    @JoinColumn(name="logins_id")
-    private Logins login;
-
     @Column(name = "username")
     private String username;
 
     @Column(name = "role")
     private String role;
 
-    public int getRolesId() {
-        return rolesId;
-    }
+    @OneToMany(mappedBy = "role")
+    private List<Logins> logins;
 
-    public void setRolesId(int rolesId) {
-        this.rolesId = rolesId;
-    }
 
-    public Logins getLogin() {
-        return login;
-    }
 
-    public void setLogin(Logins login) {
-        this.login = login;
-    }
+//    public int getRolesId() {
+//        return rolesId;
+//    }
+//
+//    public void setRolesId(int rolesId) {
+//        this.rolesId = rolesId;
+//    }
+
+//    public Logins getLogin() {
+//        return login;
+//    }
+//
+//    public void setLogin(Logins login) {
+//        this.login = login;
+//    }
 
     public String getUsername() {
         return username;
@@ -51,5 +57,13 @@ public class Roles {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Logins> getLogins() {
+        return logins;
+    }
+
+    public void setLogins(List<Logins> logins) {
+        this.logins = logins;
     }
 }
