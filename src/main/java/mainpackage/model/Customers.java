@@ -1,7 +1,7 @@
 package mainpackage.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name="customers")
@@ -19,7 +19,7 @@ public class Customers {
     private String lastName;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private Date birthDate;
 
     @Column(name = "email")
     private String email;
@@ -52,11 +52,11 @@ public class Customers {
         this.lastName = lastName;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 

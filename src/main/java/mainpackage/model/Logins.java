@@ -34,6 +34,9 @@ public class Logins {
     @JoinColumn(name="login")
     private Roles role;
 
+    @OneToOne(mappedBy = "login")
+    private Clients client;
+
     public int getLoginId() {
         return loginId;
     }
@@ -80,5 +83,13 @@ public class Logins {
 
     public void setRole(Roles role) {
         this.role = role;
+    }
+
+    public Clients getClient() {
+        return client;
+    }
+
+    public void setClient(Clients client) {
+        this.client = client;
     }
 }

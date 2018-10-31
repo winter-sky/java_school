@@ -50,3 +50,14 @@ insert into roles(username,role)
 values('admin','ROLE_ADMIN');
 insert into logins(login,password,enabled)
 values('admin','$2a$10$KMpGzt6iF58WojlOMDDxc.Lo/Q2VWEs2zGWBCVuTALsy1Uh73hSjW',true);
+
+insert into roles(username,role)
+values('Alice','ROLE_USER');
+insert into logins(login,password,enabled)
+values('Alice','$2a$10$QtVoMT6I5o0NwPCfNzeMEuKNr2ZJ4fxd2rSF6HgEHcbzz27nqbu32',true);
+
+insert into client_addresses (country,city, zip_code, street,building,apartment)
+values ('USA','New York','NY 10028','Oxford Street ','691','139');
+
+insert into clients (first_name, last_name, birthdate, email, client_login, client_address)
+values ('Alice','Taiga','1989-04-15','alice@gmail.com',2,1);

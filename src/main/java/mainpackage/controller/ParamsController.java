@@ -1,5 +1,6 @@
 package mainpackage.controller;
 
+import mainpackage.model.Clients;
 import mainpackage.model.Items;
 import mainpackage.model.Params;
 import mainpackage.service.ParamsService;
@@ -64,4 +65,6 @@ public class ParamsController {
 //        return "items_by_author";
         return "catalog";
     }
+
+
 }

@@ -1,11 +1,9 @@
 package mainpackage;
 
 import mainpackage.configuration.PersistenceJPAConfig;
+import mainpackage.configuration.SecurityConfig;
 import mainpackage.configuration.WebAppInit;
-import mainpackage.service.CategoriesService;
-import mainpackage.service.CustomersService;
-import mainpackage.service.ItemsService;
-import mainpackage.service.ParamsService;
+import mainpackage.service.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DataAccessException;
@@ -45,6 +43,9 @@ public class SpringMain {
 //        System.out.println("Items by category : " + paramsService.listItems(13));
         System.out.println("Items by author : " + paramsService.listItemsByParam("Lewis Carroll"));
         System.out.println("Items by language : " + paramsService.searchItemsByLanguageParam("russian"));
+
+        ClientsService clientsService=annotationConfigApplicationContext.getBean(ClientsService.class);
+        System.out.println("Find client by login: " + clientsService.findClientByLogin("alice"));
 
 
         annotationConfigApplicationContext.close();

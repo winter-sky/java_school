@@ -10,6 +10,6 @@ public class BCryptUnilityTest {
     public void encodeString() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         System.out.println(encoder.encode("12345"));
-
+        System.out.println(encoder.encode("123"));
     }
 }

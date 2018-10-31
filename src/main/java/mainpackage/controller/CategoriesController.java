@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class CategoriesController {
+
     private CategoriesService categoriesService;
 
     ParamsService paramsService;

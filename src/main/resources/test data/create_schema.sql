@@ -1,4 +1,3 @@
-
 DROP DATABASE `online_store`;
 
 create schema online_store;
@@ -10,10 +9,9 @@ create table customers (
                          customer_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                          first_name VARCHAR(256) NOT NULL,
                          last_name VARCHAR(256) NOT NULL,
-                         birth_date VARCHAR(18)   NOT NULL,
+                         birth_date DATE NOT NULL   NOT NULL,
                          email VARCHAR(18)   NOT NULL,
                          CONSTRAINT customer_id_pk PRIMARY KEY (customer_id)
-
 
 );
 
@@ -33,6 +31,7 @@ create table roles (
                      role VARCHAR(18) NOT NULL,
                      CONSTRAINT username_pk PRIMARY KEY (username)
 );
+# names of username and login must be match
 create table logins (
                       login_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                       login VARCHAR(256) NOT NULL,
@@ -47,12 +46,15 @@ create table logins (
 create table client_addresses (
                                 client_address_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                                 country  VARCHAR(256) NOT NULL,
+                                city  VARCHAR(256) NOT NULL,
                                 zip_code VARCHAR(10) NOT NULL, -- In some countries indexes contain letters (e.g. USA), so VARCHAR
                                 street VARCHAR(256) NOT NULL,
                                 building INTEGER(4) NOT NULL,
                                 apartment  INTEGER(4) NOT NULL,
                                 CONSTRAINT client_address_pk PRIMARY KEY (client_address_id)
 );
+
+
 
 create table clients (
                        client_id INTEGER(18) NOT NULL AUTO_INCREMENT,
@@ -66,6 +68,8 @@ create table clients (
                        FOREIGN KEY (client_login) REFERENCES logins (login_id),
                        FOREIGN KEY (client_address) REFERENCES client_addresses (client_address_id)
 );
+
+
 
 create table orders (
                       order_id  INTEGER (18) NOT NULL AUTO_INCREMENT,

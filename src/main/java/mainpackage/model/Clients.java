@@ -30,10 +30,10 @@ public class Clients {
 
     @ManyToOne
     @JoinColumn(name="client_address")
-    ClientAddresses clientAddress;
+    private ClientAddresses clientAddress;
 
     @OneToMany(mappedBy = "client")
-    List<Orders> orders;
+    private List<Orders> orders;
 
     public int getClientId() {
         return clientId;

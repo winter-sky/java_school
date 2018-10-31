@@ -14,6 +14,9 @@ public class ClientAddresses {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "city")
+    private String city;
+
     @Column(name = "zip_code")
     private String zipCode;
 
@@ -72,5 +75,13 @@ public class ClientAddresses {
 
     public void setApartment(int apartment) {
         this.apartment = apartment;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
