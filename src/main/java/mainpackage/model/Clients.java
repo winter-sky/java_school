@@ -24,11 +24,11 @@ public class Clients {
     @Column(name = "email")
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="client_login")
     private Logins login;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="client_address")
     private ClientAddresses clientAddress;
 

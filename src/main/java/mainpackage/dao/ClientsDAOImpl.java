@@ -36,5 +36,26 @@ public class ClientsDAOImpl implements  ClientsDAO {
     public void addClient (Clients client){
         em.persist(client);
     }
+
+    @Override
+    public void updateClient (Clients client){
+        System.out.println("вызвался updateClient или нет? ");
+       Clients clientDb = (Clients) em.find(Clients.class, client.getClientId());
+       clientDb.setFirstName(client.getFirstName());
+       clientDb.setLastName(client.getLastName());
+        clientDb.setBirthDate(client.getBirthDate());
+        clientDb.setEmail(client.getEmail());
+    }
+
+    @Override
+    public Clients getClientById(int clientId){
+        Query query = em.createQuery("from Clients where client_id=:clientId");
+        return  (Clients) query.setParameter("clientId", clientId).getSingleResult();
+    }
+
+    @Override
+    public List<Clients> listClients(){
+        return em.createQuery("FROM Clients c").getResultList();
+    }
 }
 

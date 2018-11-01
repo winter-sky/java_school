@@ -37,13 +37,39 @@ public class ClientsController {
     @RequestMapping(value = "/listclients", method = RequestMethod.GET)
     public String listCustomers(Model model) {
         model.addAttribute("client", new Clients());
+        List<Clients> listClients =this.clientsService.listClients();
+        model.addAttribute("listclients",listClients);
+        for(Clients c: listClients)
+        System.out.println(c.getFirstName());
         return "list_clients";
     }
 
     @RequestMapping(value= "/addclient", method = RequestMethod.POST)
     public String addClient(@ModelAttribute("client") Clients c){
-        System.out.println("ЖЕПА");
         this.clientsService.addClient(c);
+        if(c.getClientId() == 0){
+            //new client, add it
+            this.clientsService.addClient(c);
+        }else{
+            //existing client, call update
+            this.clientsService.updateClient(c);
+        }
+        return "list_clients";
+    }
+
+    @RequestMapping("/edit/{clientId}")
+    public String editClient(@PathVariable("clientId") int clientId,Model model){
+        model.addAttribute("client", this.clientsService.getClientById(clientId));
+        List<Clients> listClients =this.clientsService.listClients();
+        model.addAttribute("listclients",listClients);
+        return "list_clients";
+    }
+
+    @RequestMapping(value= "/updateclient", method = RequestMethod.POST)
+    public String updateClient(@ModelAttribute("client") Clients c,Model model){
+        this.clientsService.updateClient(c);
+        List<Clients> listClients =this.clientsService.listClients();
+        model.addAttribute("listclients",listClients);
         return "list_clients";
     }
 }

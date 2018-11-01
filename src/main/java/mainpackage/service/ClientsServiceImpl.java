@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("ClientsService")
 public class ClientsServiceImpl  implements ClientsService {
 
@@ -21,4 +23,16 @@ public class ClientsServiceImpl  implements ClientsService {
     @Override
     @Transactional
     public void addClient (Clients client){this.clientsDAO.addClient(client);}
+
+    @Override
+    @Transactional
+    public void updateClient (Clients client){this.clientsDAO.updateClient(client);}
+
+    @Override
+    @Transactional
+    public Clients getClientById(int clientId){return  this.clientsDAO.getClientById(clientId);}
+
+    @Override
+    @Transactional
+    public List<Clients> listClients(){return  this.clientsDAO.listClients();}
 }
