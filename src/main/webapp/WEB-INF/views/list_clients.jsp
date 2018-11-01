@@ -68,6 +68,66 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <form:label path="clientAddress.country">
+                    <spring:message text="country"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.country" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="clientAddress.city">
+                    <spring:message text="city"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.city" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="clientAddress.zipCode">
+                    <spring:message text="zip code"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.zipCode" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="clientAddress.street">
+                    <spring:message text="street"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.street" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="clientAddress.building">
+                    <spring:message text="building"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.building" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="clientAddress.apartment">
+                    <spring:message text="apartment"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="clientAddress.apartment" />
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <c:if test="${!empty client.firstName}">
                     <input type="submit"

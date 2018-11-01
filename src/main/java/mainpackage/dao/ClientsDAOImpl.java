@@ -1,5 +1,6 @@
 package mainpackage.dao;
 
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 import mainpackage.model.Logins;
 import org.springframework.stereotype.Repository;
@@ -39,12 +40,21 @@ public class ClientsDAOImpl implements  ClientsDAO {
 
     @Override
     public void updateClient (Clients client){
-        System.out.println("вызвался updateClient или нет? ");
        Clients clientDb = (Clients) em.find(Clients.class, client.getClientId());
        clientDb.setFirstName(client.getFirstName());
        clientDb.setLastName(client.getLastName());
-        clientDb.setBirthDate(client.getBirthDate());
-        clientDb.setEmail(client.getEmail());
+       clientDb.setBirthDate(client.getBirthDate());
+       clientDb.setEmail(client.getEmail());
+
+        ClientAddresses clientAddress = new ClientAddresses();//интересно, так заработает?
+        clientAddress=client.getClientAddress();
+        ClientAddresses clientAddressesDb = clientDb.getClientAddress();
+        clientAddressesDb.setCountry(clientAddress.getCountry());
+        clientAddressesDb.setCity(clientAddress.getCity());
+        clientAddressesDb.setZipCode(clientAddress.getZipCode());
+        clientAddressesDb.setStreet(clientAddress.getStreet());
+        clientAddressesDb.setBuilding(clientAddress.getBuilding());
+        clientAddressesDb.setApartment(clientAddress.getApartment());
     }
 
     @Override

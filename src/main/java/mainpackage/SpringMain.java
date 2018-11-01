@@ -16,15 +16,6 @@ public class SpringMain {
         AnnotationConfigApplicationContext  annotationConfigApplicationContext =
                new AnnotationConfigApplicationContext(PersistenceJPAConfig.class);
 
-        //Create Spring application context
-       // ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/spring-servlet.xml");
-
-        //Get service from context. (service's dependency (CustomersDAO) is autowired in CustomersService)
-        //CustomersService customersService = ctx.getBean(CustomersService.class);
-
-       CustomersService customersService = annotationConfigApplicationContext.getBean(CustomersService.class);
-
-      // System.out.println("list all customers from customers table: " + customersService.listCustomers());
 
         ItemsService itemsService = annotationConfigApplicationContext.getBean(ItemsService.class);
 
@@ -46,8 +37,7 @@ public class SpringMain {
 
         ClientsService clientsService=annotationConfigApplicationContext.getBean(ClientsService.class);
         System.out.println("Find client by login: " + clientsService.findClientByLogin("alice"));
-
-
+        
         annotationConfigApplicationContext.close();
 
     }

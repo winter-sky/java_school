@@ -1,19 +1,4 @@
-DROP DATABASE `online_store`;
-
-create schema online_store;
-
 use online_store;
-
-drop table if exists customers;
-create table customers (
-                         customer_id INTEGER(18) NOT NULL AUTO_INCREMENT,
-                         first_name VARCHAR(256) NOT NULL,
-                         last_name VARCHAR(256) NOT NULL,
-                         birth_date DATE NOT NULL   NOT NULL,
-                         email VARCHAR(18)   NOT NULL,
-                         CONSTRAINT customer_id_pk PRIMARY KEY (customer_id)
-
-);
 
 drop table IF EXISTS logins;
 drop table IF EXISTS roles;
@@ -26,7 +11,7 @@ drop table IF EXISTS params;
 drop table IF EXISTS categories;
 
 create table roles (
-                     #                   role_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+
                      username VARCHAR(256) NOT NULL,
                      role VARCHAR(18) NOT NULL,
                      CONSTRAINT username_pk PRIMARY KEY (username)
