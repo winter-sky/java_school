@@ -90,6 +90,10 @@
             padding: 10px;
             text-align: center;
         }
+        .topnav.right {
+            position: absolute;
+            right: 0px;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +105,9 @@
     <a href="#">Link</a>
     <a href="#">Link</a>
     <a href="#">Link</a>
+    <div class="topnav right">
+    <a href="/hello">Log in</a>
+    </div>
 </div>
 
 <div class="row">

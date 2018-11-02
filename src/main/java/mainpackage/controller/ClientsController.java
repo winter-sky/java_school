@@ -1,7 +1,6 @@
 package mainpackage.controller;
 
 import mainpackage.model.Clients;
-import mainpackage.service.CategoriesService;
 import mainpackage.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @Controller
 public class ClientsController {
@@ -34,14 +31,14 @@ public class ClientsController {
         return "client_by_login";
     }
 
-    @RequestMapping(value = "/listclients", method = RequestMethod.GET)
+    @RequestMapping(value = "/editprofile", method = RequestMethod.GET)
     public String listCustomers(Model model) {
         model.addAttribute("client", new Clients());
-        List<Clients> listClients =this.clientsService.listClients();
-        model.addAttribute("listclients",listClients);
-        for(Clients c: listClients)
-        System.out.println(c.getFirstName());
-        return "list_clients";
+        //List<Clients> listClients =this.clientsService.listClients();
+        //model.addAttribute("listclients",listClients);
+        //for(Clients c: listClients)
+        //System.out.println(c.getFirstName());
+        return "edit_client";
     }
 
     @RequestMapping(value= "/addclient", method = RequestMethod.POST)
@@ -54,22 +51,22 @@ public class ClientsController {
             //existing client, call update
             this.clientsService.updateClient(c);
         }
-        return "list_clients";
+        return "edit_client";
     }
 
     @RequestMapping("/edit/{clientId}")
     public String editClient(@PathVariable("clientId") int clientId,Model model){
         model.addAttribute("client", this.clientsService.getClientById(clientId));
-        List<Clients> listClients =this.clientsService.listClients();
-        model.addAttribute("listclients",listClients);
-        return "list_clients";
+       //List<Clients> listClients =this.clientsService.listClients();
+        //model.addAttribute("listclients",listClients);
+        return "edit_client";
     }
 
     @RequestMapping(value= "/updateclient", method = RequestMethod.POST)
     public String updateClient(@ModelAttribute("client") Clients c,Model model){
         this.clientsService.updateClient(c);
-        List<Clients> listClients =this.clientsService.listClients();
-        model.addAttribute("listclients",listClients);
-        return "list_clients";
+        //List<Clients> listClients =this.clientsService.listClients();
+        //model.addAttribute("listclients",listClients);
+        return "client_by_login";
     }
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Alisa
@@ -10,7 +11,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <html>
 <head>
-    <title>Title</title>
+    <title>Profile</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -27,16 +28,20 @@
             padding: 20px;
             /*text-align: center;*/
         }
+        a {
+            color: hotpink;
+        }
     </style>
 </head>
 <body>
 <div class="center" >
-    <h1>User info: </h1>
+    <h3>Profile info: </h3>
     <p>First name: ${client.firstName}</p>
     <p>Last name: ${client.lastName}</p>
     <p>Birth date: ${client.birthDate}</p>
     <p>email: ${client.email}</p>
     <p>Address: ${client.clientAddress.country}, ${client.clientAddress.zipCode}, ${client.clientAddress.city}, ${client.clientAddress.street}, ${client.clientAddress.building}-${client.clientAddress.apartment}</p>
+    <p><a href="<c:url value='/edit/${client.clientId}'/>">Edit profile</a></p>
 </div>
 </body>
 </html>
