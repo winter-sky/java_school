@@ -148,6 +148,16 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <form:label path="login.password">
+                    <spring:message text="password"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="login.password" />
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <c:if test="${!empty client.firstName}">
                     <input type="submit"

@@ -55,6 +55,10 @@ public class ClientsDAOImpl implements  ClientsDAO {
         clientAddressesDb.setStreet(clientAddress.getStreet());
         clientAddressesDb.setBuilding(clientAddress.getBuilding());
         clientAddressesDb.setApartment(clientAddress.getApartment());
+
+        Logins login = client.getLogin();
+        Logins loginDb = clientDb.getLogin();
+        loginDb.setPassword(login.getPassword());
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Logins {
 //    @OneToMany(mappedBy = "login")
 //    private List<Roles> roles;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="login")
     private Roles role;
 
