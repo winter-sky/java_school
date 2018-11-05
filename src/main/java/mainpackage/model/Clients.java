@@ -10,7 +10,7 @@ public class Clients {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
-    private int clientId;
+    private Integer clientId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,7 +35,10 @@ public class Clients {
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
 
-    public int getClientId() {
+    @OneToOne(mappedBy = "client")
+    private Cart cart;
+
+    public Integer getClientId() {
         return clientId;
     }
 
@@ -97,5 +100,13 @@ public class Clients {
 
     public void setOrders(List<Orders> orders) {
         this.orders = orders;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

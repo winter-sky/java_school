@@ -39,6 +39,14 @@ public class Items {
 
 //    @ManyToMany
 //    @JoinTable(
+//            name = "order_items",
+//            joinColumns = { @JoinColumn(name = "items") },
+//            inverseJoinColumns = { @JoinColumn(name = "orders") }
+//    )
+//    List<Orders> orders;
+
+//    @ManyToMany
+//    @JoinTable(
 //            name = "item_params",
 //            joinColumns = { @JoinColumn(name = "item") },
 //            inverseJoinColumns = { @JoinColumn(name = "param") }
@@ -121,4 +129,12 @@ public class Items {
     public void setParams(Params params) {
         this.params = params;
     }
+
+//    public List<Orders> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Orders> orders) {
+//        this.orders = orders;
+//    }
 }

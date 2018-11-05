@@ -1,5 +1,6 @@
 package mainpackage.controller;
 
+import mainpackage.model.Cart;
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
 import mainpackage.service.CategoriesService;
@@ -57,6 +58,7 @@ public class CategoriesController {
 
         List<String> listFormats = this.paramsService.listFormats();
         model.addAttribute("listFormats",listFormats);
+
         return "catalog";
     }
 

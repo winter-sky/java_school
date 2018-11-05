@@ -13,12 +13,16 @@
     <title>Title</title>
 </head>
 <body>
+
 <h3>All books</h3>
 <c:forEach var="items" items="${listItems}">
     <tr>
-        <td><img src="${items.pic}" alt="some pic" style="width:50px;height:50px;"></td>
+        <td><img src="${items.pic}" alt="some pic"></td>
         <td>${items.itemName}</td><br><br>
+        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to cart</a><br>
+
     </tr>
 </c:forEach>
+
 </body>
 </html>

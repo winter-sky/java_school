@@ -63,7 +63,12 @@ public class ClientsDAOImpl implements  ClientsDAO {
 
     @Override
     public Clients getClientById(int clientId){
+
         Query query = em.createQuery("from Clients where client_id=:clientId");
+
+        List<Clients> res =query.setParameter("clientId", clientId).getResultList();
+        System.out.println("i huleeee??????????????");
+
         return  (Clients) query.setParameter("clientId", clientId).getSingleResult();
     }
 

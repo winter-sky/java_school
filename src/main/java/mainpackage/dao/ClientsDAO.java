@@ -5,6 +5,7 @@ import mainpackage.model.Clients;
 import java.util.List;
 
 public interface ClientsDAO {
+
     Clients findClientByLogin(String login);
 
     void addClient (Clients client);

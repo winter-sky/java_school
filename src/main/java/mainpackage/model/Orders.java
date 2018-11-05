@@ -40,7 +40,7 @@ public class Orders {
     @JoinColumn(name="orders_client")
     Clients client;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_items",
             joinColumns = { @JoinColumn(name = "orders") },

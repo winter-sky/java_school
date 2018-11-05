@@ -25,7 +25,6 @@ public class ClientsController {
 
     @RequestMapping(value="/searchclientbylogin/{clientLogin}",method = RequestMethod.GET)
     public String searchClientByLogin(Model model, @PathVariable("clientLogin") String clientLogin){
-        System.out.println("Э?");
         Clients client = this.clientsService.findClientByLogin(clientLogin);
         model.addAttribute("client",client);
         return "client_by_login";
@@ -56,6 +55,7 @@ public class ClientsController {
 
     @RequestMapping("/edit/{clientId}")
     public String editClient(@PathVariable("clientId") int clientId,Model model){
+
         model.addAttribute("client", this.clientsService.getClientById(clientId));
        //List<Clients> listClients =this.clientsService.listClients();
         //model.addAttribute("listclients",listClients);

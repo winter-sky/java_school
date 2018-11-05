@@ -107,7 +107,7 @@
     <a href="#">Link</a>
     <div class="topnav right">
     <a href="/hello">Log in</a>
-        <a href="#">Cart</a>
+        <a href="/cart/getguestcart">Cart</a>
     </div>
 </div>
 
