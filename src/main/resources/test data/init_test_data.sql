@@ -34,7 +34,7 @@ values ('Pic Candle','english','paperback');
 insert into params (author, language, format)
 values ('Ivan Bilibin','russian','hardcover');
 insert into params (author, language, format)
-values ('Linda Cateura ','english','hardcover');
+values ('Linda Cateura','english','hardcover');
 
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
 values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'/resources/alice_in_the_wonderland.jpg',1);
@@ -54,7 +54,7 @@ values('admin','$2a$10$KMpGzt6iF58WojlOMDDxc.Lo/Q2VWEs2zGWBCVuTALsy1Uh73hSjW',tr
 insert into roles(username,role)
 values('Alice','ROLE_USER');
 insert into logins(login,password,enabled)
-values('Alice','$2a$10$QtVoMT6I5o0NwPCfNzeMEuKNr2ZJ4fxd2rSF6HgEHcbzz27nqbu32',true);
+values('Alice','$2a$10$OJCGVWOt8.KUo01T43EuguoCrtmWlovQZz34zEDqYPpkT.g1vmxDm',true);
 
 insert into client_addresses (country,city, zip_code, street,building,apartment)
 values ('USA','New York','NY 10028','Oxford Street ','691','139');

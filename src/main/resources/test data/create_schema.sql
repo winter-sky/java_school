@@ -9,9 +9,11 @@ drop table IF EXISTS client_addresses;
 drop table IF EXISTS items;
 drop table IF EXISTS params;
 drop table IF EXISTS categories;
+drop table IF EXISTS cart_items;
+drop table IF EXISTS cart;
 
 create table roles (
-
+                     #                   role_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                      username VARCHAR(256) NOT NULL,
                      role VARCHAR(18) NOT NULL,
                      CONSTRAINT username_pk PRIMARY KEY (username)
@@ -55,15 +57,16 @@ create table clients (
 );
 
 
-
+# default null values for cart forming
+#need to add order data (also default null)
 create table orders (
                       order_id  INTEGER (18) NOT NULL AUTO_INCREMENT,
-                      orders_client INTEGER(18)  NOT NULL,
-                      orders_client_address INTEGER(18)  NOT NULL,
-                      payment_method  VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to payment_method table, but probably java enumeration is ok
-                      delivery_method VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
-                      payment_state VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
-                      order_status VARCHAR(18)    NOT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
+                      orders_client INTEGER(18)  DEFAULT NULL,
+                      orders_client_address INTEGER(18)  DEFAULT NULL,
+                      payment_method  VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to payment_method table, but probably java enumeration is ok
+                      delivery_method VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
+                      payment_state VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
+                      order_status VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
                       CONSTRAINT order_id_pk PRIMARY KEY (order_id),
                       FOREIGN KEY (orders_client) REFERENCES clients (client_id),
                       FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
@@ -110,4 +113,21 @@ create table order_items (
                            CONSTRAINT order_items_id_pk PRIMARY KEY (order_items_id),
                            FOREIGN KEY (orders) REFERENCES orders (order_id),
                            FOREIGN KEY (items) REFERENCES items (item_id)
+);
+
+create table cart (
+                    cart_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+                    id_client  INTEGER(18)  DEFAULT NULL,
+                    CONSTRAINT cart_id_pk PRIMARY KEY (cart_id),
+                    FOREIGN KEY (id_client) REFERENCES clients (client_id)
+);
+
+create table cart_items (
+                          cart_items_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+                          id_cart INTEGER(18) NOT NULL,
+                          id_item  INTEGER(18) NOT NULL,
+                          #                            quantity  INTEGER(5)  NOT NULL,
+                          CONSTRAINT order_items_id_pk PRIMARY KEY (cart_items_id),
+                          FOREIGN KEY (id_cart) REFERENCES cart (cart_id),
+                          FOREIGN KEY (id_item) REFERENCES items (item_id)
 );
