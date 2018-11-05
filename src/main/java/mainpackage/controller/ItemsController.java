@@ -51,7 +51,11 @@ public class ItemsController {
     }
 
     @RequestMapping(value = "/itemlist", method = RequestMethod.GET)//create new Cart for guest
-    public String scopeExample(HttpSession session,Model model) {
+    public String scopeExample(HttpSession session,Model model,Principal principal) {
+        if(principal==null)System.out.println("not  user");
+        //check whether the user is logged in or not
+        model.addAttribute("checkprincipal", principal);
+
         List<Items> list = this.itemsService.listItems();
         model.addAttribute("listItems", list);
         session.setMaxInactiveInterval(3600);

@@ -53,19 +53,19 @@ public class HelloController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String helloPage (HttpSession session, Model model, Principal principal) {
+    public String helloPage (HttpSession session, Model model, Principal principal) {//user log in page
 
-        String login = principal.getName();
+        String login = principal.getName();//get login of user is logged in
         model.addAttribute("message", login);
 
-        model.addAttribute("payment", PaymentMethod.values());//just for testing
+        model.addAttribute("payment", PaymentMethod.values());//just for testing))
 
         Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
         if (initialusercart == null)
         {
-            Clients client = this.clientsService.findClientByLogin(login);
-            initialusercart = this.cartService.createUserCart(client);//persist Cart in DB
-            //initialusercart = new Cart();
+            //Clients client = this.clientsService.findClientByLogin(login);
+            //initialusercart = this.cartService.createUserCart(client);//persist Cart in DB
+            initialusercart = new Cart();//create new user cart in session, not in DB
             //need to create guest cart if it not exist
             Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
             if (guestcart == null)
