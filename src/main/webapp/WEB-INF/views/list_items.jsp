@@ -19,7 +19,7 @@
     <tr>
         <td><img src="${items.pic}" alt="some pic"></td>
         <td>${items.itemName}</td><br><br>
-        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to cart</a><br>
+        <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>
 
     </tr>
 </c:forEach>

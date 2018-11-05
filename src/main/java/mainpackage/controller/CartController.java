@@ -7,6 +7,7 @@ import mainpackage.service.CartService;
 import mainpackage.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +48,8 @@ public class CartController {
 
     @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)
     public String userShoppingCart(HttpSession session,Model model, @PathVariable("userLogin") String userLogin) {
-
         //List<Items> userCart = this.cartService.getUsersShoppingCart(userLogin);//user cart from DB
-
         Cart usercart = (Cart)session.getAttribute("initialusercart");
-
-
         model.addAttribute("user_cart", usercart.getItems());//need to check for null items!!
         return "user_cart";
     }
@@ -82,7 +79,24 @@ public class CartController {
     }
 
 
+    @RequestMapping(value="/additemtousercart/{itemId}/{userCartId}", method = RequestMethod.GET)//for User there must be
+    //special jsp page!
+    public String addItemToUserCart(HttpSession session, @PathVariable("itemId") int itemId, Model model,
+                                    @PathVariable("userCartId") int userCartId){
+        Items item = this.itemsService.findItemById(itemId);
+        Cart usercart = (Cart)session.getAttribute("initialusercart");
+        if(usercart.getItems()==null) {
+            List<Items> items = new ArrayList<>();
+            items.add(item);//add new book in the session user Cart, not in the DB user Cart
+            usercart.setItems(items);
+        }
+        else usercart.addItem(item);
 
+        List<Items> usercartlist = usercart.getItems();
+        model.addAttribute("user_cart", usercartlist);//user cart
+
+        return "user_cart";
+    }
 
 //    @RequestMapping(value = "/addItem/{itemId}", method = RequestMethod.GET)
 //    public void addItemToCart(Model model, @PathVariable("itemId") String itemId) {
