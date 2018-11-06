@@ -6,6 +6,7 @@ import mainpackage.model.Items;
 import mainpackage.service.CartService;
 import mainpackage.service.ClientsService;
 import mainpackage.service.ItemsService;
+import mainpackage.service.OrdersService;
 import mainpackage.type.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,9 +30,12 @@ public class HelloController {
     public ItemsService itemsService;
 
     @Autowired
-    protected CartService cartService;
+    private CartService cartService;
 
+    @Autowired
     private ClientsService clientsService;
+
+
 
     @Autowired
     @Qualifier(value = "ItemsService")
@@ -51,6 +55,8 @@ public class HelloController {
     public void setClientsService(ClientsService cs){
         this.clientsService = cs;
     }
+
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String helloPage (HttpSession session, Model model, Principal principal) {//user log in page

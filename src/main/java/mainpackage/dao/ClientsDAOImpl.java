@@ -66,8 +66,8 @@ public class ClientsDAOImpl implements  ClientsDAO {
 
         Query query = em.createQuery("from Clients where client_id=:clientId");
 
-        List<Clients> res =query.setParameter("clientId", clientId).getResultList();
-        System.out.println("i huleeee??????????????");
+        List<Clients> res =query.setParameter("clientId", clientId).getResultList();//doesn't work if there more
+        //than one Cart for same client in Cart table
 
         return  (Clients) query.setParameter("clientId", clientId).getSingleResult();
     }
