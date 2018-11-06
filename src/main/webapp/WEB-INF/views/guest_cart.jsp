@@ -27,6 +27,7 @@
 <body>
 ${sessionScope.guestcart.items}
 <h3>Cart</h3>
+<c:if test="${!empty guest_cart}">
 <c:forEach var="item" items="${guest_cart}">
     <tr>
         <p><img src="${item.pic}" alt="some pic"></p>
@@ -34,5 +35,6 @@ ${sessionScope.guestcart.items}
 
     </tr>
 </c:forEach>
+</c:if>
 </body>
 </html>

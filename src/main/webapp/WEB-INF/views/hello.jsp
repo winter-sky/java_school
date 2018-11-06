@@ -29,19 +29,20 @@
 <h1>Hello, ${message}!</h1>
 <a href="<c:url value='/searchclientbylogin/${message}'/>">Show profile</a><br>
 <a href="<c:url value='/cart/usercart/${message}'/>">Cart</a><br>
-<select>
-    <c:forEach var="paymentItem" items="${payment}">
-        <option value="${paymentItem.ordinal()}">${paymentItem.toString()}</option>
-    </c:forEach>
-</select>
+<a href="<c:url value='/logout'/>">Log out</a><br>
+<%--<select>--%>
+    <%--<c:forEach var="paymentItem" items="${payment}">--%>
+        <%--<option value="${paymentItem.ordinal()}">${paymentItem.toString()}</option>--%>
+    <%--</c:forEach>--%>
+<%--</select>--%>
 
-<h3>Payment method</h3>
-<c:forEach var="paymentItem" items="${payment}">
-    <tr>
-            ${paymentItem.toString()}<br>
-                <a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>
-    </tr>
-</c:forEach>
+<%--<h3>Payment method</h3>--%>
+<%--<c:forEach var="paymentItem" items="${payment}">--%>
+    <%--<tr>--%>
+            <%--${paymentItem.toString()}<br>--%>
+                <%--<a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>--%>
+    <%--</tr>--%>
+<%--</c:forEach>--%>
 
 </body>
 </html>

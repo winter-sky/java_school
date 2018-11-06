@@ -39,10 +39,34 @@ public class CartController {
         this.itemsService = is;
     }
 
-    @RequestMapping(value = "/getguestcart", method = RequestMethod.GET)//is not used
-    public String getGuestShoppingCart(Model model) {
-        List<Items> guestCart = this.cartService.getGuestShoppingCart();
-        model.addAttribute("guestcart", guestCart);
+//    @RequestMapping(value = "/getguestcart", method = RequestMethod.GET)//doesn't work properly
+//    public String getGuestShoppingCart(Model model) {
+//        List<Items> guestCart = this.cartService.getGuestShoppingCart();
+//        model.addAttribute("guest_cart", guestCart);
+//        return "guest_cart";
+//    }
+
+    @RequestMapping(value = "/guestcart", method = RequestMethod.GET)
+    public String guestShoppingCart(HttpSession session,Model model) {
+        System.out.println("Are we in controller?");
+        Cart guestcart = (Cart)session.getAttribute("guestcart");
+
+        if (guestcart == null)
+        {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart",guestcart);//is it need to be in if-block
+        }
+
+
+        System.out.println("Create or not? " + guestcart);
+
+        List<Items> guest_cart;
+        if(guestcart.getItems()==null) {
+            List<Items> items = new ArrayList<>();
+            guestcart.setItems(items);
+            guest_cart=guestcart.getItems();
+        }else guest_cart=guestcart.getItems();
+        model.addAttribute("guest_cart", guest_cart);
         return "guest_cart";
     }
 

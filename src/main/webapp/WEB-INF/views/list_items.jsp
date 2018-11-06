@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -17,16 +19,21 @@
 <h3>All books</h3>
 <c:forEach var="items" items="${listItems}">
     <tr>
-        <td><img src="${items.pic}" alt="some pic"></td>
-        <td>${items.itemName}</td><br><br>
-        <c:if test="${!empty checkprincipal}">
-            <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>
-        </c:if>
+        <p><img src="${items.pic}" alt="some pic"></p>
+        <p>Book name: ${items.itemName}</p>
+        <security:authorize access="hasRole('USER')">
+            <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+        </security:authorize>
+        <%--<c:if test="${!empty checkprincipal}">--%>
+            <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
+        <%--</c:if>--%>
         <c:if test="${empty checkprincipal}">
-        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to cart</a><br>
+        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
         </c:if>
     </tr>
 </c:forEach>
-
+<security:authorize access="hasRole('USER')">
+    <p>check</p>
+</security:authorize>
 </body>
 </html>

@@ -104,10 +104,10 @@
 <div class="topnav">
     <a href="#">Link</a>
     <a href="#">Link</a>
-    <a href="#">Link</a>
+    <a href="itemlist">Show all books</a>
     <div class="topnav right">
     <a href="/hello">Log in</a>
-        <a href="/cart/getguestcart">Cart</a>
+        <a href="/cart/guestcart">Cart</a>
     </div>
 </div>
 
