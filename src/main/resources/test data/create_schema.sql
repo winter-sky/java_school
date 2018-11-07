@@ -14,14 +14,14 @@ drop table IF EXISTS cart;
 
 create table roles (
                      #                   role_id INTEGER(18) NOT NULL AUTO_INCREMENT,
-                     username VARCHAR(256) NOT NULL,
+                     username VARCHAR(56) NOT NULL,
                      role VARCHAR(18) NOT NULL,
                      CONSTRAINT username_pk PRIMARY KEY (username)
 );
 # names of username and login must be match
 create table logins (
                       login_id INTEGER(18) NOT NULL AUTO_INCREMENT,
-                      login VARCHAR(256) NOT NULL,
+                      login VARCHAR(56) NOT NULL,
                       password VARCHAR(256) NOT NULL,
                       enabled boolean not null,
                       CONSTRAINT login_id_pk PRIMARY KEY (login_id),
