@@ -23,6 +23,9 @@
         <td>Error:</td>
         <td>${error}</td>
     </tr>
+    <tr>
+        <td><img src="${url}" alt="Uploaded"></td>
+    </tr>
 </table>
 </body>
 </html>

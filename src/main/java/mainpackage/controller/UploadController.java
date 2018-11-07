@@ -29,26 +29,34 @@ public class UploadController {
 
         if (!file.isEmpty()) {
             try {
-                String uploadsDir = "/uploads/";
+                String uploadsDir = "/resources/";
 
                 String realPathtoUploads = request.getServletContext().getRealPath(uploadsDir);
 
                 if (!new File(realPathtoUploads).exists()) {
-                    new File(realPathtoUploads).mkdir();
+                    if (!new File(realPathtoUploads).mkdir()) {
+                        modelMap.addAttribute("error", "Cannot create directory [path=" + realPathtoUploads + ']');
+
+                        log.error("Cannot create directory [dir=" + realPathtoUploads + ']');
+
+                        return "uploaded";
+                    };
                 }
 
                 log.info("realPathtoUploads = {}", realPathtoUploads);
 
-                String orgName = file.getOriginalFilename();
+                String origName = file.getOriginalFilename();
 
-                String filePath = realPathtoUploads + orgName;
+                String filePath = realPathtoUploads + origName;
+
+                String url = uploadsDir + origName;
 
                 File dest = new File(filePath);
 
                 file.transferTo(dest);
 
                 modelMap.addAttribute("path", filePath);
-
+                modelMap.addAttribute("url", url);
             } catch (IOException e) {
                 log.error("Error uploading file [file=" + file + ']', e);
 
