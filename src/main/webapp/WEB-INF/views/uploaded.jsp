@@ -15,6 +15,14 @@
         <td>Type:</td>
         <td>${file.contentType}</td>
     </tr>
+    <tr>
+        <td>Path:</td>
+        <td>${path}</td>
+    </tr>
+    <tr>
+        <td>Error:</td>
+        <td>${error}</td>
+    </tr>
 </table>
 </body>
 </html>
