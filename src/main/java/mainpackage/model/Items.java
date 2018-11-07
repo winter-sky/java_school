@@ -37,21 +37,8 @@ public class Items {
     @JoinColumn(name="params_id")
     private Params params;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "order_items",
-//            joinColumns = { @JoinColumn(name = "items") },
-//            inverseJoinColumns = { @JoinColumn(name = "orders") }
-//    )
-//    List<Orders> orders;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "item_params",
-//            joinColumns = { @JoinColumn(name = "item") },
-//            inverseJoinColumns = { @JoinColumn(name = "param") }
-//    )
-//    List<Params> params;
+//    @OneToMany(mappedBy = "items")//is it necessary?
+//    private List<OrderItems> orderItems;
 
     @Override
     public String toString() {
@@ -130,11 +117,4 @@ public class Items {
         this.params = params;
     }
 
-//    public List<Orders> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Orders> orders) {
-//        this.orders = orders;
-//    }
 }

@@ -21,13 +21,13 @@ public class ItemsServiceImpl implements ItemsService {
     @Transactional
     public List<Items> listItems(){return this.itemsDAO.listItems();}
 
-    @Override
-    @Transactional
-    public List<Items> guestShoppingCart(){return  this.itemsDAO.guestShoppingCart();}
-
-    @Override
-    @Transactional
-    public List<Items> userShoppingCart(String userLogin){return  this.itemsDAO.getUsersShoppingCart(userLogin);}
+//    @Override
+//    @Transactional
+//    public List<Items> guestShoppingCart(){return  this.itemsDAO.guestShoppingCart();}
+//
+//    @Override
+//    @Transactional
+//    public List<Items> userShoppingCart(String userLogin){return  this.itemsDAO.getUsersShoppingCart(userLogin);}
 
     @Override
     @Transactional

@@ -1,8 +1,6 @@
 package mainpackage.dao;
 
-import mainpackage.model.Clients;
-import mainpackage.model.Logins;
-import mainpackage.model.Orders;
+import mainpackage.model.*;
 import mainpackage.type.PaymentMethod;
 import org.springframework.stereotype.Repository;
 
@@ -64,5 +62,50 @@ public class OrdersDAOImpl implements OrdersDAO {
         if(client.getOrders()!=null)
         listUserOrders = client.getOrders();//need to add items to orders in DB for checking this method.
         return listUserOrders;
+    }
+
+    @Override
+    public void  addNewOrder(String userLogin, int itemId){//must be renamed
+        System.out.println("Are we in the fucking addNewOrder method in DAO?");
+        //TODO check whether some current user order with payment awaiting status exists in Orders table or not
+
+        Query query = em.createQuery("from Logins");
+        List<Logins> logins = query.getResultList();
+
+        Clients client = new Clients();
+
+        for (Logins l : logins) {
+            if ((l.getLogin()).equals(userLogin)) {
+                System.out.println(l.getLogin());
+                client = l.getClient();
+            }
+        }
+        Orders newOrder = new Orders();
+        em.persist(newOrder);
+        newOrder.setClient(client);
+
+        Query query2 = em.createQuery("from Items where item_id=:itemId");
+        Items item = (Items)query2.setParameter("itemId", itemId).getSingleResult();
+
+        System.out.println("Item found " + item.getItemName());
+
+        double orderPrice=newOrder.getOrderPrice();//for setting full order price
+        System.out.println("Order price  " + newOrder.getOrderPrice());
+        orderPrice+=item.getPrice();
+        System.out.println("Item price " + item.getPrice());
+        System.out.println("Order price new  " + orderPrice);
+        newOrder.setOrderPrice(orderPrice);
+
+        ClientAddresses clientAddresses = client.getClientAddress();//for setting client adress
+        newOrder.setClientAddresses(clientAddresses);
+
+        OrderItems orderItems = new OrderItems();//for setting relation between orders and items
+        orderItems.setOrder(newOrder);
+        orderItems.setItem(item);
+        em.persist(orderItems);
+        List<OrderItems> listOrdersItems = new ArrayList<>();
+        listOrdersItems.add(orderItems);
+        newOrder.setOrderItems(listOrdersItems);
+
     }
 }

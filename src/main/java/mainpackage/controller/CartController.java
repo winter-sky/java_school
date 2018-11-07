@@ -71,10 +71,14 @@ public class CartController {
     }
 
     @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)
-    public String userShoppingCart(HttpSession session,Model model, @PathVariable("userLogin") String userLogin) {
+    public String userShoppingCart(HttpSession session,Model model,Principal principal, @PathVariable("userLogin") String userLogin) {
         //List<Items> userCart = this.cartService.getUsersShoppingCart(userLogin);//user cart from DB
         Cart usercart = (Cart)session.getAttribute("initialusercart");
         model.addAttribute("user_cart", usercart.getItems());//need to check for null items!!
+
+        String login = principal.getName();
+        model.addAttribute("userlogin", login);
+
         return "user_cart";
     }
 
@@ -105,7 +109,7 @@ public class CartController {
 
     @RequestMapping(value="/additemtousercart/{itemId}/{userCartId}", method = RequestMethod.GET)//for User there must be
     //special jsp page!
-    public String addItemToUserCart(HttpSession session, @PathVariable("itemId") int itemId, Model model,
+    public String addItemToUserCart(HttpSession session, Principal principal,@PathVariable("itemId") int itemId, Model model,
                                     @PathVariable("userCartId") int userCartId){
         Items item = this.itemsService.findItemById(itemId);
         Cart usercart = (Cart)session.getAttribute("initialusercart");
@@ -118,6 +122,9 @@ public class CartController {
 
         List<Items> usercartlist = usercart.getItems();
         model.addAttribute("user_cart", usercartlist);//user cart
+
+        String login = principal.getName();
+        model.addAttribute("userlogin", login);
 
         return "user_cart";
     }

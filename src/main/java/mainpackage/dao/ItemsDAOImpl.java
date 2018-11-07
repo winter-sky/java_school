@@ -30,36 +30,36 @@ public class ItemsDAOImpl implements ItemsDAO {
         return  (Items) query.setParameter("itemId", itemId).getSingleResult();
     }
 
-    @Override
-    public List<Items> guestShoppingCart() {//with Order table  using
-        Query query = em.createQuery("from Orders");
-        List<Orders> listOrders = query.getResultList();
-        List<Items> cartItems = new ArrayList<>();
-        for (Orders o : listOrders) {
-            if (o.getClient() == null)
-                cartItems.addAll(o.getItems());
-        }
-        return cartItems;
-    }
+//    @Override
+//    public List<Items> guestShoppingCart() {//with Order table  using
+//        Query query = em.createQuery("from Orders");
+//        List<Orders> listOrders = query.getResultList();
+//        List<Items> cartItems = new ArrayList<>();
+//        for (Orders o : listOrders) {
+//            if (o.getClient() == null)
+//                cartItems.addAll(o.getItems());
+//        }
+//        return cartItems;
+//    }
 
-    @Override
-    public List<Items> getUsersShoppingCart(String userLogin) {//with Order table  using
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Object> clientsQuery = cb.createQuery();
-        Root<Clients> clientsRoot = clientsQuery.from(Clients.class);
-        clientsQuery.select(clientsRoot);
-
-        clientsQuery.where(cb.equal(clientsRoot.join("login").get("login"), userLogin));
-        Query clientQ = em.createQuery(clientsQuery);
-        int clientId = ((Clients) clientQ.getSingleResult()).getClientId();
-
-
-        CriteriaQuery<Object> ordersQuery = cb.createQuery();
-        Root<Orders> ordersRoot = ordersQuery.from(Orders.class);
-        ordersQuery.select(ordersRoot);
-        ordersQuery.where(cb.equal(ordersRoot.join("client").get("clientId") , clientId));
-        Query q = em.createQuery(ordersQuery);
-
-        return ((Orders) q.getSingleResult()).getItems();
-    }
+//    @Override
+//    public List<Items> getUsersShoppingCart(String userLogin) {//with Order table  using
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<Object> clientsQuery = cb.createQuery();
+//        Root<Clients> clientsRoot = clientsQuery.from(Clients.class);
+//        clientsQuery.select(clientsRoot);
+//
+//        clientsQuery.where(cb.equal(clientsRoot.join("login").get("login"), userLogin));
+//        Query clientQ = em.createQuery(clientsQuery);
+//        int clientId = ((Clients) clientQ.getSingleResult()).getClientId();
+//
+//
+//        CriteriaQuery<Object> ordersQuery = cb.createQuery();
+//        Root<Orders> ordersRoot = ordersQuery.from(Orders.class);
+//        ordersQuery.select(ordersRoot);
+//        ordersQuery.where(cb.equal(ordersRoot.join("client").get("clientId") , clientId));
+//        Query q = em.createQuery(ordersQuery);
+//
+//        return ((Orders) q.getSingleResult()).getItems();
+//    }
 }

@@ -6,6 +6,7 @@ import mainpackage.type.PaymentMethod;
 import mainpackage.type.PaymentState;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,15 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @Column(name = "order_price")
+    private double orderPrice;
+
+    @Column(name = "order_date")
+    private Timestamp orderDate;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItems> orderItems;
+
     @ManyToOne
     @JoinColumn(name="orders_client_address")
     ClientAddresses clientAddresses;
@@ -40,13 +50,13 @@ public class Orders {
     @JoinColumn(name="orders_client")
     Clients client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "order_items",
-            joinColumns = { @JoinColumn(name = "orders") },
-            inverseJoinColumns = { @JoinColumn(name = "items") }
-    )
-    List<Items> items;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "order_items",
+//            joinColumns = { @JoinColumn(name = "orders") },
+//            inverseJoinColumns = { @JoinColumn(name = "items") }
+//    )
+//    List<Items> items;
 
     public int getOrderId() {
         return orderId;
@@ -104,11 +114,27 @@ public class Orders {
         this.client = client;
     }
 
-    public List<Items> getItems() {
-        return items;
+    public double getOrderPrice() {
+        return orderPrice;
     }
 
-    public void setItems(List<Items> items) {
-        this.items = items;
+    public void setOrderPrice(double orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
     }
 }

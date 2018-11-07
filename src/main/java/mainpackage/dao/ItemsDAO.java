@@ -11,7 +11,7 @@ public interface ItemsDAO {
 
     Items findItemById(int itemId);
 
-    List<Items> guestShoppingCart();//with Orders table using
-
-    List<Items> getUsersShoppingCart(String userLogin);//with Orders table using
+//    List<Items> guestShoppingCart();//with Orders table using
+//
+//    List<Items> getUsersShoppingCart(String userLogin);//with Orders table using
 }

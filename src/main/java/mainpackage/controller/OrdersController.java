@@ -1,5 +1,6 @@
 package mainpackage.controller;
 
+import mainpackage.model.Items;
 import mainpackage.service.OrdersService;
 import mainpackage.type.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,14 @@ public class OrdersController {
         String login = principal.getName();
         this.ordersService.selectPaymentMethod(paymentMethod,login);
         return  "hello";
+    }
+
+    @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
+    public String addItemToOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
+            String userLogin ,@PathVariable("itemId") int itemId ){
+        System.out.println("Are we in the fucking controller?");
+        String login = principal.getName();
+        this.ordersService.addNewOrder(login,itemId);
+        return "hello";
     }
 }

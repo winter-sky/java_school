@@ -18,9 +18,10 @@
     <tr>
         <p><img src="${item.pic}" alt="some pic"></p>
         <p>Book name: ${item.itemName}</p>
-
+        <a href="<c:url value='/addtoorder/${userlogin}/${item.itemId}'/>">Add to order</a><br>
     </tr>
 </c:forEach>
 </c:if>
+<p>${userlogin}</p>
 </body>
 </html>
