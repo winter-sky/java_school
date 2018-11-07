@@ -30,6 +30,11 @@ public class ItemsDAOImpl implements ItemsDAO {
         return  (Items) query.setParameter("itemId", itemId).getSingleResult();
     }
 
+    @Override
+    public void addItem(Items item) {
+        em.persist(item);
+    }
+
 //    @Override
 //    public List<Items> guestShoppingCart() {//with Order table  using
 //        Query query = em.createQuery("from Orders");

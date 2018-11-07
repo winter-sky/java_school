@@ -13,4 +13,6 @@ public interface ItemsService {
 //    List<Items> userShoppingCart(String userLogin);
 
     Items findItemById(int itemId);
+
+    void addItem(Items item);
 }
