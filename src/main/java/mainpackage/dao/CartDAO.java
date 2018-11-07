@@ -10,8 +10,7 @@ import java.util.List;
 public interface CartDAO {
     List<Items> getGuestShoppingCart();//isn't used, should be deleted
 
-    List<Items> getUsersShoppingCart(String userLogin);//must be improve
-    // add in jsp checking for null
+    List<Items> getUsersShoppingCart(String userLogin);
 
     void addItemToGuestCart (int itemId, int guestCartId);
 

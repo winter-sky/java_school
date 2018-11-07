@@ -68,7 +68,6 @@ public class OrdersDAOImpl implements OrdersDAO {
     public void  addNewOrder(String userLogin, int itemId){//must be renamed
         System.out.println("Are we in the fucking addNewOrder method in DAO?");
         //TODO check whether some current user order with payment awaiting status exists in Orders table or not
-
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
 
@@ -80,8 +79,26 @@ public class OrdersDAOImpl implements OrdersDAO {
                 client = l.getClient();
             }
         }
-        Orders newOrder = new Orders();
-        em.persist(newOrder);
+        Query q = em.createQuery("from Orders");
+
+        Orders newOrder=new Orders();
+        List<Orders> allOrders = new ArrayList<>();
+        if(q.getResultList().isEmpty()) {
+            em.persist(newOrder);
+        }
+        else
+         allOrders= q.getResultList();
+
+        boolean check = false;
+        for(Orders o:allOrders){
+            if(o.getClient().getClientId()==client.getClientId()&&o.getPaymentStatus().equals(AWAITING_PAYMENT)){
+                newOrder=o;
+                check=true;
+            }
+        }
+        if(!check)//kek
+       em.persist(newOrder);
+
         newOrder.setClient(client);
 
         Query query2 = em.createQuery("from Items where item_id=:itemId");

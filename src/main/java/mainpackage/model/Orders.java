@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static mainpackage.type.OrderStatus.PAYMENT_AWAITING;
+import static mainpackage.type.PaymentState.AWAITING_PAYMENT;
+
 @Entity
 @Table(name="orders")
 public class Orders {
@@ -27,11 +30,11 @@ public class Orders {
 
     @Column(name = "payment_state")
     @Enumerated(EnumType.STRING)
-    private PaymentState paymentStatus;
+    private PaymentState paymentStatus=AWAITING_PAYMENT;
 
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus=PAYMENT_AWAITING;
 
     @Column(name = "order_price")
     private double orderPrice;
