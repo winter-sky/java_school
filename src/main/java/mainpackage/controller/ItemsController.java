@@ -55,7 +55,7 @@ public class ItemsController {
 //    }
 
     @RequestMapping(value = "/itemlist", method = RequestMethod.GET)//create new Cart for guest
-    public String scopeExample(HttpSession session,Model model,Principal principal) {
+    public String scopeExample(HttpSession session, Model model, Principal principal) {
 
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
@@ -65,15 +65,14 @@ public class ItemsController {
 
         session.setMaxInactiveInterval(3600);
 
-        Cart guestcart = (Cart)session.getAttribute("guestcart");
-       if (guestcart == null)
-       {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
-           guestcart = new Cart();
-           session.setAttribute("guestcart",guestcart);//place it into if block (properly or not??)
-            }
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
 
-        return "list_items";
-        // "catalog";
+        //return "list_items";
+        return "catalog";
     }
 
 //    @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)

@@ -29,7 +29,7 @@ public class CartServiceImpl implements  CartService{
 
     @Override
     @Transactional
-    public void addItemToGuestCart(int itemId, int guestCartId){this.cartDAO.addItemToGuestCart(itemId,guestCartId);}
+    public void addItemToGuestCart(Integer itemId, int guestCartId){this.cartDAO.addItemToGuestCart(itemId,guestCartId);}
 
     @Override
     @Transactional

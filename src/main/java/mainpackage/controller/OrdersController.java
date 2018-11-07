@@ -37,10 +37,20 @@ public class OrdersController {
 
     @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
     public String addItemToOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
-            String userLogin ,@PathVariable("itemId") int itemId ){
+            String userLogin ,@PathVariable("itemId") Integer itemId ){
         System.out.println("Are we in the fucking controller?");
         String login = principal.getName();
         this.ordersService.addNewOrder(login,itemId);
-        return "hello";
+        return "redirect:/hello";
+    }
+
+    @RequestMapping(value="/getuserorder/{userlogin}", method = RequestMethod.GET)
+    public String addItemToOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
+            String userLogin ){
+        System.out.println("Are we in the fucking controller?");
+        String login = principal.getName();
+        //TODO
+        //this.ordersService.getUserCurrentOrder(login);
+        return "current_user_order";
     }
 }

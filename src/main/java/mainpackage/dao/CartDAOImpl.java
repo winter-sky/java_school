@@ -56,7 +56,7 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public void addItemToGuestCart (int itemId, int guestCartId){//add new item to DB guest Cart (if it exist in DB)
+    public void addItemToGuestCart (Integer itemId, int guestCartId){//add new item to DB guest Cart (if it exist in DB)
 
         Query query = em.createQuery("from Cart where cart_id=:guestCartId");
         Cart cart = (Cart)query.setParameter("guestCartId", guestCartId).getSingleResult();

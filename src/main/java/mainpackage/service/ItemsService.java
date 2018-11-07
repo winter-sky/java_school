@@ -1,5 +1,6 @@
 package mainpackage.service;
 
+import mainpackage.dto.ItemDTO;
 import mainpackage.model.Items;
 
 import java.security.Principal;
@@ -12,5 +13,7 @@ public interface ItemsService {
 //
 //    List<Items> userShoppingCart(String userLogin);
 
-    Items findItemById(int itemId);
+    Items findItemById(Integer itemId);
+
+    void saveItem(ItemDTO item);
 }

@@ -1,48 +1,20 @@
-package mainpackage.model;
+package mainpackage.dto;
 
-import javax.persistence.*;
-import java.util.List;
+import mainpackage.model.Categories;
 
-@Entity
-@Table(name="items")
-public class Items {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
+public class ItemDTO {
+
     private Integer itemId;
-
-    @Column(name = "item_name")
     private String itemName;
-
-    @Column(name = "price")
     private double price;
-
-    @Column(name = "weight")
     private double weight;
-
-    @Column(name = "volume")
     private String volume;
-
-    @Column(name = "available_count")
     private int availableCount;
-
-    @Column(name = "pic")
     private String pic;
+    private CategoryDTO category;
+    private ParamDTO param;
 
-    @ManyToOne
-    @JoinColumn(name="item_category")
-    private Categories category;
-
-    @OneToOne
-    @JoinColumn(name="params_id")
-    private Params params;
-
-//    @OneToMany(mappedBy = "items")//is it necessary?
-//    private List<OrderItems> orderItems;
-
-    @Override
-    public String toString() {
-        return "Items [id=" + itemId + ",item name= " + itemName + ", category= "+category+"]";
+    public ItemDTO() {
     }
 
     public Integer getItemId() {
@@ -51,6 +23,21 @@ public class Items {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemDTO{" +
+                "itemId=" + itemId +
+                ", itemName='" + itemName + '\'' +
+                ", price=" + price +
+                ", weight=" + weight +
+                ", volume='" + volume + '\'' +
+                ", availableCount=" + availableCount +
+                ", pic='" + pic + '\'' +
+                ", category=" + category +
+                ", param=" + param +
+                '}';
     }
 
     public String getItemName() {
@@ -101,20 +88,19 @@ public class Items {
         this.pic = pic;
     }
 
-    public Categories getCategory() {
+    public CategoryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(CategoryDTO category) {
         this.category = category;
     }
 
-    public Params getParams() {
-        return params;
+    public ParamDTO getParam() {
+        return param;
     }
 
-    public void setParams(Params params) {
-        this.params = params;
+    public void setParam(ParamDTO param) {
+        this.param = param;
     }
-
 }

@@ -2,6 +2,7 @@ package mainpackage.service;
 
 import mainpackage.dao.OrdersDAO;
 import mainpackage.model.Items;
+import mainpackage.model.Orders;
 import mainpackage.type.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,5 +24,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public void  addNewOrder(String userLogin, int itemId){this.ordersDAO.addNewOrder(userLogin,itemId);}
+    public void  addNewOrder(String userLogin, Integer itemId){this.ordersDAO.addNewOrder(userLogin,itemId);}
+
+//    @Override
+//    @Transactional
+//    public Orders getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
 }

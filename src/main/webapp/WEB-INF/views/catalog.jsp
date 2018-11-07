@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: user
@@ -13,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CSS Website Layout</title>
+    <title>Tir Na Nog Book Store</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -151,6 +152,22 @@
     </div>
     <div class="column middle">
         <h2>Books will be here</h2>
+        <c:forEach var="items" items="${listItems}">
+            <tr>
+                <p><img src="${items.pic}" alt="some pic"></p>
+                <p>Book name: ${items.itemName}</p>
+                <security:authorize access="hasRole('USER')">
+                    <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                </security:authorize>
+                    <%--<c:if test="${!empty checkprincipal}">--%>
+                    <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
+                    <%--</c:if>--%>
+                <c:if test="${empty checkprincipal}">
+                    <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                </c:if>
+            </tr>
+        </c:forEach>
+
         <div class="container">
             <c:if test="${empty category.categories}">
                 <c:forEach var="item" items="${category.items}">

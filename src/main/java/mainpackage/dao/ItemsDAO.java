@@ -9,7 +9,7 @@ import java.util.List;
 public interface ItemsDAO {
     List<Items> listItems();
 
-    Items findItemById(int itemId);
+    Items findItemById(Integer itemId);
 
 //    List<Items> guestShoppingCart();//with Orders table using
 //

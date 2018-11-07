@@ -65,7 +65,7 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public void  addNewOrder(String userLogin, int itemId){//must be renamed
+    public void  addNewOrder(String userLogin, Integer itemId){//must be renamed
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
         Clients client = new Clients();
@@ -119,5 +119,32 @@ public class OrdersDAOImpl implements OrdersDAO {
         List<OrderItems> listOrdersItems = new ArrayList<>();
         listOrdersItems.add(orderItems);
         newOrder.setOrderItems(listOrdersItems);
+    }
+
+    @Override
+    public List<Items> getUserCurrentOrder (String userLogin){
+        //find user
+        Query query = em.createQuery("from Logins");
+        List<Logins> logins = query.getResultList();
+        Clients client = new Clients();
+        for (Logins l : logins) {
+            if ((l.getLogin()).equals(userLogin)) {
+                System.out.println(l.getLogin());
+                client = l.getClient();
+            }
+        }
+
+        Orders currentOrder = new Orders();
+        List<Orders> listUserOrders = new ArrayList<>();
+        List<Items> orderItems = new ArrayList<>();
+      if(client.getOrders()!=null){
+          listUserOrders =client.getOrders();
+          for(Orders o:listUserOrders){
+             if(o.getPaymentStatus().equals(AWAITING_PAYMENT))
+                 currentOrder=o;
+             //TODO
+          }
+      }
+        return null;
     }
 }

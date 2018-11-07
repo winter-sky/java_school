@@ -11,7 +11,7 @@ public interface CartService {
 
     List<Items> getUsersShoppingCart(String userLogin);
 
-    void addItemToGuestCart (int itemId, int guestCartId);
+    void addItemToGuestCart (Integer itemId, int guestCartId);
 
     Cart createGuestCart ();
 
