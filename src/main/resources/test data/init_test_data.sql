@@ -1,3 +1,5 @@
+use online_store;
+
 insert into categories ( category_name, category_level,parent_id )
 values ('Book Category',0,null);
 insert into categories ( category_name, category_level,parent_id )
@@ -26,6 +28,12 @@ insert into categories ( category_name, category_level,parent_id )
 values ('Pen & Ink Drawing',3,5);
 insert into categories ( category_name, category_level,parent_id )
 values ('Oil Painting',3,6);
+insert into categories ( category_name, category_level,parent_id )
+values ('Architecture History',3,4);
+insert into categories ( category_name, category_level,parent_id )
+values ('Romantic',4,15);
+insert into categories ( category_name, category_level,parent_id )
+values ('Gothic',3,8);
 
 insert into params (author, language, format)
 values ('Lewis Carroll','english','hardcover');
@@ -35,6 +43,14 @@ insert into params (author, language, format)
 values ('Ivan Bilibin','russian','hardcover');
 insert into params (author, language, format)
 values ('Linda Cateura','english','hardcover');
+insert into params (author, language, format)
+values ('Robert O\'Byrne','english','hardcover');
+insert into params (author, language, format)
+values ('Huw Lewis-Jones','english','hardcover');
+insert into params (author, language, format)
+values ('Gaston Leroux','French','Paperback');
+insert into params (author, language, format)
+values ('Jiaqi Guan','Chinese','Paperback');
 
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
 values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'/resources/alice_in_the_wonderland.jpg',1);
@@ -44,7 +60,14 @@ insert into items(item_name,item_category,price,weight, volume,available_count,p
 values ('Russian Fairy Tales',12,1500,2,'20x80x10',5,'/resources/bilibin_russian_fairy_tales.jpg',3);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
 values ('Oil Painting Secrets From a Master',14,1500,2,'20x80x10',5,'/resources/Oil_Painting_Secrets_From_A_Master.jpg',4);
-
+insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
+values ('The Irish Aesthete: Ruins of Ireland',16,2500,2,'20x80x10',5,'/resources/The Irish Aesthete Ruins of Ireland.jpg',5);
+insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
+values ('The Writer\'s Map: An Atlas of Imaginary Lands',7,3000,2,'20x80x10',5,'/resources/An Atlas of Imaginary Lands.jpg',6);
+insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
+values ('Le Fantôme de l\'Opéra (French Edition)',17,2000,2,'20x80x10',5,'/resources/Le Fantôme de lOpéra.jpg',7);
+insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
+values ('Qiao Gu Niang de Que Qiao (Chinese Edition)',11,1300,2,'20x80x10',5,'/resources/Qiao Gu Niang de Que Qiao.jpg',8);
 
 insert into roles(username,role)
 values('admin','ROLE_ADMIN');

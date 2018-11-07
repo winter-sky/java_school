@@ -32,7 +32,7 @@ public class OrdersDAOImpl implements OrdersDAO {
         }
         System.out.println("Client found: " + client.getClientId() +")"+" "+ client.getFirstName());
 
-        List<Orders> userOrders = client.getOrders();//it will be properly get the last order?must be improved
+        List<Orders> userOrders = client.getOrders();//is it more properly get the last order? must be improved
         System.out.println("Orders client: " + client.getOrders());
         Orders userOrder = new Orders();
         for(Orders o:userOrders){
@@ -60,27 +60,23 @@ public class OrdersDAOImpl implements OrdersDAO {
 
         List<Orders> listUserOrders = new ArrayList<>();
         if(client.getOrders()!=null)
-        listUserOrders = client.getOrders();//need to add items to orders in DB for checking this method.
+        listUserOrders = client.getOrders();
         return listUserOrders;
     }
 
     @Override
     public void  addNewOrder(String userLogin, int itemId){//must be renamed
-        System.out.println("Are we in the fucking addNewOrder method in DAO?");
-        //TODO check whether some current user order with payment awaiting status exists in Orders table or not
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
-
         Clients client = new Clients();
-
         for (Logins l : logins) {
             if ((l.getLogin()).equals(userLogin)) {
                 System.out.println(l.getLogin());
                 client = l.getClient();
             }
         }
+        //check whether some current user order with payment awaiting status exists in Orders table or not
         Query q = em.createQuery("from Orders");
-
         Orders newOrder=new Orders();
         List<Orders> allOrders = new ArrayList<>();
         if(q.getResultList().isEmpty()) {
@@ -96,8 +92,8 @@ public class OrdersDAOImpl implements OrdersDAO {
                 check=true;
             }
         }
-        if(!check)//kek
-       em.persist(newOrder);
+        if(!check)
+        em.persist(newOrder);
 
         newOrder.setClient(client);
 
@@ -123,6 +119,5 @@ public class OrdersDAOImpl implements OrdersDAO {
         List<OrderItems> listOrdersItems = new ArrayList<>();
         listOrdersItems.add(orderItems);
         newOrder.setOrderItems(listOrdersItems);
-
     }
 }

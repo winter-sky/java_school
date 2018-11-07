@@ -56,21 +56,21 @@ create table clients (
                        FOREIGN KEY (client_address) REFERENCES client_addresses (client_address_id)
 );
 
-
-# default null values for cart forming
-#need to add order data (also default null)
 create table orders (
                       order_id  INTEGER (18) NOT NULL AUTO_INCREMENT,
                       orders_client INTEGER(18)  DEFAULT NULL,
                       orders_client_address INTEGER(18)  DEFAULT NULL,
                       payment_method  VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to payment_method table, but probably java enumeration is ok
                       delivery_method VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to delivery_method table, but probably java enumeration is ok
-                      payment_state VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
-                      order_status VARCHAR(18)    DEFAULT NULL, -- TODO: may need to foreign key to order_status table, but probably java enumeration is ok
-                      CONSTRAINT order_id_pk PRIMARY KEY (order_id),
-                      FOREIGN KEY (orders_client) REFERENCES clients (client_id),
-                      FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
-);
+                      payment_state VARCHAR(18)   DEFAULT 'AWAITING_PAYMENT', -- TODO: may need to foreign key to payment_status table, but probably java enumeration is ok
+                      order_status VARCHAR(18)    DEFAULT 'PAYMENT_AWAITING',
+                      order_price DOUBLE(30, 2) DEFAULT 0,
+  order_date TIMESTAMP DEFAULT current_timestamp,
+  CONSTRAINT order_id_pk PRIMARY KEY (order_id),
+  FOREIGN KEY (orders_client) REFERENCES clients (client_id),
+  FOREIGN KEY (orders_client_address) REFERENCES client_addresses (client_address_id)
+  );
+
 
 create table categories (
                           category_id INTEGER(18) NOT NULL AUTO_INCREMENT,
@@ -109,7 +109,7 @@ create table order_items (
                            order_items_id INTEGER(18) NOT NULL AUTO_INCREMENT,
                            orders INTEGER(18) NOT NULL,
                            items  INTEGER(18) NOT NULL,
-                           quantity  INTEGER(5)  NOT NULL,
+                           item_quantity  INTEGER(5)  DEFAULT 1,
                            CONSTRAINT order_items_id_pk PRIMARY KEY (order_items_id),
                            FOREIGN KEY (orders) REFERENCES orders (order_id),
                            FOREIGN KEY (items) REFERENCES items (item_id)
