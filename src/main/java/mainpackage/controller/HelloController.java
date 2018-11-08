@@ -64,7 +64,7 @@ public class HelloController {
         String login = principal.getName();//get login of user is logged in
         model.addAttribute("message", login);
 
-        //model.addAttribute("payment", PaymentMethod.values());//just for testing))
+        model.addAttribute("payment", PaymentMethod.values());//just for testing))
 
         Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
         if (initialusercart == null)

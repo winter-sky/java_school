@@ -48,7 +48,7 @@ public class CartController {
 
     @RequestMapping(value = "/guestcart", method = RequestMethod.GET)
     public String guestShoppingCart(HttpSession session,Model model) {
-        System.out.println("Are we in controller?");
+
         Cart guestcart = (Cart)session.getAttribute("guestcart");
 
         if (guestcart == null)
