@@ -33,6 +33,15 @@ public class OrdersController {
         this.ordersService = os;
     }
 
+    @RequestMapping(value="/payfortheorder/{userLogin}",method = RequestMethod.GET)
+    public String payForTheOrder (HttpSession session, Model model, Principal principal,
+                                  @PathVariable("userLogin") String userLogin) {//??
+        String login = principal.getName();//??
+        this.ordersService.payForTheOrder(login);
+        //return "redirect:/getuserorder/"+login;
+        return "redirect:/hello";
+    }
+
     @RequestMapping(value="/paymentmethod",method = RequestMethod.GET)
     public String selectPaymentMethodPage (HttpSession session, Model model, Principal principal) {
         String login = principal.getName();
@@ -63,10 +72,10 @@ public class OrdersController {
     public String selectDeliveryMethod (HttpSession session, Model model, Principal principal, @PathVariable("deliveryMethod")
             DeliveryMethod deliveryMethod, @PathVariable("userLogin") String userLogin ){
         String login = principal.getName();
-        //model.addAttribute("message", login);
+        model.addAttribute("message", login);
         this.ordersService.selectDeliveryMethod(deliveryMethod,login);
         //model.addAttribute("payment", PaymentMethod.values());
-        return  "redirect:/hello";
+        return  "complete_order";
     }
 
     @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
@@ -81,19 +90,34 @@ public class OrdersController {
         return "redirect:/hello";
     }
 
-    @RequestMapping(value="/getuserorder/{userlogin}", method = RequestMethod.GET)//get items in current order
-    public String addItemToOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
+    @RequestMapping(value="/getuserorder/{userlogin}", method = RequestMethod.GET)//get items in current order,
+    public String getCurrentOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
             String userLogin ){
-        System.out.println("Are we in the fucking controller?");
         String login = principal.getName();
-        //TODO
-        List<Items> list = this.ordersService.getUserCurrentOrder(login);
-        Orders currentOrder = this.ordersService.getCurrentOrder(login);
-        List<OrderItems> orderItem = currentOrder.getOrderItems();
-        System.out.println("orderitem " + orderItem);
+
+        List<Items> list = this.ordersService.getUserCurrentOrder(login);//current awaiting payment order items
+        Orders currentOrder = this.ordersService.getCurrentOrder(login);//curent awaiting payment order
+
+        List<OrderItems> orderItem = new ArrayList<>();
+
+        if(currentOrder!=null)
+        orderItem=currentOrder.getOrderItems();
+
         model.addAttribute("orderitem", orderItem);
         model.addAttribute("listorderitems", list);
         model.addAttribute("currentorder", currentOrder);
         return "current_user_order";
+    }
+
+    @RequestMapping(value="/getuserorders/{userLogin}", method = RequestMethod.GET)//show user orders with not delivered status
+    public String getOrders (HttpSession session,Model model, Principal principal, @PathVariable("userLogin")
+            String userLogin ){
+        String login = principal.getName();
+
+        List<Orders> list = this.ordersService.getOrders(userLogin);
+
+        model.addAttribute("orderlist", list);
+
+        return "user_orders";
     }
 }

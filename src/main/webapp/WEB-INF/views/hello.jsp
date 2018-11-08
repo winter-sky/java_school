@@ -29,6 +29,8 @@
 <h1>Hello, ${message}!</h1>
 <a href="<c:url value='/searchclientbylogin/${message}'/>">Show profile</a><br>
 <a href="<c:url value='/cart/usercart/${message}'/>">Cart</a><br>
+<a href="<c:url value='/getuserorder/${message}'/>">Show current order</a><br>
+<a href="<c:url value='/getuserorders/${message}'/>">Show all current orders</a><br>
 <a href="<c:url value='/logout'/>">Log out</a><br>
 <%--<select>--%>
     <%--<c:forEach var="paymentItem" items="${payment}">--%>

@@ -22,6 +22,6 @@
     </tr>
 </c:forEach>
 </c:if>
-<p>${userlogin}</p>
+<%--<p>${userlogin}</p>--%>
 </body>
 </html>

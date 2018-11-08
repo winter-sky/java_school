@@ -12,6 +12,7 @@
     <title>Current order</title>
 </head>
 <body>
+<c:if test="${!empty listorderitems}">
 <p> Full order price: ${currentorder.orderPrice}</p>
 <c:forEach var="item" items="${listorderitems}">
     <tr>
@@ -29,6 +30,6 @@
     </tr>
 </c:forEach>
 <p><a href="/paymentmethod">Complete order</a></p>
-
+</c:if>
 </body>
 </html>

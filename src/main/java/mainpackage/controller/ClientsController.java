@@ -30,7 +30,7 @@ public class ClientsController {
         return "client_by_login";
     }
 
-    @RequestMapping(value = "/editprofile", method = RequestMethod.GET)
+    @RequestMapping(value = "/editprofile", method = RequestMethod.GET)//
     public String listCustomers(Model model) {
         model.addAttribute("client", new Clients());
         //List<Clients> listClients =this.clientsService.listClients();

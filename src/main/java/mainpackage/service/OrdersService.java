@@ -12,9 +12,13 @@ public interface OrdersService {
 
     void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin);
 
+    void payForTheOrder(String userLogin);
+
     void  addNewOrder(String userLogin, int itemId);
 
     List<Items> getUserCurrentOrder (String userLogin);
 
     Orders getCurrentOrder(String userLogin);
+
+    List<Orders> getOrders (String userLogin);
 }

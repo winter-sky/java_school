@@ -24,7 +24,11 @@ public interface OrdersDAO {
 
     Orders getCurrentOrder(String user);
 
+    void payForTheOrder(String userLogin);
+
 //    OrderItems getOrderItemsById (int orderItemsId);
 //
 //    void updateOrderItemQuantity (OrderItems orderItem);
+
+    List<Orders> getOrders (String userLogin);//find client not delivered orders
 }

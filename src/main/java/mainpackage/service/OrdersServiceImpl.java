@@ -43,4 +43,12 @@ public class OrdersServiceImpl implements OrdersService {
     public void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin){
         this.ordersDAO.selectDeliveryMethod(deliveryMethod,userLogin);
     }
+
+    @Override
+    @Transactional
+    public void payForTheOrder(String userLogin){this.ordersDAO.payForTheOrder(userLogin);}
+
+    @Override
+    @Transactional
+    public List<Orders> getOrders (String userLogin){return this.ordersDAO.getOrders(userLogin);}
 }
