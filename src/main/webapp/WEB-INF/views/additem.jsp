@@ -32,11 +32,11 @@
         <tr>
             <td>
                 <form:label path="itemName">
-                    <spring:message text="Item name"/>
+                    <spring:message text="Category"/>
                 </form:label>
             </td>
             <td>
-                <form:select path="category" modelAttribute="allcategories">
+                <form:select path="category">
                     <form:option value="NONE" label="--- Select ---"/>
                     <form:options items="${allcategories}" />
                 </form:select>
@@ -71,6 +71,23 @@
             </td>
             <td>
                 <form:input path="volume" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="pic">
+                    <spring:message text="Picture"/>
+                </form:label>
+            </td>
+            <td>
+                <form:form method="POST" action="/uploadFile" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td><input type="file" name="file" action="/uploadFile"/></td>
+                            <td><input type="submit" action="Submit"/></td>
+                        </tr>
+                    </table>
+                </form:form>
             </td>
         </tr>
         <tr>

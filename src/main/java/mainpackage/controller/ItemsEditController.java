@@ -42,8 +42,8 @@ public class ItemsEditController {
     @RequestMapping(value = "/additemform", method = RequestMethod.GET)
     public String addItemForm(Model model) {
         model.addAttribute("item", new Items());
-        Map<String, Categories> categoriesMap = categoriesService.getAllCategories().stream().collect(
-            Collectors.toMap(Categories::getCategoryName, Function.identity()));
+        Map<Categories, String> categoriesMap = categoriesService.getAllCategories().stream().collect(
+            Collectors.toMap(Function.identity(), Categories::getCategoryName));
 
         model.addAttribute("allcategories", categoriesMap);
 
