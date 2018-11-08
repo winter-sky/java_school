@@ -65,7 +65,7 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public void  addNewOrder(String userLogin, Integer itemId){//must be renamed
+    public void  addNewOrder(String userLogin, int itemId){//must be renamed
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
         Clients client = new Clients();
@@ -119,6 +119,8 @@ public class OrdersDAOImpl implements OrdersDAO {
         List<OrderItems> listOrdersItems = new ArrayList<>();
         listOrdersItems.add(orderItems);
         newOrder.setOrderItems(listOrdersItems);
+
+
     }
 
     @Override
@@ -144,7 +146,10 @@ public class OrdersDAOImpl implements OrdersDAO {
                  currentOrder=o;
              //TODO
           }
+          for(OrderItems o: currentOrder.getOrderItems()){
+              orderItems.add(o.getItem());
+          }
       }
-        return null;
+        return orderItems;
     }
 }

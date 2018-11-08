@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -62,7 +63,7 @@ public class CategoriesController {
         return "catalog";
     }
 
-    @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)
+    @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)//filter by category
     public String listSubCategories(Model model,@PathVariable("categoryId") int categoryId) {//rename method
 
         Categories category = this.categoriesService.findCategoryById(categoryId);
@@ -73,5 +74,22 @@ public class CategoriesController {
         model.addAttribute("category", category);
 //        return "listitemsbycategory";
         return "catalog";
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)//create new Cart for guest
+    public String test(HttpSession session, Model model) {
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        System.out.println(rootCategory);
+        model.addAttribute("rootCategory", rootCategory);
+        List<String> listAuthors = this.paramsService.listAuthors();
+
+        model.addAttribute("listAuthors",listAuthors);
+
+        List<String> listLanguages = this.paramsService.listLanguages();
+        model.addAttribute("listLanguages",listLanguages);
+
+        List<String> listFormats = this.paramsService.listFormats();
+        model.addAttribute("listFormats",listFormats);
+        return "test";
     }
 }

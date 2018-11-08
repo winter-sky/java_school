@@ -7,13 +7,13 @@ import java.security.Principal;
 import java.util.List;
 
 public interface ItemsService {
-    List<Items> listItems();
+    List<ItemDTO> listItems();
 
 //    List<Items> guestShoppingCart();
 //
 //    List<Items> userShoppingCart(String userLogin);
 
-    Items findItemById(Integer itemId);
+    Items findItemById(int itemId);
 
     void saveItem(ItemDTO item);
 }

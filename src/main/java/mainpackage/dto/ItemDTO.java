@@ -4,7 +4,7 @@ import mainpackage.model.Categories;
 
 public class ItemDTO {
 
-    private Integer itemId;
+    private int itemId;
     private String itemName;
     private double price;
     private double weight;
@@ -17,11 +17,11 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
-    public Integer getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 

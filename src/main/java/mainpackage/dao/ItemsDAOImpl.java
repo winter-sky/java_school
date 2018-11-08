@@ -25,7 +25,7 @@ public class ItemsDAOImpl implements ItemsDAO {
 
 
     @Override
-    public Items findItemById(Integer itemId){
+    public Items findItemById(int itemId){
         Query query = em.createQuery("from Items where item_id=:itemId");
         return  (Items) query.setParameter("itemId", itemId).getSingleResult();
     }

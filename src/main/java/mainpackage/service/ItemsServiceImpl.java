@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("ItemsService")
 public class ItemsServiceImpl implements ItemsService {
@@ -23,7 +24,11 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     @Transactional
-    public List<Items> listItems(){return this.itemsDAO.listItems();}
+    public List<ItemDTO> listItems() {
+        List<Items> entitiesList = this.itemsDAO.listItems();
+        List<ItemDTO> itemDTOList = entitiesList.stream().map(it -> mappingService.itemEntityToItemDTO(it)).collect(Collectors.toList());
+        return itemDTOList;
+    }
 
 //    @Override
 //    @Transactional
@@ -35,16 +40,18 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     @Transactional
-    public Items findItemById(Integer itemId){return this.itemsDAO.findItemById(itemId);}
+    public Items findItemById(int itemId) {
+        return this.itemsDAO.findItemById(itemId);
+    }
 
     @Override
     public void saveItem(ItemDTO item) {
         Items itemEntity = mappingService.itemDTOtoItemEntity(item);
-        if(itemEntity.getItemId() != null){
-            // Item already exists in DB since it has ID - so update item
-        } else {
-            // We need to create new item - insert new item to table
-        }
+//        if (itemEntity.getItemId() != null) {
+//            // Item already exists in DB since it has ID - so update item
+//        } else {
+//            // We need to create new item - insert new item to table
+//        }
     }
 
 }

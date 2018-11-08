@@ -11,7 +11,7 @@ public interface OrdersDAO {
 
     List<Orders> getUserOrders(String userLogin);
 
-    void  addNewOrder(String userLogin, Integer itemId);
+    void  addNewOrder(String userLogin, int itemId);
 
     List<Items> getUserCurrentOrder (String userLogin);
 }

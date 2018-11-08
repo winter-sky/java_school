@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
 
@@ -24,9 +26,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public void  addNewOrder(String userLogin, Integer itemId){this.ordersDAO.addNewOrder(userLogin,itemId);}
+    public void  addNewOrder(String userLogin, int itemId){this.ordersDAO.addNewOrder(userLogin,itemId);}
 
-//    @Override
-//    @Transactional
-//    public Orders getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
+    @Override
+    @Transactional
+    public List<Items> getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
 }

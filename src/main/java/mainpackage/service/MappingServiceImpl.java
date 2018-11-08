@@ -16,7 +16,9 @@ public class MappingServiceImpl implements MappingService {
     public ItemDTO itemEntityToItemDTO(Items item) {
         ItemDTO dto = new ItemDTO();
         dto.setAvailableCount(item.getAvailableCount());
-        // yada yada
+        dto.setItemName(item.getItemName());
+        dto.setPic(item.getPic());
+        dto.setItemId(item.getItemId());
         return dto;
     }
 

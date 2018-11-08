@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Alisa
@@ -11,6 +12,11 @@
     <title>Current order</title>
 </head>
 <body>
-
+<c:forEach var="item" items="${listorderitems}">
+    <tr>
+        <p><img src="${item.pic}" alt="some pic"></p>
+        <p> Book Name: ${item.itemName}</p>
+    </tr>
+</c:forEach>
 </body>
 </html>

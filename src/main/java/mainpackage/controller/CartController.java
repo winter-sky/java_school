@@ -84,7 +84,7 @@ public class CartController {
 
     @RequestMapping(value= "/additem/{itemId}/{guestCartId}", method = RequestMethod.GET)//add new book to session guest
     // cart, not  in DB and return guest cart
-    public String addItem(HttpSession session,@PathVariable("itemId") Integer itemId, Model model,@PathVariable("guestCartId")int guestCartId){
+    public String addItem(HttpSession session,@PathVariable("itemId") int itemId, Model model,@PathVariable("guestCartId")int guestCartId){
 
         //this.cartService.addItemToGuestCart(itemId,guestCartId);//if it need to save in database(then you must create
         // new cart in database in listitems controller)
@@ -109,7 +109,7 @@ public class CartController {
 
     @RequestMapping(value="/additemtousercart/{itemId}/{userCartId}", method = RequestMethod.GET)//for User there must be
     //special jsp page!
-    public String addItemToUserCart(HttpSession session, Principal principal,@PathVariable("itemId") Integer itemId, Model model,
+    public String addItemToUserCart(HttpSession session, Principal principal,@PathVariable("itemId") int itemId, Model model,
                                     @PathVariable("userCartId") int userCartId){
         Items item = this.itemsService.findItemById(itemId);
         Cart usercart = (Cart)session.getAttribute("initialusercart");

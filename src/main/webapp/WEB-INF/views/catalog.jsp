@@ -155,6 +155,7 @@
         <c:forEach var="items" items="${listItems}">
             <tr>
                 <p><img src="${items.pic}" alt="some pic"></p>
+                <p>Book id: ${items.itemId} </p>
                 <p>Book name: ${items.itemName}</p>
                 <security:authorize access="hasRole('USER')">
                     <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
@@ -172,13 +173,15 @@
             <c:if test="${empty category.categories}">
                 <c:forEach var="item" items="${category.items}">
                     <tr>
+                        <p><img src="${item.pic}" alt="some pic"></p>
                             ${item.itemName}<br>
                     </tr>
                 </c:forEach>
             </c:if>
             <c:forEach var="category" items="${category.categories}">
                 <c:forEach var="item" items="${category.items}">
-                    ${item.itemName}<br>
+                    <p><img src="${item.pic}" alt="some pic"></p>
+                    ${item.itemName}
                 </c:forEach>
                 <c:if test="${!empty category.categories}">
                     <c:set var="category" value="${category}" scope="request"/>
@@ -187,11 +190,11 @@
             </c:forEach>
         </div>
         <div class="container">
-            <c:forEach var="item" items="${listItems}">
-                <tr>
-                        ${item.itemName}<br>
-                </tr>
-            </c:forEach>
+            <%--<c:forEach var="item" items="${listItems}">--%>
+                <%--<tr>--%>
+                        <%--${item.itemName}<br>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
         </div>
 
     </div>

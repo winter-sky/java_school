@@ -1,6 +1,8 @@
 package mainpackage.controller;
 
+import mainpackage.dto.ItemDTO;
 import mainpackage.model.Cart;
+import mainpackage.model.Categories;
 import mainpackage.model.Items;
 import mainpackage.service.CartService;
 import mainpackage.service.ItemsService;
@@ -60,7 +62,8 @@ public class ItemsController {
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
 
-        List<Items> list = this.itemsService.listItems();
+        List<ItemDTO> list = this.itemsService.listItems();
+        System.out.println(list);
         model.addAttribute("listItems", list);
 
         session.setMaxInactiveInterval(3600);
@@ -73,6 +76,12 @@ public class ItemsController {
 
         //return "list_items";
         return "catalog";
+    }
+
+    @RequestMapping(value = "/filterItems", method = RequestMethod.GET)//testing filter
+    public String scopeExample(HttpSession session, Model model, String author, String language) {
+        //TODO method which get two parameters
+        return "test";
     }
 
 //    @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)

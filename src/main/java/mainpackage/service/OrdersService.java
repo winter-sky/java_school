@@ -4,10 +4,12 @@ import mainpackage.model.Items;
 import mainpackage.model.Orders;
 import mainpackage.type.PaymentMethod;
 
+import java.util.List;
+
 public interface OrdersService {
     void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin);
 
-    void  addNewOrder(String userLogin, Integer itemId);
+    void  addNewOrder(String userLogin, int itemId);
 
-//    Orders getUserCurrentOrder (String userLogin);
+    List<Items> getUserCurrentOrder (String userLogin);
 }

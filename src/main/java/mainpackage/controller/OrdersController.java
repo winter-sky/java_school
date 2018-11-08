@@ -1,5 +1,6 @@
 package mainpackage.controller;
 
+import mainpackage.model.Cart;
 import mainpackage.model.Items;
 import mainpackage.service.OrdersService;
 import mainpackage.type.PaymentMethod;
@@ -10,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class OrdersController {
@@ -36,11 +39,14 @@ public class OrdersController {
     }
 
     @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
-    public String addItemToOrder (HttpSession session,Model model, Principal principal, @PathVariable("userlogin")
-            String userLogin ,@PathVariable("itemId") Integer itemId ){
+    public String addItemToOrder (SessionStatus status, HttpSession session, Model model, Principal principal, @PathVariable("userlogin")
+            String userLogin , @PathVariable("itemId") int itemId ){
         System.out.println("Are we in the fucking controller?");
         String login = principal.getName();
         this.ordersService.addNewOrder(login,itemId);
+        session.removeAttribute("guestcart");
+        session.removeAttribute("initialusercart");
+        //status.setComplete();//?
         return "redirect:/hello";
     }
 
@@ -50,7 +56,8 @@ public class OrdersController {
         System.out.println("Are we in the fucking controller?");
         String login = principal.getName();
         //TODO
-        //this.ordersService.getUserCurrentOrder(login);
+        List<Items> list = this.ordersService.getUserCurrentOrder(login);
+        model.addAttribute("listorderitems", list);
         return "current_user_order";
     }
 }
