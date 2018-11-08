@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Verman
@@ -7,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.stream.Collectors" %>
 <html>
 <head>
     <title>Add item</title>
@@ -27,6 +29,20 @@
                 <form:input path="itemName" />
             </td>
         </tr>
+        <tr>
+            <td>
+                <form:label path="itemName">
+                    <spring:message text="Item name"/>
+                </form:label>
+            </td>
+            <td>
+                <form:select path="category" modelAttribute="allcategories">
+                    <form:option value="NONE" label="--- Select ---"/>
+                    <form:options items="${allcategories}" />
+                </form:select>
+            </td>
+        </tr>
+
         <tr>
             <td>
                 <form:label path="price">

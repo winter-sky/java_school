@@ -40,11 +40,6 @@ public class Items {
 //    @OneToMany(mappedBy = "items")//is it necessary?
 //    private List<OrderItems> orderItems;
 
-    @Override
-    public String toString() {
-        return "Items [id=" + itemId + ",item name= " + itemName + ", category= "+category+"]";
-    }
-
     public int getItemId() {
         return itemId;
     }
@@ -117,5 +112,21 @@ public class Items {
     public void setParams(Params params) {
         this.params = params;
         params.setItems(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Items{" +
+            "itemId=" + itemId +
+            ", itemName='" + itemName + '\'' +
+            ", price=" + price +
+            ", weight=" + weight +
+            ", volume='" + volume + '\'' +
+            ", availableCount=" + availableCount +
+            ", pic='" + pic + '\'' +
+            ", category=" + (category != null ? category.getCategoryName() + '(' + category.getCategoryId() + ')'
+            : null) +
+            ", params=" + params +
+        '}';
     }
 }
