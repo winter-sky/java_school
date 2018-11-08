@@ -44,4 +44,13 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     @Transactional
     public List<Categories> showLowermostSubCategories(){return this.categoriesDAO.showLowermostSubCategories();}
+
+    @Override
+    @Transactional
+    public List<Categories> showAllCategories(){return this.categoriesDAO.showAllCategories();}
+
+    @Override
+    @Transactional
+    public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
+        this.categoriesDAO.addNewCategory(categoryId, categoryName, categoryLevel);}
 }

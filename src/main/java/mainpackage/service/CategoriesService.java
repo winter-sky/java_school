@@ -16,4 +16,8 @@ public interface CategoriesService {
 //    List<String> listAuthors();
 
     List<Categories> showLowermostSubCategories();
+
+    List<Categories> showAllCategories();
+
+    void addNewCategory(int categoryId,String categoryName,int categoryLevel);
 }

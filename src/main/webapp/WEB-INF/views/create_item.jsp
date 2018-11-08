@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Create new item</title>
 </head>
 <body>
 <h3>Lowermost categories</h3>
@@ -24,9 +24,9 @@
         <option value="${cat.categoryId}">${cat.categoryName}</option>
     </c:forEach>
 </select>
-    <input type = "text" name = "author"/>
-    <input type = "text" name = "language" />
-    <input type = "text" name = "format" />
+    Author: <input type = "text" name = "author"/>
+    Language: <input type = "text" name = "language" />
+    Format: <input type = "text" name = "format" />
     Item name: <input type = "text" name = "itemName" />
     Item price: <input type = "text" name = "price" />
     Item weight: <input type = "text" name = "weight" />

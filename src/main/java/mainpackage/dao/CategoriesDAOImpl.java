@@ -29,6 +29,21 @@ public class CategoriesDAOImpl implements CategoriesDAO {
     }
 
     @Override
+    public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
+        //find category with id received
+        Query query = em.createQuery("from Categories where category_id=:categoryId");
+        Categories parentCategory= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
+
+        //create new Category
+        Categories newCategory = new Categories();
+        newCategory.setCategoryName(categoryName);
+        newCategory.setCategoryLevel(categoryLevel);
+        newCategory.setCategory(parentCategory);
+
+        em.persist(newCategory);
+    }
+
+    @Override
     public List<Categories> showLowermostSubCategories(){
         Query query = em.createQuery("from Categories");
 
@@ -40,6 +55,13 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         }
 
         return  result;
+    }
+
+    @Override
+    public List<Categories> showAllCategories(){
+        Query query = em.createQuery("from Categories");
+        List<Categories> listAllCategories = query.getResultList();
+        return  listAllCategories;
     }
 }
 

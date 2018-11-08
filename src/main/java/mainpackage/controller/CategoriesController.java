@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -35,6 +36,22 @@ public class CategoriesController {
     public void setCustomersService(CategoriesService cs){
         this.categoriesService = cs;
     }
+
+    @RequestMapping(value = "/createcategorypage", method = RequestMethod.GET)//testing filter
+    public String createCategoryPage (Model model) {
+        List<Categories> listallcategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listallcategories);
+        return "create_category";
+    }
+
+    @RequestMapping(value = "/addnewcategory", method = RequestMethod.POST)//testing filter
+    public String createNewCategory (Model model, @RequestParam("categoryId") int categoryId,
+     @RequestParam("categoryName") String categoryName,@RequestParam("categoryLevel") int categoryLevel){
+        //TODO
+        this.categoriesService.addNewCategory(categoryId, categoryName, categoryLevel);
+        List<Categories> listallcategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listallcategories);
+        return "create_category";}
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String showCatalog() {
