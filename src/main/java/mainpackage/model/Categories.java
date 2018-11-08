@@ -1,9 +1,8 @@
 package mainpackage.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="categories")
@@ -24,18 +23,13 @@ public class Categories {
 
     @ManyToOne
     @JoinColumn(name="parent_id")
-    private Categories category;
+    private Categories parent;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
-    private List<Categories> categories;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "parent")//
+    private List<Categories> subCategories;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
     private List<Items> items;
-
-    @Override
-    public String toString() {
-        return "catergory [id=" + categoryId + ", category_name = " + categoryName+" ";
-    }
 
     public int getCategoryId() {
         return categoryId;
@@ -69,21 +63,21 @@ public class Categories {
         this.parentId = parentId;
     }
 
-    public Categories getCategory() {
-        return category;
+    public Categories getParent() {
+        return parent;
     }
 
-    public void setCategory(Categories category) {
-        this.category = category;
+    public void setParent(Categories parent) {
+        this.parent = parent;
     }
 
-    public List<Categories> getCategories() {
+    public List<Categories> getSubCategories() {
 
-        return categories;
+        return subCategories;
     }
 
-    public void setCategories(List<Categories>categories) {
-        this.categories = categories;
+    public void setSubCategories(List<Categories> subCategories) {
+        this.subCategories = subCategories;
     }
 
     public List<Items> getItems() {
@@ -94,4 +88,18 @@ public class Categories {
         this.items = items;
     }
 
+    @Override
+    public String toString() {
+        return "Categories{" +
+            "categoryId=" + categoryId +
+            ", categoryName='" + categoryName + '\'' +
+            ", categoryLevel=" + categoryLevel +
+            ", parentId=" + parentId +
+            ", parent=" + (parent != null ? parent.categoryName + '(' + parentId + ')' : null) +
+            ", subCategories=" + (subCategories != null ? subCategories.stream().map(sc -> sc.categoryName +
+            '(' + sc.categoryId + ')').collect(Collectors.joining(",")) : null) +
+            ", items=" + (items != null ? items.stream().map(i -> i.getItemName() +
+            '(' + i.getItemId() + ')').collect(Collectors.joining(",")) : null) +
+        '}';
+    }
 }

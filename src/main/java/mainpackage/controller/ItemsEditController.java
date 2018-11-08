@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,7 @@ public class ItemsEditController {
 
 
     @RequestMapping(value = "/additem", method = RequestMethod.POST)
-    public String submit(@RequestParam("item") Items item, BindingResult result, RedirectAttributes attributes) {
+    public String submit(@ModelAttribute("item") Items item, BindingResult result, RedirectAttributes attributes) {
         itemsService.addItem(item);
 
         return "list_items";

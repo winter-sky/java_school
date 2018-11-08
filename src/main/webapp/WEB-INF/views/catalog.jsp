@@ -118,7 +118,7 @@
         </div>
         <p><b>Categories</b></p>
         <div class="container">
-            <c:forEach var="rootCategory" items="${rootCategory.categories}">
+            <c:forEach var="rootCategory" items="${rootCategory.subCategories}">
                 <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
                 <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
                 <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>
@@ -152,18 +152,18 @@
     <div class="column middle">
         <h2>Books will be here</h2>
         <div class="container">
-            <c:if test="${empty category.categories}">
+            <c:if test="${empty category.subCategories}">
                 <c:forEach var="item" items="${category.items}">
                     <tr>
                             ${item.itemName}<br>
                     </tr>
                 </c:forEach>
             </c:if>
-            <c:forEach var="category" items="${category.categories}">
+            <c:forEach var="category" items="${category.subCategories}">
                 <c:forEach var="item" items="${category.items}">
                     ${item.itemName}<br>
                 </c:forEach>
-                <c:if test="${!empty category.categories}">
+                <c:if test="${!empty category.subCategories}">
                     <c:set var="category" value="${category}" scope="request"/>
                     <jsp:include page="listitemsbycategory.jsp"/>
                 </c:if>

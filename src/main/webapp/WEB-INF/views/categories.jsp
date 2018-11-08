@@ -23,7 +23,7 @@
 </head>
 <body>
 <div class="container">
-            <c:forEach var="rootCategory" items="${rootCategory.categories}">
+            <c:forEach var="rootCategory" items="${rootCategory.subCategories}">
                 <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
                 <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
                 <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>

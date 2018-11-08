@@ -74,4 +74,13 @@ public class CategoriesController {
 //        return "listitemsbycategory";
         return "catalog";
     }
+
+    @RequestMapping(value = "/getallcategories", method = RequestMethod.GET)
+    public String getAllCategories(Model model) {
+        List<Categories> allCategories = this.categoriesService.getAllCategories();
+
+        model.addAttribute("allcategories", allCategories);
+
+        return "catalog";
+    }
 }

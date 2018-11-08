@@ -55,4 +55,11 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 //
 //        return listWithoutDuplicates;
 //    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Categories> getAllCategories() {
+        return em.createQuery("from Categories").getResultList();
+    }
 }

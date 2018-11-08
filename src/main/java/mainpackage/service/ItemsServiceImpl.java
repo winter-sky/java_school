@@ -34,6 +34,7 @@ public class ItemsServiceImpl implements ItemsService {
     public Items findItemById(int itemId){return this.itemsDAO.findItemById(itemId);}
 
     @Override
+    @Transactional
     public void addItem(Items item) {
         itemsDAO.addItem(item);
     }

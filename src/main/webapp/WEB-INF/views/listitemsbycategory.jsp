@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container">
-    <c:if test="${empty category.categories}">
+    <c:if test="${empty category.subCategories}">
         <c:forEach var="item" items="${category.items}">
             <tr>
 
@@ -25,11 +25,11 @@
             </tr>
         </c:forEach>
     </c:if>
-    <c:forEach var="category" items="${category.categories}">
+    <c:forEach var="category" items="${category.subCategories}">
         <c:forEach var="item" items="${category.items}">
             ${item.itemName}<br>
      </c:forEach>
-        <c:if test="${!empty category.categories}">
+        <c:if test="${!empty category.subCategories}">
             <c:set var="category" value="${category}" scope="request"/>
             <jsp:include page="listitemsbycategory.jsp"/>
         </c:if>

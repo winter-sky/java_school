@@ -13,5 +13,7 @@ public interface CategoriesDAO {
 
     Categories findCategoryById(int categoryId);
 
+    List<Categories> getAllCategories();
+
 //    List<String> listAuthors();
 }
