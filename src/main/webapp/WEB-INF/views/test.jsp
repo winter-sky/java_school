@@ -139,14 +139,13 @@
                     </c:forEach>
                 </select>
 
-
                 <p><b>Language</b></p>
                 <select name="language">
                     <c:forEach var="Language" items="${listLanguages}">
                         <option value="${Language}">${Language}</option>
                     </c:forEach>
                 </select>
-
+                <input type="submit">
 
                 <p><b>Format</b></p>
                 <c:forEach var="Format" items="${listFormats}">
@@ -156,7 +155,7 @@
                 </c:forEach>
             </div>
         </div>
-        <input type="submit">
+
     </form>
         <div class="column middle">
             <h2>Books will be here</h2>

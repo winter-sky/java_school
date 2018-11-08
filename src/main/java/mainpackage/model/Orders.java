@@ -42,7 +42,7 @@ public class Orders {
     @Column(name = "order_date")
     private Timestamp orderDate;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "order")
     private List<OrderItems> orderItems;
 
     @ManyToOne
@@ -53,13 +53,11 @@ public class Orders {
     @JoinColumn(name="orders_client")
     Clients client;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "order_items",
-//            joinColumns = { @JoinColumn(name = "orders") },
-//            inverseJoinColumns = { @JoinColumn(name = "items") }
-//    )
-//    List<Items> items;
+    @Override
+    public String toString() {
+        return "Order [id=" + orderId + ", Order date = " + orderDate + ", Client = " + client + ", Client address "+
+                clientAddresses + "Full order price  " + orderPrice + "]";
+    }
 
     public int getOrderId() {
         return orderId;

@@ -37,8 +37,8 @@ public class Items {
     @JoinColumn(name="params_id")
     private Params params;
 
-//    @OneToMany(mappedBy = "items")//is it necessary?
-//    private List<OrderItems> orderItems;
+    @OneToMany(mappedBy = "item")//is it necessary?
+    private List<OrderItems> orderItems;
 
     @Override
     public String toString() {
@@ -117,4 +117,11 @@ public class Items {
         this.params = params;
     }
 
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

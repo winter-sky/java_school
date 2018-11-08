@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Alisa
@@ -43,5 +45,6 @@
     <p>Address: ${client.clientAddress.country}, ${client.clientAddress.zipCode}, ${client.clientAddress.city}, ${client.clientAddress.street}, ${client.clientAddress.building}-${client.clientAddress.apartment}</p>
     <p><a href="<c:url value='/edit/${client.clientId}'/>">Edit profile</a></p>
 </div>
+
 </body>
 </html>

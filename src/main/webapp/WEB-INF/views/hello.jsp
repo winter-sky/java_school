@@ -33,8 +33,10 @@
 <%--<select>--%>
     <%--<c:forEach var="paymentItem" items="${payment}">--%>
         <%--<option value="${paymentItem.ordinal()}">${paymentItem.toString()}</option>--%>
+        <%--&lt;%&ndash;<a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>&ndash;%&gt;--%>
     <%--</c:forEach>--%>
 <%--</select>--%>
+<%--<input type="submit">--%>
 
 <%--<h3>Payment method</h3>--%>
 <%--<c:forEach var="paymentItem" items="${payment}">--%>

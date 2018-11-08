@@ -1,6 +1,7 @@
 package mainpackage.dao;
 
 import mainpackage.model.*;
+import mainpackage.type.DeliveryMethod;
 import mainpackage.type.PaymentMethod;
 import org.springframework.stereotype.Repository;
 
@@ -45,7 +46,34 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public List<Orders> getUserOrders(String userLogin){
+    public void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin){
+        Query query = em.createQuery("from Logins");
+        List<Logins> logins = query.getResultList();
+
+        Clients client = new Clients();
+
+        for (Logins l : logins) {
+            if ((l.getLogin()).equals(userLogin)) {
+                System.out.println(l.getLogin());
+                client = l.getClient();
+            }
+        }
+        System.out.println("Client found: " + client.getClientId() +")"+" "+ client.getFirstName());
+
+        List<Orders> userOrders = client.getOrders();//is it more properly get the last order? must be improved
+        System.out.println("Orders client: " + client.getOrders());
+        Orders userOrder = new Orders();
+        for(Orders o:userOrders){
+            if(o.getPaymentStatus().equals(AWAITING_PAYMENT)){
+                System.out.println("Must be found: " + o);
+                userOrder=o;
+            }
+        }
+        userOrder.setDeliveryMethod(deliveryMethod);
+    }
+
+    @Override
+    public List<Orders> getUserOrders(String userLogin){//what is it?
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
 
@@ -152,4 +180,47 @@ public class OrdersDAOImpl implements OrdersDAO {
       }
         return orderItems;
     }
+
+//    @Override
+//    public Params getParamsItemFromOrderByLogin(String userLogin){
+//        getUserCurrentOrder(userLogin);
+//    }
+
+    @Override
+    public Orders getCurrentOrder(String userLogin){
+        Query query = em.createQuery("from Logins");
+        List<Logins> logins = query.getResultList();
+        Clients client = new Clients();
+        for (Logins l : logins) {
+            if ((l.getLogin()).equals(userLogin)) {
+                System.out.println(l.getLogin());
+                client = l.getClient();
+            }
+        }
+
+        Orders currentOrder = new Orders();
+        List<Orders> listUserOrders = new ArrayList<>();
+        List<Items> orderItems = new ArrayList<>();
+        if(client.getOrders()!=null) {
+            listUserOrders = client.getOrders();
+            for (Orders o : listUserOrders) {
+                if (o.getPaymentStatus().equals(AWAITING_PAYMENT))
+                    currentOrder = o;
+            }
+        }
+            return currentOrder;
+    }
+
+//    @Override
+//    public OrderItems getOrderItemsById (int orderItemsId){
+//        Query query = em.createQuery("from OrderItems where order_items_id=:orderItemsId");
+//        OrderItems orderItems = (OrderItems) query.setParameter("orderItemsId", orderItemsId).getSingleResult();
+//        return orderItems;
+//    }
+//
+//    @Override
+//    public void updateOrderItemQuantity (OrderItems orderItem){
+//        OrderItems orderItemsDb = (OrderItems) em.find(OrderItems.class, orderItem.getOrderItemsId());
+//        orderItemsDb.setItemQuantity(orderItem.getItemQuantity());
+//    }
 }
