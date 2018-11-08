@@ -107,6 +107,7 @@ public class Items {
 
     public void setCategory(Categories category) {
         this.category = category;
+        category.getItems().add(this);
     }
 
     public Params getParams() {
@@ -115,6 +116,6 @@ public class Items {
 
     public void setParams(Params params) {
         this.params = params;
+        params.setItems(this);
     }
-
 }

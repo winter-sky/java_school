@@ -1,6 +1,8 @@
 package mainpackage.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Params {
     private String format;
 
     @OneToOne(mappedBy = "params")
+    @JsonIgnore
     private Items item;
 
     public Items getItem() {

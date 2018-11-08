@@ -20,6 +20,7 @@
     <spring-security.version>5.1.1.RELEASE</spring-security.version>
     <spring.version>5.1.1.RELEASE</spring.version>
     <slf4j.version>1.8.0-beta2</slf4j.version>
+    <jackson.version>2.9.7</jackson.version>
   </properties>
 
   <dependencies>
@@ -167,6 +168,27 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-taglibs</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+    <!-- the core, which includes Streaming API, shared low-level abstractions (but NOT data-binding) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- Just the annotations; use this dependency if you want to attach annotations
+         to classes without connecting them to the code. -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- databinding; ObjectMapper, JsonNode and related classes are here -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
   </dependencies>
 

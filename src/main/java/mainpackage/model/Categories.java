@@ -1,5 +1,7 @@
 package mainpackage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,12 +25,15 @@ public class Categories {
 
     @ManyToOne
     @JoinColumn(name="parent_id")
+    @JsonIgnore
     private Categories parent;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "parent")//
+    @JsonIgnore
     private List<Categories> subCategories;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
+    @JsonIgnore
     private List<Items> items;
 
     public int getCategoryId() {
