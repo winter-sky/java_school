@@ -15,4 +15,5 @@ public interface CategoriesService {
 
 //    List<String> listAuthors();
 
+    List<Categories> showLowermostSubCategories();
 }

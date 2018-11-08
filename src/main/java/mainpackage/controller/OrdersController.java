@@ -81,7 +81,6 @@ public class OrdersController {
     @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
     public String addItemToOrder (SessionStatus status, HttpSession session, Model model, Principal principal, @PathVariable("userlogin")
             String userLogin , @PathVariable("itemId") int itemId ){
-        System.out.println("Are we in the fucking controller?");
         String login = principal.getName();
         this.ordersService.addNewOrder(login,itemId);
         session.removeAttribute("guestcart");

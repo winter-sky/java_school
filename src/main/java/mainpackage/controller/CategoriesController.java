@@ -76,7 +76,7 @@ public class CategoriesController {
         return "catalog";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)//create new Cart for guest
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(HttpSession session, Model model) {
         Categories rootCategory = this.categoriesService.getRootCategory();
         System.out.println(rootCategory);

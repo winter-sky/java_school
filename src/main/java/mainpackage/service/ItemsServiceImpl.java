@@ -54,4 +54,11 @@ public class ItemsServiceImpl implements ItemsService {
 //        }
     }
 
+    @Override
+    @Transactional
+    public void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
+                            String volume,int availableCount,String pic){
+        this.itemsDAO.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount, pic);
+    }
+
 }

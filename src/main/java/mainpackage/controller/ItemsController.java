@@ -5,15 +5,13 @@ import mainpackage.model.Cart;
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
 import mainpackage.service.CartService;
+import mainpackage.service.CategoriesService;
 import mainpackage.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -25,6 +23,14 @@ public class ItemsController {
 
     CartService cartService;
 
+    private CategoriesService categoriesService;
+
+    @Autowired
+    @Qualifier(value="CategoriesService")
+    public void setCategoriesService(CategoriesService cs){
+        this.categoriesService = cs;
+    }
+
     @Autowired
     @Qualifier(value = "ItemsService")
     public void setItemsService(ItemsService is) {
@@ -35,6 +41,26 @@ public class ItemsController {
     @Qualifier(value = "CartService")
     public void setCartService(CartService cs) {
         this.cartService = cs;
+    }
+
+    @RequestMapping(value = "/createnewitem", method = RequestMethod.GET)//testing filter
+    public String createItemPage (Model model) {
+        //TODO
+        List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
+        model.addAttribute("listlowermostcategories", lowermostCategories);
+        return "create_item";
+    }
+
+    @RequestMapping(value = "/createitem", method = RequestMethod.POST)//testing filter
+    public String createnewItem (Model model, @RequestParam("categoryId") int categoryId,
+   @RequestParam("author") String author, @RequestParam("format") String format,@RequestParam("language") String language, @RequestParam("itemName") String itemName,
+     @RequestParam("price") double price,@RequestParam("weight") double weight,@RequestParam("volume") String volume,
+   @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic){
+        //TODO
+        List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
+        this.itemsService.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount, pic);
+        model.addAttribute("listlowermostcategories", lowermostCategories);
+        return "create_item";
     }
 
 //    @RequestMapping(value = "/listitems", method = RequestMethod.GET)//doesn' work properly

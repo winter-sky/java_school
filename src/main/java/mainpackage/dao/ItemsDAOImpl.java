@@ -62,4 +62,32 @@ public class ItemsDAOImpl implements ItemsDAO {
 //
 //        return ((Orders) q.getSingleResult()).getItems();
 //    }
+
+    @Override
+    public void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
+                            String volume,int availableCount,String pic){
+        Params newItemParam = new Params();
+
+
+        newItemParam.setAuthor(author);
+        newItemParam.setFormat(format);
+        newItemParam.setLanguage(language);
+        em.persist(newItemParam);
+
+        Items newItem = new Items();
+        newItem.setParams(newItemParam);
+
+        Query query = em.createQuery("from Categories where category_id=:categoryId");
+        Categories cat= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
+
+        newItem.setCategory(cat);
+
+        newItem.setItemName(itemName);
+        newItem.setPrice(price);
+        newItem.setWeight(weight);
+        newItem.setVolume(volume);
+        newItem.setAvailableCount(availableCount);
+        newItem.setPic(pic);
+        em.persist(newItem);
+    }
 }

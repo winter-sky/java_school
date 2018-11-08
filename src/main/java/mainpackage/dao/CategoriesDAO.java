@@ -14,4 +14,6 @@ public interface CategoriesDAO {
     Categories findCategoryById(int categoryId);
 
 //    List<String> listAuthors();
+
+    List<Categories> showLowermostSubCategories();//show lowermost categories (categories without shild categories)
 }

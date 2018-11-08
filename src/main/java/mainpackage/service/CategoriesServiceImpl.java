@@ -40,4 +40,8 @@ public class CategoriesServiceImpl implements CategoriesService {
 //    @Override
 //    @Transactional
 //    public List<String> listAuthors(){ return categoriesDAO.listAuthors();};
+
+    @Override
+    @Transactional
+    public List<Categories> showLowermostSubCategories(){return this.categoriesDAO.showLowermostSubCategories();}
 }
