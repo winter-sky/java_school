@@ -1,13 +1,13 @@
 package mainpackage.controller;
 
-import mainpackage.model.Categories;
+import mainpackage.dto.ItemDTO;
+import mainpackage.dto.ItemStatDTO;
 import mainpackage.model.Items;
 import mainpackage.model.OrderItems;
 import mainpackage.model.Orders;
-import mainpackage.service.CategoriesService;
 import mainpackage.service.ItemsService;
 import mainpackage.service.OrdersService;
-import mainpackage.service.ParamsService;
+import mainpackage.util.DTOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Controller
@@ -31,10 +32,6 @@ public class StatisticsController {
     private ItemsService itemsService;
 
     private OrdersService ordersService;
-
-    private CategoriesService categoriesService;
-
-    private ParamsService paramsService;
 
     private class ItemQty implements Comparable<ItemQty> {
         ItemQty(int itemId, int qty) {
@@ -77,16 +74,6 @@ public class StatisticsController {
     @Autowired
     public void setOrdersService(OrdersService ordersService) {
         this.ordersService = ordersService;
-    }
-
-    @Autowired
-    public void setCategoriesService(CategoriesService categoriesService) {
-        this.categoriesService = categoriesService;
-    }
-
-    @Autowired
-    public void setParamsService(ParamsService paramsService) {
-        this.paramsService = paramsService;
     }
 
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
@@ -134,9 +121,23 @@ public class StatisticsController {
 
             log.info("Top items found:" + Arrays.toString(topItemsIds));
 
-            List<Items> topItems = itemsService.findItemsByIds(topItemsIds);
+            final Map<Integer, Items> topItems = itemsService.findItemsByIds(topItemsIds).stream().collect(
+                Collectors.toMap(Items::getItemId, Function.identity()));
 
-            model.addAttribute("listItems", topItems);
+            List<ItemStatDTO> dtos = sorted.stream().map(iq -> {
+                Items item = topItems.get(iq.itemId);
+
+                ItemDTO dto = DTOUtil.toDTO(item);
+
+                ItemStatDTO statDto = new ItemStatDTO();
+
+                statDto.setItem(dto);
+                statDto.setQuantitiesSold(iq.qty);
+
+                return statDto;
+            }).collect(Collectors.toList());
+
+            model.addAttribute("listItems", dtos);
         }
         else {
             log.info("No orders found.");

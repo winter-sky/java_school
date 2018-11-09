@@ -21,15 +21,17 @@
         <td>Weight</td>
         <td>Volume</td>
         <td>Available count</td>
+        <td>Quantity sold</td>
     </tr>
     <c:forEach var="item" items="${listItems}">
     <tr>
-        <td>${item.itemName}</td>
-        <td>${item.category.getCategoryName()}</td>
-        <td>${item.price}</td>
-        <td>${item.weight}</td>
-        <td>${item.volume}</td>
-        <td>${item.availableCount}</td>
+        <td>${item.getItem().itemName}</td>
+        <td>${item.getItem().category.getCategoryName()}</td>
+        <td>${item.getItem().price}</td>
+        <td>${item.getItem().weight}</td>
+        <td>${item.getItem().volume}</td>
+        <td>${item.getItem().availableCount}</td>
+        <td>${item.getQuantitiesSold()}</td>
     </tr>
 </c:forEach>
 </table>
