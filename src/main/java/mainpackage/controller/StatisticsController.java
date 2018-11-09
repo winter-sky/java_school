@@ -89,7 +89,12 @@ public class StatisticsController {
         this.paramsService = paramsService;
     }
 
-    @RequestMapping(value = "/topitems", method = RequestMethod.GET)
+    @RequestMapping(value = "/statistics", method = RequestMethod.GET)
+    public String statistics(Model model) {
+        return "statistics";
+    }
+
+        @RequestMapping(value = "/topitems", method = RequestMethod.GET)
     public String topItems(Model model) {
         // TODO: need to be optimized.
         List<Orders> allOrders = ordersService.getAllOrders();
@@ -152,6 +157,6 @@ public class StatisticsController {
         List<String> listFormats = this.paramsService.listFormats();
         model.addAttribute("listFormats",listFormats);
 
-        return "catalog";
+        return "topitems";
     }
 }
