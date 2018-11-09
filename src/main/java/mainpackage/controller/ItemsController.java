@@ -43,7 +43,39 @@ public class ItemsController {
         this.cartService = cs;
     }
 
-    @RequestMapping(value = "/createnewitem", method = RequestMethod.GET)//testing filter
+    @RequestMapping(value = "/edititempage", method = RequestMethod.GET)
+    public String editItemPage (Model model) {
+        List<Items> listAllItems = this.itemsService.showListAllItems();
+        model.addAttribute("listallItems", listAllItems);
+        return "edit_item";
+    }
+
+    @RequestMapping(value = "/edititem/{itemId}", method = RequestMethod.GET)
+    public String editItem (Model model,@PathVariable("itemId") int itemId) {
+        Items item = this.itemsService.findItemById(itemId);
+        model.addAttribute("item", item);
+        List<Items> listAllItems = this.itemsService.showListAllItems();
+        model.addAttribute("listallItems", listAllItems);
+        List<Categories> listallcategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listallcategories);
+        return "edit_item";
+    }
+
+    @RequestMapping(value= "/updateitem", method = RequestMethod.POST)
+    public String updateClient(Model model,@RequestParam("itemId") int itemId,@RequestParam("itemName") String itemName,@RequestParam("price") double price,
+      @RequestParam("weight") double weight, @RequestParam("volume") String volume,
+         @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic,
+            @RequestParam("categoryId") int categoryId,@RequestParam("author") String author,
+                @RequestParam("format") String format,@RequestParam("language") String language){
+        //TODO updateItem
+        this.itemsService.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author,
+                format, language);
+        List<Items> listAllItems = this.itemsService.showListAllItems();
+        model.addAttribute("listallItems", listAllItems);
+        return "edit_item";
+    }
+
+    @RequestMapping(value = "/createnewitem", method = RequestMethod.GET)
     public String createItemPage (Model model) {
         //TODO
         List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
@@ -51,9 +83,10 @@ public class ItemsController {
         return "create_item";
     }
 
-    @RequestMapping(value = "/createitem", method = RequestMethod.POST)//testing filter
+    @RequestMapping(value = "/createitem", method = RequestMethod.POST)
     public String createnewItem (Model model, @RequestParam("categoryId") int categoryId,
-   @RequestParam("author") String author, @RequestParam("format") String format,@RequestParam("language") String language, @RequestParam("itemName") String itemName,
+   @RequestParam("author") String author, @RequestParam("format") String format,@RequestParam("language") String language,
+                                 @RequestParam("itemName") String itemName,
      @RequestParam("price") double price,@RequestParam("weight") double weight,@RequestParam("volume") String volume,
    @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic){
         //TODO

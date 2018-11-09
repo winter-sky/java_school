@@ -39,14 +39,14 @@ public class ClientsDAOImpl implements  ClientsDAO {
     }
 
     @Override
-    public void updateClient (Clients client){
+    public void updateClient (Clients client){//must be improved
        Clients clientDb = (Clients) em.find(Clients.class, client.getClientId());
        clientDb.setFirstName(client.getFirstName());
        clientDb.setLastName(client.getLastName());
        clientDb.setBirthDate(client.getBirthDate());
        clientDb.setEmail(client.getEmail());
 
-        ClientAddresses clientAddress = new ClientAddresses();//интересно, так заработает?
+        ClientAddresses clientAddress = new ClientAddresses();
         clientAddress=client.getClientAddress();
         ClientAddresses clientAddressesDb = clientDb.getClientAddress();
         clientAddressesDb.setCountry(clientAddress.getCountry());

@@ -19,4 +19,9 @@ public interface ItemsService {
 
     void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
                      String volume,int availableCount,String pic);
+
+    List<Items> showListAllItems();
+
+    void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
+                    String pic, int categoryId,String author,String format,String language);
 }
