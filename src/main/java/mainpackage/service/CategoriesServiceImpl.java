@@ -53,4 +53,14 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Transactional
     public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
         this.categoriesDAO.addNewCategory(categoryId, categoryName, categoryLevel);}
+
+    @Override
+    @Transactional
+     public void updateCategory (int categoryId,int parentId,String categoryName){
+        this.categoriesDAO.updateCategory(categoryId, parentId, categoryName);
+     }
+
+    @Override
+    @Transactional
+    public List<Categories> showAllParentCategories(){return this.categoriesDAO.showAllParentCategories();}
 }

@@ -21,7 +21,7 @@ ${cat.categoryName}<br>
 <p>Choose parent category</p>
 <form action="/addnewcategory" method="POST">
     <select name="categoryId">
-        <c:forEach var="cat" items="${listallcategories}">
+        <c:forEach var="cat" items="${listallparentcategories}">
             <option value="${cat.categoryId}">${cat.categoryName}</option>
         </c:forEach>
     </select><br>

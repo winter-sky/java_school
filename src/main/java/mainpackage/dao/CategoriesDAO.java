@@ -20,4 +20,8 @@ public interface CategoriesDAO {
     List<Categories> showAllCategories();
 
     void addNewCategory(int categoryId,String categoryName,int categoryLevel);
+
+    void updateCategory (int categoryId,int parentId,String categoryName);
+
+    List<Categories> showAllParentCategories();
 }

@@ -20,8 +20,9 @@
     </tr>
 </c:forEach>
 <form action="/updateitem" method="POST">
+    <p>Choose category: </p>
     <select name="categoryId">
-        <c:forEach var="cat" items="${listallcategories}">
+        <c:forEach var="cat" items="${listlowermostcategories}">
             <option value="${cat.categoryId}">${cat.categoryName}</option>
         </c:forEach>
     </select><br>
@@ -35,7 +36,7 @@
     <p>Item volume: <input type = "text" value="${item.volume}" name = "volume" /></p>
     <p>Item availableCount: <input type = "text" value="${item.availableCount}" name = "availableCount" /></p>
     <p>Item pic: <input type = "text" value="${item.pic}" name = "pic" /></p>
-<input type = "submit" value = "Submit" />
+    <input type = "submit" value = "Submit" />
 </form>
 </body>
 </html>

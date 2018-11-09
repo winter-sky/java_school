@@ -56,13 +56,13 @@ public class ItemsController {
         model.addAttribute("item", item);
         List<Items> listAllItems = this.itemsService.showListAllItems();
         model.addAttribute("listallItems", listAllItems);
-        List<Categories> listallcategories = this.categoriesService.showAllCategories();
-        model.addAttribute("listallcategories", listallcategories);
+        List<Categories> listLowermostCategories = this.categoriesService.showLowermostSubCategories();
+        model.addAttribute("listlowermostcategories", listLowermostCategories);
         return "edit_item";
     }
 
     @RequestMapping(value= "/updateitem", method = RequestMethod.POST)
-    public String updateClient(Model model,@RequestParam("itemId") int itemId,@RequestParam("itemName") String itemName,@RequestParam("price") double price,
+    public String updateItem(Model model,@RequestParam("itemId") int itemId,@RequestParam("itemName") String itemName,@RequestParam("price") double price,
       @RequestParam("weight") double weight, @RequestParam("volume") String volume,
          @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic,
             @RequestParam("categoryId") int categoryId,@RequestParam("author") String author,
@@ -96,26 +96,7 @@ public class ItemsController {
         return "create_item";
     }
 
-//    @RequestMapping(value = "/listitems", method = RequestMethod.GET)//doesn' work properly
-//    public String listItems(Model model) {
-//        model.addAttribute("items", new Items());
-//        List<Items> list = this.itemsService.listItems();
-//        model.addAttribute("listItems", list);
-//        model.addAttribute("guestcart",new Cart());
-//        return "list_items";
-//    }
-
-//    @RequestMapping(value = "/guestcart", method = RequestMethod.GET)//doesn' work properly
-//    public String guestShoppingCart(HttpSession session,Model model) {
-//        //List<Items> guestCart = this.itemsService.guestShoppingCart();
-//
-//        Cart guestcart = (Cart)session.getAttribute("guestcart");
-//        List<Items> guest_cart = guestcart.getItems();
-//        model.addAttribute("guest_cart", guest_cart);
-//        return "guest_cart";
-//    }
-
-    @RequestMapping(value = "/itemlist", method = RequestMethod.GET)//create new Cart for guest
+    @RequestMapping(value = "/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
     public String scopeExample(HttpSession session, Model model, Principal principal) {
 
         //check whether the somebody is logged in or not
@@ -133,7 +114,6 @@ public class ItemsController {
             session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
         }
 
-        //return "list_items";
         return "catalog";
     }
 
@@ -143,10 +123,4 @@ public class ItemsController {
         return "test";
     }
 
-//    @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)
-//    public String userShoppingCart(Model model, @PathVariable("userLogin") String userLogin) {
-//        List<Items> userCart = this.itemsService.userShoppingCart(userLogin);
-//        model.addAttribute("usercart", userCart);
-//        return "user_cart";
-//    }
 }

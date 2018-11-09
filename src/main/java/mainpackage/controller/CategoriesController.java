@@ -37,10 +37,34 @@ public class CategoriesController {
         this.categoriesService = cs;
     }
 
+    @RequestMapping(value = "/editcategorypage", method = RequestMethod.GET)
+    public String editCategoryPage (Model model) {
+        List<Categories> listAllCategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listAllCategories);
+        return "edit_category";
+    }
+
+    @RequestMapping(value = "/editcategory/{categoryId}", method = RequestMethod.GET)
+    public String editCategoryById (Model model,@PathVariable("categoryId") int categoryId) {
+        Categories category = this.categoriesService.findCategoryById(categoryId);
+        model.addAttribute("category", category);
+        List<Categories> listAllParentCategories = this.categoriesService.showAllParentCategories();
+        model.addAttribute("listallparentcategories", listAllParentCategories);
+        return "edit_category";
+    }
+
+    @RequestMapping(value= "/updatecategory", method = RequestMethod.POST)
+    public String updateCategory(Model model,@RequestParam("categoryId") int categoryId,@RequestParam("parentId") int parentId,@RequestParam("categoryName") String categoryName){
+        this.categoriesService.updateCategory(categoryId, parentId, categoryName);
+        List<Categories> listAllCategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listAllCategories);
+        return "edit_category";
+    }
+
     @RequestMapping(value = "/createcategorypage", method = RequestMethod.GET)//testing filter
     public String createCategoryPage (Model model) {
-        List<Categories> listallcategories = this.categoriesService.showAllCategories();
-        model.addAttribute("listallcategories", listallcategories);
+        List<Categories> listAllParentCategories = this.categoriesService.showAllParentCategories();
+        model.addAttribute("listallparentcategories", listAllParentCategories);
         return "create_category";
     }
 
