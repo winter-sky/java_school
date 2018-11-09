@@ -25,7 +25,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         List<Categories> listAllParentCategories = new ArrayList<>();
 
         for (Categories c:listAllCategories){
-            if(!c.getCategories().isEmpty())
+            if(!c.getSubCategories().isEmpty())
                 listAllParentCategories.add(c);
         }
         return listAllParentCategories;
@@ -42,7 +42,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         //update category in DB
         categoryDB.setCategoryName(categoryName);
         categoryDB.setCategoryLevel(parentCategory.getCategoryLevel()+1);
-        categoryDB.setCategory(parentCategory);
+        categoryDB.setParent(parentCategory);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         Categories newCategory = new Categories();
         newCategory.setCategoryName(categoryName);
         newCategory.setCategoryLevel(categoryLevel);
-        newCategory.setCategory(parentCategory);
+        newCategory.setParent(parentCategory);
 
         em.persist(newCategory);
     }
@@ -80,7 +80,7 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         List<Categories> result = new ArrayList<>();
         List<Categories> listAllCategories = query.getResultList();
         for (Categories c:listAllCategories){
-            if(c.getCategories().isEmpty())
+            if(c.getSubCategories().isEmpty())
                 result.add(c);
         }
 
