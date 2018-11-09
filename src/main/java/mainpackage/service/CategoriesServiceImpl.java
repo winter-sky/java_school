@@ -46,4 +46,27 @@ public class CategoriesServiceImpl implements CategoriesService {
     public List<Categories> getAllCategories() {
         return categoriesDAO.getAllCategories();
     }
+
+    @Override
+    @Transactional
+    public List<Categories> showLowermostSubCategories(){return this.categoriesDAO.showLowermostSubCategories();}
+
+    @Override
+    @Transactional
+    public List<Categories> showAllCategories(){return this.categoriesDAO.showAllCategories();}
+
+    @Override
+    @Transactional
+    public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
+        this.categoriesDAO.addNewCategory(categoryId, categoryName, categoryLevel);}
+
+    @Override
+    @Transactional
+     public void updateCategory (int categoryId,int parentId,String categoryName){
+        this.categoriesDAO.updateCategory(categoryId, parentId, categoryName);
+     }
+
+    @Override
+    @Transactional
+    public List<Categories> showAllParentCategories(){return this.categoriesDAO.showAllParentCategories();}
 }

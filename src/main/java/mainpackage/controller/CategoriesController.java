@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -35,6 +36,46 @@ public class CategoriesController {
     public void setCustomersService(CategoriesService cs){
         this.categoriesService = cs;
     }
+
+    @RequestMapping(value = "/editcategorypage", method = RequestMethod.GET)
+    public String editCategoryPage (Model model) {
+        List<Categories> listAllCategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listAllCategories);
+        return "edit_category";
+    }
+
+    @RequestMapping(value = "/editcategory/{categoryId}", method = RequestMethod.GET)
+    public String editCategoryById (Model model,@PathVariable("categoryId") int categoryId) {
+        Categories category = this.categoriesService.findCategoryById(categoryId);
+        model.addAttribute("category", category);
+        List<Categories> listAllParentCategories = this.categoriesService.showAllParentCategories();
+        model.addAttribute("listallparentcategories", listAllParentCategories);
+        return "edit_category";
+    }
+
+    @RequestMapping(value= "/updatecategory", method = RequestMethod.POST)
+    public String updateCategory(Model model,@RequestParam("categoryId") int categoryId,@RequestParam("parentId") int parentId,@RequestParam("categoryName") String categoryName){
+        this.categoriesService.updateCategory(categoryId, parentId, categoryName);
+        List<Categories> listAllCategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listAllCategories);
+        return "edit_category";
+    }
+
+    @RequestMapping(value = "/createcategorypage", method = RequestMethod.GET)//testing filter
+    public String createCategoryPage (Model model) {
+        List<Categories> listAllParentCategories = this.categoriesService.showAllParentCategories();
+        model.addAttribute("listallparentcategories", listAllParentCategories);
+        return "create_category";
+    }
+
+    @RequestMapping(value = "/addnewcategory", method = RequestMethod.POST)//testing filter
+    public String createNewCategory (Model model, @RequestParam("categoryId") int categoryId,
+     @RequestParam("categoryName") String categoryName,@RequestParam("categoryLevel") int categoryLevel){
+        //TODO
+        this.categoriesService.addNewCategory(categoryId, categoryName, categoryLevel);
+        List<Categories> listallcategories = this.categoriesService.showAllCategories();
+        model.addAttribute("listallcategories", listallcategories);
+        return "create_category";}
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String showCatalog() {
@@ -85,7 +126,7 @@ public class CategoriesController {
         return "catalog";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)//create new Cart for guest
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(HttpSession session, Model model) {
         Categories rootCategory = this.categoriesService.getRootCategory();
         System.out.println(rootCategory);

@@ -6,9 +6,7 @@ import mainpackage.model.Items;
 import java.util.List;
 
 public interface CategoriesService {
-//    List<Categories> listCategories();
-//    List<Categories> listSubCategories(int parentId);
-//    List<Categories> listAllCategories();
+
     Categories getRootCategory();
 
     Categories findCategoryById(int categoryId);
@@ -16,5 +14,13 @@ public interface CategoriesService {
     List<Categories> getAllCategories();
 
 //    List<String> listAuthors();
+    List<Categories> showLowermostSubCategories();
 
+    List<Categories> showAllCategories();
+
+    void addNewCategory(int categoryId,String categoryName,int categoryLevel);
+
+    void updateCategory (int categoryId,int parentId,String categoryName);
+
+    List<Categories> showAllParentCategories();
 }
