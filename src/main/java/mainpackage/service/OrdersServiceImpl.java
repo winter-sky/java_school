@@ -51,4 +51,10 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     @Transactional
     public List<Orders> getOrders (String userLogin){return this.ordersDAO.getOrders(userLogin);}
+
+    @Override
+    @Transactional
+    public List<Orders> getAllOrders() {
+        return null;
+    }
 }

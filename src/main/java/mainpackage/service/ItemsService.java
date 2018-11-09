@@ -15,6 +15,8 @@ public interface ItemsService {
 
     Items findItemById(int itemId);
 
+    List<Items> findItemsByIds(Integer[] itemId);
+
     void saveItem(ItemDTO item);
 
     void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,

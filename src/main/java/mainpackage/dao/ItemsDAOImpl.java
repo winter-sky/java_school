@@ -11,7 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository("ItemsDAO")
 public class ItemsDAOImpl implements ItemsDAO {
@@ -93,5 +95,14 @@ public class ItemsDAOImpl implements ItemsDAO {
         Query query = em.createQuery("from Items");
         List<Items> listAllItems = query.getResultList();
         return  listAllItems;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Items> findItemsByIds(Integer[] itemIds) {
+        String itemIdStr = Arrays.stream(itemIds).map(String::valueOf).collect(Collectors.joining(","));
+
+        Query query = em.createQuery("from Items where item_id IN(:itemIdsStr)");
+        return  (List<Items>) query.setParameter("itemIdStr", itemIdStr).getResultList();
     }
 }

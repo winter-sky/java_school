@@ -275,4 +275,11 @@ public class OrdersDAOImpl implements OrdersDAO {
 //        OrderItems orderItemsDb = (OrderItems) em.find(OrderItems.class, orderItem.getOrderItemsId());
 //        orderItemsDb.setItemQuantity(orderItem.getItemQuantity());
 //    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Orders> getAllOrders() {
+        return em.createQuery("from Orders").getResultList();
+    }
 }

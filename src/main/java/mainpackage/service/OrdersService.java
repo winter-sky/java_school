@@ -21,4 +21,6 @@ public interface OrdersService {
     Orders getCurrentOrder(String userLogin);
 
     List<Orders> getOrders (String userLogin);
+
+    List<Orders> getAllOrders ();
 }

@@ -31,4 +31,6 @@ public interface OrdersDAO {
 //    void updateOrderItemQuantity (OrderItems orderItem);
 
     List<Orders> getOrders (String userLogin);//find client not delivered orders
+
+    List<Orders> getAllOrders ();//find client not delivered orders
 }
