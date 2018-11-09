@@ -107,8 +107,20 @@
     <a href="#">Link</a>
     <a href="itemlist">Show all books</a>
     <div class="topnav right">
-    <a href="/hello">Log in</a>
-        <a href="/cart/guestcart">Cart</a>
+    <%--<a href="/hello">Log in</a>--%>
+        <%--<a href="/login">Log in</a>--%>
+        <%--<a href="/cart/guestcart">Cart</a>--%>
+        <%--<security:authorize access="hasRole('USER')">--%>
+            <%--<a href="<c:url value='/cart/usercart/${message}'/>">Cart</a><br>--%>
+            <%--<a href="<c:url value='/logout'/>">Log out</a><br>--%>
+        <%--</security:authorize>--%>
+        <c:if test="${empty checkprincipal}">
+            <a href="/login">Log in</a>
+            <a href="/cart/guestcart">Cart</a>
+        </c:if>
+        <c:if test="${!empty checkprincipal}">
+            <a href="<c:url value='/logout'/>">Log out</a>
+        </c:if>
     </div>
 </div>
 

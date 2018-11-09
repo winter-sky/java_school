@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,6 +36,12 @@ public class CategoriesController {
     @Qualifier(value="CategoriesService")
     public void setCustomersService(CategoriesService cs){
         this.categoriesService = cs;
+    }
+
+    @RequestMapping(value = "/removecategory/{categoryId}")
+    public String removeItemPage (@PathVariable("categoryId") int categoryId) {
+        this.categoriesService.removeCategory(categoryId);
+        return "edit_category";
     }
 
     @RequestMapping(value = "/editcategorypage", method = RequestMethod.GET)
@@ -84,7 +91,10 @@ public class CategoriesController {
     }
 
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)
-    public String listCategories(Model model) {
+    public String listCategories(Model model, Principal principal) {
+        //String login = principal.getName();//get login of user is logged in, must be fixed
+        //model.addAttribute("message", login);
+        model.addAttribute("checkprincipal", principal);
         //model.addAttribute("categories", new Categories());
 //        List<Categories> list = this.categoriesService.listCategories();
 //        model.addAttribute("listCategories", list);

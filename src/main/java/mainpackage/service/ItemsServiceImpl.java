@@ -73,4 +73,10 @@ public class ItemsServiceImpl implements ItemsService {
                            String pic, int categoryId,String author,String format,String language){
         this.itemsDAO.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author, format, language);
     }
+
+//    @Override
+//    @Transactional
+//    public void removeItem(int itemId){
+//        this.itemsDAO.removeItem(itemId);
+//    }
 }

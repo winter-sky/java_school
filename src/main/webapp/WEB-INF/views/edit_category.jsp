@@ -14,10 +14,9 @@
 <body>
 <h3>List All Categories</h3>
 <c:forEach var="cat" items="${listallcategories}">
-    <tr>
-        <p>Item ID: ${cat.categoryId}) ${cat.categoryName} <a href="<c:url value='/editcategory/${cat.categoryId}'/>">Edit</a></p>
+        Item ID: ${cat.categoryId}) ${cat.categoryName}
+            <a href="<c:url value='/editcategory/${cat.categoryId}'/>">Edit</a>
         <br>
-    </tr>
 </c:forEach>
 <form action="/updatecategory" method="POST">
     <p>Choose parent category: </p>

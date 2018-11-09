@@ -18,6 +18,7 @@ public class CartDAOImpl implements CartDAO {
     private EntityManager em;
 
     @Override
+    @Deprecated
     public List<Items> getGuestShoppingCart() {//isn't used
         Query query = em.createQuery("from  Cart");
         List<Cart> listOrders = query.getResultList();

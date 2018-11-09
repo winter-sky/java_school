@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -50,7 +51,10 @@ public class ParamsController {
     }
 
     @RequestMapping(value = "/searchbyauthor/{author}", method = RequestMethod.GET)
-    public String searchByAuthor(Model model,@PathVariable("author") String author) {
+    public String searchByAuthor(Model model,@PathVariable("author") String author, Principal principal) {
+
+        //check whether the somebody is logged in or not
+        model.addAttribute("checkprincipal", principal);
 
         List<Items> listItems = this.paramsService.listItemsByParam(author);
         System.out.println("List of items by author "+listItems);

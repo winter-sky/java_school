@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service("CategoriesService")
+@Transactional
 public class CategoriesServiceImpl implements CategoriesService {
 
     @Autowired
@@ -30,11 +31,9 @@ public class CategoriesServiceImpl implements CategoriesService {
 //    public List<Categories> listAllCategories(){return  categoriesDAO.listAllCategories();}
 
     @Override
-    @Transactional
     public Categories getRootCategory(){return categoriesDAO.getRootCategory();}
 
     @Override
-    @Transactional
     public Categories findCategoryById(int categoryId){return  categoriesDAO.findCategoryById(categoryId);}
 //
 //    @Override
@@ -42,25 +41,25 @@ public class CategoriesServiceImpl implements CategoriesService {
 //    public List<String> listAuthors(){ return categoriesDAO.listAuthors();};
 
     @Override
-    @Transactional
     public List<Categories> showLowermostSubCategories(){return this.categoriesDAO.showLowermostSubCategories();}
 
     @Override
-    @Transactional
     public List<Categories> showAllCategories(){return this.categoriesDAO.showAllCategories();}
 
     @Override
-    @Transactional
     public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
         this.categoriesDAO.addNewCategory(categoryId, categoryName, categoryLevel);}
 
     @Override
-    @Transactional
      public void updateCategory (int categoryId,int parentId,String categoryName){
         this.categoriesDAO.updateCategory(categoryId, parentId, categoryName);
      }
 
     @Override
-    @Transactional
     public List<Categories> showAllParentCategories(){return this.categoriesDAO.showAllParentCategories();}
+
+    @Override
+    public void removeCategory(int categoryId){
+        this.categoriesDAO.removeCategory(categoryId);
+    }
 }

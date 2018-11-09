@@ -4,6 +4,7 @@ import mainpackage.dao.OrdersDAO;
 import mainpackage.model.Items;
 import mainpackage.model.Orders;
 import mainpackage.type.DeliveryMethod;
+import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,4 +52,22 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     @Transactional
     public List<Orders> getOrders (String userLogin){return this.ordersDAO.getOrders(userLogin);}
+
+    @Override
+    @Transactional
+    public List<Orders> showAllOrdersForAdmin(){
+        return this.ordersDAO.showAllOrdersForAdmin();
+    }
+
+    @Override
+    @Transactional
+    public Orders findOrderById(int orderId){
+        return this.ordersDAO.findOrderById(orderId);
+    }
+
+    @Override
+    @Transactional
+    public void selectOrderStatus(OrderStatus orderStatus, int orderId){
+        this.ordersDAO.selectOrderStatus(orderStatus, orderId);
+    }
 }

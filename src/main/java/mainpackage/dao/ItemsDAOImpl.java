@@ -18,6 +18,14 @@ public class ItemsDAOImpl implements ItemsDAO {
     @PersistenceContext
     private EntityManager em;
 
+//    @Override
+//    public void removeItem(int itemId){
+//        Items item = em.find(Items.class, itemId);
+//        if (item != null) {
+//            em.remove(item);
+//        }
+//    }
+
     @Override
     public void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
                            String pic, int categoryId,String author,String format,String language){

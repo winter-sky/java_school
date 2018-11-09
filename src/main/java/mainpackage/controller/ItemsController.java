@@ -43,6 +43,12 @@ public class ItemsController {
         this.cartService = cs;
     }
 
+//    @RequestMapping(value = "/removeitem/{itemId}")
+//    public String removeItemPage (@PathVariable("itemId") int itemId) {
+//        this.itemsService.removeItem(itemId);
+//        return "redirect:/edit_item";
+//    }
+
     @RequestMapping(value = "/edititempage", method = RequestMethod.GET)
     public String editItemPage (Model model) {
         List<Items> listAllItems = this.itemsService.showListAllItems();
@@ -67,7 +73,6 @@ public class ItemsController {
          @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic,
             @RequestParam("categoryId") int categoryId,@RequestParam("author") String author,
                 @RequestParam("format") String format,@RequestParam("language") String language){
-        //TODO updateItem
         this.itemsService.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author,
                 format, language);
         List<Items> listAllItems = this.itemsService.showListAllItems();
@@ -77,7 +82,6 @@ public class ItemsController {
 
     @RequestMapping(value = "/createnewitem", method = RequestMethod.GET)
     public String createItemPage (Model model) {
-        //TODO
         List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
         model.addAttribute("listlowermostcategories", lowermostCategories);
         return "create_item";
@@ -89,7 +93,6 @@ public class ItemsController {
                                  @RequestParam("itemName") String itemName,
      @RequestParam("price") double price,@RequestParam("weight") double weight,@RequestParam("volume") String volume,
    @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic){
-        //TODO
         List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
         this.itemsService.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount, pic);
         model.addAttribute("listlowermostcategories", lowermostCategories);
@@ -101,12 +104,8 @@ public class ItemsController {
 
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
-
         List<ItemDTO> list = this.itemsService.listItems();
-        System.out.println(list);
         model.addAttribute("listItems", list);
-
-        session.setMaxInactiveInterval(3600);
 
         Cart guestcart = (Cart) session.getAttribute("guestcart");
         if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
@@ -115,6 +114,7 @@ public class ItemsController {
         }
 
         return "catalog";
+        //return "redirect:/listcategories";
     }
 
     @RequestMapping(value = "/filterItems", method = RequestMethod.GET)//testing filter
