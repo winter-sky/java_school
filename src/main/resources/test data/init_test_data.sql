@@ -87,25 +87,25 @@ values ('Alice','Taiga','1989-04-15','alice@gmail.com',2,1);
 
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post','Payed', 'Delivered', 3400, '2018-04-04');
+VALUES (1, 1, 'MASTERCARD', 'PICKUP','PAID', 'SHIPPED', 3400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Payed', 'Delivered', 2400, '2018-04-04');
+VALUES (1, 1, 'MASTERCARD', 'COURIER_DELIVERY', 'PAID', 'DELIVERED', 2400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Payed', 'Delivered', 1400, '2018-04-04');
+VALUES (1, 1, 'MASTERCARD', 'PICKUP', 'PAID', 'SHIPPED', 1400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Payed', 'Delivered', 3400, '2018-04-04');
+VALUES (1, 1, 'VISA', 'EMS', 'PAID', 'DELIVERED', 3400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Payed', 'Delivered', 2400, '2018-04-04');
+VALUES (1, 1, 'PAYPAL', 'PICKUP', 'PAID', 'SHIPPED', 2400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Payed', 'Delivered', 1400, '2018-04-04');
+VALUES (1, 1, 'VISA', 'EMS', 'PAID', 'DELIVERED', 1400, '2018-04-04');
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)
-VALUES (1, 1, 'Mastercard', 'Post', 'Await payment', 'Processing', 1400, '2018-04-04');
+VALUES (1, 1, 'PAYPAL', 'COURIER_DELIVERY', 'AWAITING_PAYMENT', 'PAYMENT_AWAITING', 1400, '2018-04-04');
 
 INSERT INTO order_items (orders, items, item_quantity) VALUES (1, 1, 5);
 INSERT INTO order_items (orders, items, item_quantity) VALUES (1, 3, 7);

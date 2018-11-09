@@ -100,9 +100,9 @@ public class ItemsDAOImpl implements ItemsDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Items> findItemsByIds(Integer[] itemIds) {
-        String itemIdStr = Arrays.stream(itemIds).map(String::valueOf).collect(Collectors.joining(","));
+        String itemIdsStr = Arrays.stream(itemIds).map(String::valueOf).collect(Collectors.joining(","));
 
         Query query = em.createQuery("from Items where item_id IN(:itemIdsStr)");
-        return  (List<Items>) query.setParameter("itemIdStr", itemIdStr).getResultList();
+        return  (List<Items>) query.setParameter("itemIdsStr", itemIdsStr).getResultList();
     }
 }

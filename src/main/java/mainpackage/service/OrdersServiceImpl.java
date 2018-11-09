@@ -55,6 +55,6 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     @Transactional
     public List<Orders> getAllOrders() {
-        return null;
+        return ordersDAO.getAllOrders();
     }
 }
