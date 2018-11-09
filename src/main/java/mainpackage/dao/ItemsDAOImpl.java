@@ -1,22 +1,24 @@
 package mainpackage.dao;
 
-import mainpackage.model.*;
+import mainpackage.model.Categories;
+import mainpackage.model.Items;
+import mainpackage.model.Params;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository("ItemsDAO")
 public class ItemsDAOImpl implements ItemsDAO {
+    /** */
+    private static final Logger log = LoggerFactory.getLogger(ItemsDAOImpl.class);
+
     @PersistenceContext
     private EntityManager em;
 
@@ -100,9 +102,11 @@ public class ItemsDAOImpl implements ItemsDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Items> findItemsByIds(Integer[] itemIds) {
-        String itemIdsStr = Arrays.stream(itemIds).map(String::valueOf).collect(Collectors.joining(","));
+        List<Integer> ids = Arrays.asList(itemIds);
 
-        Query query = em.createQuery("from Items where item_id IN(:itemIdsStr)");
-        return  (List<Items>) query.setParameter("itemIdsStr", itemIdsStr).getResultList();
+        log.debug("Requesting items by ids: " + ids);
+
+        Query query = em.createQuery("from Items where item_id IN (:ids)");
+        return  (List<Items>) query.setParameter("ids", ids).getResultList();
     }
 }

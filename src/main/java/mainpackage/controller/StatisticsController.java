@@ -144,19 +144,6 @@ public class StatisticsController {
             model.addAttribute("listItems", new ArrayList<Items>());
         }
 
-        Categories rootCategory = this.categoriesService.getRootCategory();
-        System.out.println(rootCategory);
-        model.addAttribute("rootCategory", rootCategory);
-        List<String> listAuthors = this.paramsService.listAuthors();
-
-        model.addAttribute("listAuthors",listAuthors);
-
-        List<String> listLanguages = this.paramsService.listLanguages();
-        model.addAttribute("listLanguages",listLanguages);
-
-        List<String> listFormats = this.paramsService.listFormats();
-        model.addAttribute("listFormats",listFormats);
-
         return "topitems";
     }
 }
