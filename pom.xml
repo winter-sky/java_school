@@ -19,6 +19,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <spring-security.version>5.1.1.RELEASE</spring-security.version>
     <spring.version>5.1.1.RELEASE</spring.version>
+    <slf4j.version>1.8.0-beta2</slf4j.version>
   </properties>
 
   <dependencies>
@@ -32,19 +33,19 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
     <dependency>
@@ -62,7 +63,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
     <dependency>
@@ -73,9 +74,9 @@
 
     <!-- https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc -->
     <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>spring-mock-mvc</artifactId>
-      <version>3.2.0</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -127,38 +128,43 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.8.0-beta2</version>
+      <version>${slf4j.version}</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/log4j/log4j -->
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.3.1</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-taglibs</artifactId>
-      <version>5.1.1.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
 
   </dependencies>
