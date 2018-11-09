@@ -12,6 +12,9 @@
 </head>
 <body>
 <h1>Statistics</h1>
+<br/>
 <a href="/topitems">Show top 10 items</a>
+<br/>
+<a href="/topclients">Show top 10 clients (by total amount)</a>
 </body>
 </html>

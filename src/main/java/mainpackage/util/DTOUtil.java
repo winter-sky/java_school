@@ -1,8 +1,10 @@
 package mainpackage.util;
 
 import mainpackage.dto.CategoryDTO;
+import mainpackage.dto.ClientDTO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.model.Categories;
+import mainpackage.model.Clients;
 import mainpackage.model.Items;
 
 import java.util.stream.Collectors;
@@ -30,6 +32,18 @@ public class DTOUtil {
         // TODO: infinite recursion
         //dto.setCategory(toDTO(cat.getCategory()));
         //dto.setCategories(cat.getCategories().stream().map(DTOUtil::toDTO).collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    public static ClientDTO toDTO(Clients client) {
+        ClientDTO dto = new ClientDTO();
+
+        dto.setClientId(client.getClientId());
+        dto.setFirstName(client.getFirstName());
+        dto.setLastName(client.getLastName());
+        dto.setBirthDate(client.getBirthDate());
+        dto.setEmail(client.getEmail());
 
         return dto;
     }

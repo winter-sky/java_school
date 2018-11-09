@@ -1,5 +1,6 @@
 package mainpackage.controller;
 
+import mainpackage.dto.ClientStatDTO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.dto.ItemStatDTO;
 import mainpackage.model.Items;
@@ -8,6 +9,7 @@ import mainpackage.model.Orders;
 import mainpackage.service.ItemsService;
 import mainpackage.service.OrdersService;
 import mainpackage.util.DTOUtil;
+import mainpackage.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +83,68 @@ public class StatisticsController {
         return "statistics";
     }
 
-        @RequestMapping(value = "/topitems", method = RequestMethod.GET)
+    @RequestMapping(value = "/topclients", method = RequestMethod.GET)
+    public String topClients(Model model) {
+        // TODO: need to be optimized.
+        List<Orders> allOrders = ordersService.getAllOrders();
+
+        if (allOrders != null) {
+            log.info("All orders read [count=" + allOrders.size() + ']');
+
+            Map<Integer, ClientStatDTO> clientStat = new HashMap<>();
+
+            for (Orders order : allOrders) {
+                List<OrderItems> orderItems = order.getOrderItems();
+
+                ClientStatDTO clientStatDTO = clientStat.computeIfAbsent(order.getClient().getClientId(),
+                    i -> new ClientStatDTO());
+
+                clientStatDTO.setClient(DTOUtil.toDTO(order.getClient()));
+
+                for (OrderItems orderItem : orderItems) {
+                    Integer qty = orderItem.getItemQuantity();
+
+                    double price = orderItem.getItem().getPrice();
+
+                    // TODO: 2 to constants or config
+                    double amount = Util.round(price * qty, 2);
+
+                    clientStatDTO.setAmount(clientStatDTO.getAmount() + amount);
+                    clientStatDTO.setItemsCount(clientStatDTO.getItemsCount() + qty);
+                }
+
+                clientStatDTO.setOrdersCount(clientStatDTO.getOrdersCount() + 1);
+            }
+
+            List<ClientStatDTO> sorted = clientStat.values().stream().sorted(new Comparator<ClientStatDTO>() {
+                @Override
+                public int compare(ClientStatDTO o1, ClientStatDTO o2) {
+                    // Minus because of reversed order.
+                    return -Double.compare(o1.getAmount(), o2.getAmount());
+                }
+            }).collect(Collectors.toList());
+
+            log.info("Items sorted by quantity:" + sorted);
+
+            List<ClientStatDTO> topList = sorted.subList(0, Math.min(sorted.size(), TOP_COUNT));
+
+            model.addAttribute("listClients", topList);
+        }
+        else {
+            log.info("No orders found.");
+
+            model.addAttribute("listItems", new ArrayList<Items>());
+        }
+
+        return "topclients";
+    }
+
+    /**
+     * Gets top clients by summary amount of sales.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/topitems", method = RequestMethod.GET)
     public String topItems(Model model) {
         // TODO: need to be optimized.
         List<Orders> allOrders = ordersService.getAllOrders();
