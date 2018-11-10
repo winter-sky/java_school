@@ -148,16 +148,18 @@
             </c:forEach>
 
             <p><b>Language</b></p>
-            <c:forEach var="Language" items="${listLanguages}">
+            <c:forEach var="language" items="${listLanguages}">
                 <tr>
-                        ${Language}<br>
+                        <%--${language}<br>--%>
+                            <a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>
                 </tr>
             </c:forEach>
 
             <p><b>Format</b></p>
-            <c:forEach var="Format" items="${listFormats}">
+            <c:forEach var="format" items="${listFormats}">
                 <tr>
-                        ${Format}<br>
+                        <%--${format}<br>--%>
+                            <a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>
                 </tr>
             </c:forEach>
         </div>
@@ -169,6 +171,7 @@
                 <p><img src="${items.pic}" alt="some pic"></p>
                 <p>Book id: ${items.itemId} </p>
                 <p>Book name: ${items.itemName}</p>
+                <p>Price: ${items.price}</p>
                 <security:authorize access="hasRole('USER')">
                     <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
                 </security:authorize>
