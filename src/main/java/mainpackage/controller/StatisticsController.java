@@ -91,6 +91,7 @@ public class StatisticsController {
         if (allOrders != null) {
             log.info("All orders read [count=" + allOrders.size() + ']');
 
+            // Client ID to Client DTO map.
             Map<Integer, ClientStatDTO> clientStat = new HashMap<>();
 
             for (Orders order : allOrders) {
@@ -101,11 +102,15 @@ public class StatisticsController {
 
                 clientStatDTO.setClient(DTOUtil.toDTO(order.getClient()));
 
+                // Iterate by order items.
                 for (OrderItems orderItem : orderItems) {
+                    // Get item quantity.
                     Integer qty = orderItem.getItemQuantity();
 
+                    // Get item price.
                     double price = orderItem.getItem().getPrice();
 
+                    // Get amount of money for the item.
                     // TODO: 2 to constants or config
                     double amount = Util.round(price * qty, 2);
 
@@ -116,12 +121,9 @@ public class StatisticsController {
                 clientStatDTO.setOrdersCount(clientStatDTO.getOrdersCount() + 1);
             }
 
-            List<ClientStatDTO> sorted = clientStat.values().stream().sorted(new Comparator<ClientStatDTO>() {
-                @Override
-                public int compare(ClientStatDTO o1, ClientStatDTO o2) {
-                    // Minus because of reversed order.
-                    return -Double.compare(o1.getAmount(), o2.getAmount());
-                }
+            List<ClientStatDTO> sorted = clientStat.values().stream().sorted((o1, o2) -> {
+                // Minus because of reversed order.
+                return -Double.compare(o1.getAmount(), o2.getAmount());
             }).collect(Collectors.toList());
 
             log.info("Items sorted by quantity:" + sorted);
