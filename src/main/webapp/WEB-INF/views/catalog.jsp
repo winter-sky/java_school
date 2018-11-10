@@ -175,9 +175,21 @@
                 <security:authorize access="hasRole('USER')">
                     <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
                 </security:authorize>
-                    <%--<c:if test="${!empty checkprincipal}">--%>
-                    <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
-                    <%--</c:if>--%>
+                <c:if test="${empty checkprincipal}">
+                    <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                </c:if>
+            </tr>
+        </c:forEach>
+
+        <c:forEach var="items" items="${showallitems}">
+            <tr>
+                <p><img src="${items.pic}" alt="some pic"></p>
+                <p>Book id: ${items.itemId} </p>
+                <p>Book name: ${items.itemName}</p>
+                <p>Price: ${items.price}</p>
+                <security:authorize access="hasRole('USER')">
+                    <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                </security:authorize>
                 <c:if test="${empty checkprincipal}">
                     <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
                 </c:if>

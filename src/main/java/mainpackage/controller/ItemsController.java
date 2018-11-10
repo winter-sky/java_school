@@ -7,6 +7,7 @@ import mainpackage.model.Items;
 import mainpackage.service.CartService;
 import mainpackage.service.CategoriesService;
 import mainpackage.service.ItemsService;
+import mainpackage.service.ParamsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,12 @@ import java.util.List;
 public class ItemsController {
     ItemsService itemsService;
 
+    @Autowired
+    @Qualifier(value = "ItemsService")
+    public void setItemsService(ItemsService is) {
+        this.itemsService = is;
+    }
+
     CartService cartService;
 
     private CategoriesService categoriesService;
@@ -31,10 +38,12 @@ public class ItemsController {
         this.categoriesService = cs;
     }
 
+    ParamsService paramsService;
+
     @Autowired
-    @Qualifier(value = "ItemsService")
-    public void setItemsService(ItemsService is) {
-        this.itemsService = is;
+    @Qualifier(value="ParamsService")
+    public void setCustomersService(ParamsService ps){
+        this.paramsService = ps;
     }
 
     @Autowired
@@ -42,12 +51,6 @@ public class ItemsController {
     public void setCartService(CartService cs) {
         this.cartService = cs;
     }
-
-//    @RequestMapping(value = "/removeitem/{itemId}")
-//    public String removeItemPage (@PathVariable("itemId") int itemId) {
-//        this.itemsService.removeItem(itemId);
-//        return "redirect:/edit_item";
-//    }
 
     @RequestMapping(value = "/edititempage", method = RequestMethod.GET)
     public String editItemPage (Model model) {
@@ -105,7 +108,7 @@ public class ItemsController {
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
         List<ItemDTO> list = this.itemsService.listItems();
-        model.addAttribute("listItems", list);
+        model.addAttribute("showallitems", list);
 
         Cart guestcart = (Cart) session.getAttribute("guestcart");
         if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
@@ -113,8 +116,46 @@ public class ItemsController {
             session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
         }
 
+        model.addAttribute("checkprincipal", principal);
+
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        model.addAttribute("rootCategory", rootCategory);
+
+        List<String> listAuthors = this.paramsService.listAuthors();
+        model.addAttribute("listAuthors",listAuthors);
+
+        List<String> listLanguages = this.paramsService.listLanguages();
+        model.addAttribute("listLanguages",listLanguages);
+
+        List<String> listFormats = this.paramsService.listFormats();
+        model.addAttribute("listFormats",listFormats);
+
         return "catalog";
         //return "redirect:/listcategories";
+    }
+
+    @RequestMapping(value = "/searchbyauthor/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItems (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/searchbylanguage/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromLanguageFilter (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/searchbyformat/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromFormatFilter (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/showitemsbycategory/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromItemsByCategory (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
     }
 
     @RequestMapping(value = "/filterItems", method = RequestMethod.GET)//testing filter

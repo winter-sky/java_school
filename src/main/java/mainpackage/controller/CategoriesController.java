@@ -1,10 +1,10 @@
 package mainpackage.controller;
 
-import mainpackage.model.Cart;
-import mainpackage.model.Categories;
-import mainpackage.model.Items;
+import mainpackage.model.*;
 import mainpackage.service.CategoriesService;
+import mainpackage.service.ClientsService;
 import mainpackage.service.ParamsService;
+import mainpackage.type.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,25 +17,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+
+import static mainpackage.type.Role.ROLE_USER;
 
 @Controller
 public class CategoriesController {
 
     private CategoriesService categoriesService;
 
+    @Autowired
+    @Qualifier(value="CategoriesService")
+    public void setCategorieservice(CategoriesService cs){
+        this.categoriesService = cs;
+    }
+
     ParamsService paramsService;
 
     @Autowired
     @Qualifier(value="ParamsService")
-    public void setCustomersService(ParamsService ps){
+    public void setParamsService(ParamsService ps){
         this.paramsService = ps;
     }
 
+    private ClientsService clientsService;
+
     @Autowired
-    @Qualifier(value="CategoriesService")
-    public void setCustomersService(CategoriesService cs){
-        this.categoriesService = cs;
+    @Qualifier(value="ClientsService")
+    public void setClientsService(ClientsService cs){
+        this.clientsService = cs;
     }
 
     @RequestMapping(value = "/removecategory/{categoryId}")
@@ -90,19 +101,45 @@ public class CategoriesController {
         return "catalog";
     }
 
-    @RequestMapping(value = "/listcategories", method = RequestMethod.GET)
-    public String listCategories(Model model, Principal principal) {
-        //String login = principal.getName();//get login of user is logged in, must be fixed
-        //model.addAttribute("message", login);
-        model.addAttribute("checkprincipal", principal);
-        //model.addAttribute("categories", new Categories());
-//        List<Categories> list = this.categoriesService.listCategories();
-//        model.addAttribute("listCategories", list);
-        Categories rootCategory = this.categoriesService.getRootCategory();
-        System.out.println(rootCategory);
-        model.addAttribute("rootCategory", rootCategory);
-        List<String> listAuthors = this.paramsService.listAuthors();
+    @RequestMapping(value = "/listcategories", method = RequestMethod.GET)//start page
+    public String listCategories(HttpSession session, Model model, Principal principal) {
 
+        if(principal!=null){
+            String userLogin = principal.getName();
+            Clients client = this.clientsService.findClientByLogin(userLogin);
+           Roles clientRole =  client.getLogin().getRole();
+           Role role = clientRole.getRole();
+            if (role.equals(ROLE_USER)){
+                Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
+                if (initialusercart == null)
+                {
+                    //Clients client = this.clientsService.findClientByLogin(login);
+                    //initialusercart = this.cartService.createUserCart(client);//persist Cart in DB
+                    initialusercart = new Cart();//create new user cart in session, not in DB
+                    //need to create guest cart if it not exist
+                    Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
+                    if (guestcart == null)
+                    {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+                        guestcart = new Cart();//create new guest Cart in session, not in DB
+                    }
+
+                    List<Items> guestCartItems = new ArrayList<>();
+                    if(guestcart.getItems()!=null) {//check whether guest cart empty or not
+                        guestCartItems.addAll(guestcart.getItems());
+                        initialusercart.setItems(guestCartItems);
+                    }
+                    //initialusercart.setClient(client);
+                }
+                session.setAttribute("initialusercart",initialusercart);
+            }
+        }
+
+        model.addAttribute("checkprincipal", principal);
+
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        model.addAttribute("rootCategory", rootCategory);
+
+        List<String> listAuthors = this.paramsService.listAuthors();
         model.addAttribute("listAuthors",listAuthors);
 
         List<String> listLanguages = this.paramsService.listLanguages();
@@ -115,15 +152,27 @@ public class CategoriesController {
     }
 
     @RequestMapping(value = "showitemsbycategory/{categoryId}", method = RequestMethod.GET)//filter by category
-    public String listSubCategories(Model model,@PathVariable("categoryId") int categoryId) {//rename method
+    public String listItemsByCategory(Model model,@PathVariable("categoryId") int categoryId, Principal principal) {//rename method
 
         Categories category = this.categoriesService.findCategoryById(categoryId);
         List<Items> items = category.getItems();
-//        List<String> listAuthors = this.categoriesService.listAuthors();
-//        model.addAttribute("listAuthors",listAuthors);
         model.addAttribute("items", items);
         model.addAttribute("category", category);
-//        return "listitemsbycategory";
+
+        model.addAttribute("checkprincipal", principal);
+
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        model.addAttribute("rootCategory", rootCategory);
+
+        List<String> listAuthors = this.paramsService.listAuthors();
+        model.addAttribute("listAuthors",listAuthors);
+
+        List<String> listLanguages = this.paramsService.listLanguages();
+        model.addAttribute("listLanguages",listLanguages);
+
+        List<String> listFormats = this.paramsService.listFormats();
+        model.addAttribute("listFormats",listFormats);
+
         return "catalog";
     }
 

@@ -70,7 +70,7 @@ public class ParamsDAOImpl implements ParamsDAO {
     public List<Items> listItemsByParam(String paramAuthor) {
         Query query = em.createQuery("from Params");
         List<Params> listParams = query.getResultList();
-        System.out.println(listParams);
+
         List<Items> listItems = new ArrayList<>();
         for (Params p : listParams) {
             //System.out.println(p.getAuthor());

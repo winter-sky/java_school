@@ -29,7 +29,8 @@ public class ParamsServiceImpl implements  ParamsService {
     public List<String> listFormats(){ return paramsDAO.listFormats();};
 
     @Override
-    public List<Items> listItemsByParam(String paramAuthor){return paramsDAO.listItemsByParam(paramAuthor);}
+    public List<Items> listItemsByParam(String paramAuthor){
+        return paramsDAO.listItemsByParam(paramAuthor);}
 
     public List<Items> searchItemsByLanguageParam (String paramLanguage){return paramsDAO.searchItemsByLanguageParam
             (paramLanguage);}
