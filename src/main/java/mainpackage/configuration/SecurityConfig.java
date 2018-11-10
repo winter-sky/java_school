@@ -85,13 +85,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/searchclientbylogin/{clientLogin}","/editprofile","/cart/")
+                .antMatchers("/searchclientbylogin/{clientLogin}","/editprofile","/cart/usercart/**","/hello")
                 .hasRole("USER")
-                .antMatchers("/hello")
-                .hasAnyRole("ADMIN", "USER")
+                //.antMatchers("/hello")
+                //.hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/hello")
+                .defaultSuccessUrl("/listcategories")
                 ;
                 //.httpBasic();
 

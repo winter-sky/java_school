@@ -107,8 +107,20 @@
     <a href="#">Link</a>
     <a href="itemlist">Show all books</a>
     <div class="topnav right">
-    <a href="/hello">Log in</a>
-        <a href="/cart/guestcart">Cart</a>
+    <%--<a href="/hello">Log in</a>--%>
+        <%--<a href="/login">Log in</a>--%>
+        <%--<a href="/cart/guestcart">Cart</a>--%>
+        <%--<security:authorize access="hasRole('USER')">--%>
+            <%--<a href="<c:url value='/cart/usercart/${message}'/>">Cart</a><br>--%>
+            <%--<a href="<c:url value='/logout'/>">Log out</a><br>--%>
+        <%--</security:authorize>--%>
+        <c:if test="${empty checkprincipal}">
+            <a href="/login">Log in</a>
+            <a href="/cart/guestcart">Cart</a>
+        </c:if>
+        <c:if test="${!empty checkprincipal}">
+            <a href="<c:url value='/logout'/>">Log out</a>
+        </c:if>
     </div>
 </div>
 
@@ -136,16 +148,18 @@
             </c:forEach>
 
             <p><b>Language</b></p>
-            <c:forEach var="Language" items="${listLanguages}">
+            <c:forEach var="language" items="${listLanguages}">
                 <tr>
-                        ${Language}<br>
+                        <%--${language}<br>--%>
+                            <a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>
                 </tr>
             </c:forEach>
 
             <p><b>Format</b></p>
-            <c:forEach var="Format" items="${listFormats}">
+            <c:forEach var="format" items="${listFormats}">
                 <tr>
-                        ${Format}<br>
+                        <%--${format}<br>--%>
+                            <a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>
                 </tr>
             </c:forEach>
         </div>
@@ -157,12 +171,25 @@
                 <p><img src="${items.pic}" alt="some pic"></p>
                 <p>Book id: ${items.itemId} </p>
                 <p>Book name: ${items.itemName}</p>
+                <p>Price: ${items.price}</p>
                 <security:authorize access="hasRole('USER')">
                     <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
                 </security:authorize>
-                    <%--<c:if test="${!empty checkprincipal}">--%>
-                    <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
-                    <%--</c:if>--%>
+                <c:if test="${empty checkprincipal}">
+                    <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                </c:if>
+            </tr>
+        </c:forEach>
+
+        <c:forEach var="items" items="${showallitems}">
+            <tr>
+                <p><img src="${items.pic}" alt="some pic"></p>
+                <p>Book id: ${items.itemId} </p>
+                <p>Book name: ${items.itemName}</p>
+                <p>Price: ${items.price}</p>
+                <security:authorize access="hasRole('USER')">
+                    <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                </security:authorize>
                 <c:if test="${empty checkprincipal}">
                     <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
                 </c:if>

@@ -13,12 +13,18 @@ public class MappingServiceImpl implements MappingService {
 
 
     @Override
-    public ItemDTO itemEntityToItemDTO(Items item) {
+    public ItemDTO itemEntityToItemDTO(Items item) {//?
         ItemDTO dto = new ItemDTO();
-        dto.setAvailableCount(item.getAvailableCount());
-        dto.setItemName(item.getItemName());
-        dto.setPic(item.getPic());
+
         dto.setItemId(item.getItemId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setVolume(item.getVolume());
+        dto.setWeight(item.getWeight());
+        dto.setAvailableCount(item.getAvailableCount());
+        dto.setPic(item.getPic());
+        //dto.setParam(item.getParams());
+
         return dto;
     }
 

@@ -7,6 +7,7 @@ import mainpackage.model.Items;
 import mainpackage.service.CartService;
 import mainpackage.service.CategoriesService;
 import mainpackage.service.ItemsService;
+import mainpackage.service.ParamsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,12 @@ import java.util.List;
 public class ItemsController {
     ItemsService itemsService;
 
+    @Autowired
+    @Qualifier(value = "ItemsService")
+    public void setItemsService(ItemsService is) {
+        this.itemsService = is;
+    }
+
     CartService cartService;
 
     private CategoriesService categoriesService;
@@ -31,10 +38,12 @@ public class ItemsController {
         this.categoriesService = cs;
     }
 
+    ParamsService paramsService;
+
     @Autowired
-    @Qualifier(value = "ItemsService")
-    public void setItemsService(ItemsService is) {
-        this.itemsService = is;
+    @Qualifier(value="ParamsService")
+    public void setCustomersService(ParamsService ps){
+        this.paramsService = ps;
     }
 
     @Autowired
@@ -67,7 +76,6 @@ public class ItemsController {
          @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic,
             @RequestParam("categoryId") int categoryId,@RequestParam("author") String author,
                 @RequestParam("format") String format,@RequestParam("language") String language){
-        //TODO updateItem
         this.itemsService.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author,
                 format, language);
         List<Items> listAllItems = this.itemsService.showListAllItems();
@@ -77,7 +85,6 @@ public class ItemsController {
 
     @RequestMapping(value = "/createnewitem", method = RequestMethod.GET)
     public String createItemPage (Model model) {
-        //TODO
         List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
         model.addAttribute("listlowermostcategories", lowermostCategories);
         return "create_item";
@@ -89,7 +96,6 @@ public class ItemsController {
                                  @RequestParam("itemName") String itemName,
      @RequestParam("price") double price,@RequestParam("weight") double weight,@RequestParam("volume") String volume,
    @RequestParam("availableCount") int availableCount,@RequestParam("pic") String pic){
-        //TODO
         List<Categories> lowermostCategories = this.categoriesService.showLowermostSubCategories();
         this.itemsService.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount, pic);
         model.addAttribute("listlowermostcategories", lowermostCategories);
@@ -101,12 +107,8 @@ public class ItemsController {
 
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
-
         List<ItemDTO> list = this.itemsService.listItems();
-        System.out.println(list);
-        model.addAttribute("listItems", list);
-
-        session.setMaxInactiveInterval(3600);
+        model.addAttribute("showallitems", list);
 
         Cart guestcart = (Cart) session.getAttribute("guestcart");
         if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
@@ -114,7 +116,46 @@ public class ItemsController {
             session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
         }
 
+        model.addAttribute("checkprincipal", principal);
+
+        Categories rootCategory = this.categoriesService.getRootCategory();
+        model.addAttribute("rootCategory", rootCategory);
+
+        List<String> listAuthors = this.paramsService.listAuthors();
+        model.addAttribute("listAuthors",listAuthors);
+
+        List<String> listLanguages = this.paramsService.listLanguages();
+        model.addAttribute("listLanguages",listLanguages);
+
+        List<String> listFormats = this.paramsService.listFormats();
+        model.addAttribute("listFormats",listFormats);
+
         return "catalog";
+        //return "redirect:/listcategories";
+    }
+
+    @RequestMapping(value = "/searchbyauthor/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItems (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/searchbylanguage/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromLanguageFilter (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/searchbyformat/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromFormatFilter (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
+    }
+
+    @RequestMapping(value = "/showitemsbycategory/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
+    public String showAllItemsFromItemsByCategory (HttpSession session, Model model, Principal principal) {
+
+        return "redirect:/itemlist";
     }
 
     @RequestMapping(value = "/filterItems", method = RequestMethod.GET)//testing filter

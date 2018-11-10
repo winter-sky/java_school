@@ -6,14 +6,10 @@ import mainpackage.model.Items;
 import java.util.List;
 
 public interface CategoriesDAO {
-//    List<Categories> listCategories();
-//    List<Categories> listSubCategories(int parentId);
-//    List<Categories> listAllCategories();
+
     Categories getRootCategory();
 
     Categories findCategoryById(int categoryId);
-
-//    List<String> listAuthors();
 
     List<Categories> showLowermostSubCategories();//show lowermost categories (categories without shild categories)
 
@@ -24,4 +20,6 @@ public interface CategoriesDAO {
     void updateCategory (int categoryId,int parentId,String categoryName);
 
     List<Categories> showAllParentCategories();
+
+    void removeCategory(int categoryId);
 }

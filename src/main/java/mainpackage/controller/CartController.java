@@ -57,9 +57,6 @@ public class CartController {
             session.setAttribute("guestcart",guestcart);//is it need to be in if-block
         }
 
-
-        System.out.println("Create or not? " + guestcart);
-
         List<Items> guest_cart;
         if(guestcart.getItems()==null) {
             List<Items> items = new ArrayList<>();

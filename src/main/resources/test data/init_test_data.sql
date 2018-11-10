@@ -1,7 +1,7 @@
 use online_store;
 
 insert into categories ( category_name, category_level,parent_id )
-values ('Book Category',0,null);
+values ('',0,null);
 insert into categories ( category_name, category_level,parent_id )
 values ('Art',1,1);
 insert into categories ( category_name, category_level,parent_id )
@@ -36,17 +36,17 @@ insert into categories ( category_name, category_level,parent_id )
 values ('Gothic',3,8);
 
 insert into params (author, language, format)
-values ('Lewis Carroll','english','hardcover');
+values ('Lewis Carroll','English','Hardcover');
 insert into params (author, language, format)
-values ('Pic Candle','english','paperback');
+values ('Pic Candle','English','Paperback');
 insert into params (author, language, format)
-values ('Ivan Bilibin','russian','hardcover');
+values ('Ivan Bilibin','Russian','Hardcover');
 insert into params (author, language, format)
-values ('Linda Cateura','english','hardcover');
+values ('Linda Cateura','English','Hardcover');
 insert into params (author, language, format)
-values ('Robert O\'Byrne','english','hardcover');
+values ('Robert O\'Byrne','English','Hardcover');
 insert into params (author, language, format)
-values ('Huw Lewis-Jones','english','hardcover');
+values ('Huw Lewis-Jones','English','Hardcover');
 insert into params (author, language, format)
 values ('Gaston Leroux','French','Paperback');
 insert into params (author, language, format)
@@ -84,6 +84,7 @@ values ('USA','New York','NY 10028','Oxford Street ','691','139');
 
 insert into clients (first_name, last_name, birthdate, email, client_login, client_address)
 values ('Alice','Taiga','1989-04-15','alice@gmail.com',2,1);
+
 
 INSERT INTO orders (orders_client, orders_client_address, payment_method, delivery_method, payment_state,
                     order_status, order_price, order_date)

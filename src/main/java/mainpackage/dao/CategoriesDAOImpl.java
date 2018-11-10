@@ -18,6 +18,12 @@ public class CategoriesDAOImpl implements CategoriesDAO {
     private EntityManager em;
 
     @Override
+    public void removeCategory(int categoryId){//must be improved
+//        Categories category = em.find(Categories.class, categoryId);
+//        em.remove(category);
+    }
+
+    @Override
     public List<Categories> showAllParentCategories(){
         Query query = em.createQuery("from Categories");
         List<Categories> listAllCategories = query.getResultList();

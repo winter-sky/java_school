@@ -78,4 +78,10 @@ public class ItemsServiceImpl implements ItemsService {
     public List<Items> findItemsByIds(Integer[] itemId) {
         return itemsDAO.findItemsByIds(itemId);
     }
+
+//    @Override
+//    @Transactional
+//    public void removeItem(int itemId){
+//        this.itemsDAO.removeItem(itemId);
+//    }
 }

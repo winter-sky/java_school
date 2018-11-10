@@ -17,6 +17,7 @@
     <tr>
         <p>Item ID: ${item.itemId}) ${item.itemName}</p>
         <a href="<c:url value='/edititem/${item.itemId}'/>">Edit</a><br>
+        <%--<a href="<c:url value='/removeitem/${item.itemId}'/>">Delete</a><br>--%>
     </tr>
 </c:forEach>
 <form action="/updateitem" method="POST">

@@ -33,11 +33,11 @@ public class Items {
     @JoinColumn(name="item_category")
     private Categories category;
 
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.ALL })//??
     @JoinColumn(name="params_id")
     private Params params;
 
-    @OneToMany(mappedBy = "item")//is it necessary?
+    @OneToMany(mappedBy = "item")
     private List<OrderItems> orderItems;
 
     @Override

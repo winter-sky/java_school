@@ -9,9 +9,7 @@ import java.util.List;
 public interface ItemsService {
     List<ItemDTO> listItems();
 
-//    List<Items> guestShoppingCart();
-//
-//    List<Items> userShoppingCart(String userLogin);
+//    void removeItem(int itemId);
 
     Items findItemById(int itemId);
 

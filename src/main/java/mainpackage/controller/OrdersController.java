@@ -6,6 +6,7 @@ import mainpackage.model.OrderItems;
 import mainpackage.model.Orders;
 import mainpackage.service.OrdersService;
 import mainpackage.type.DeliveryMethod;
+import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +32,24 @@ public class OrdersController {
     @Qualifier(value = "OrdersService")
     public void setOrdersService(OrdersService os) {
         this.ordersService = os;
+    }
+
+    @RequestMapping(value="/selectorderstatus/{orderStatus}/{orderId}", method = RequestMethod.GET)
+    public String selectOrderStatus (Model model,@PathVariable("orderStatus")
+            OrderStatus orderStatus,@PathVariable("orderId") int orderId ){
+
+        this.ordersService.selectOrderStatus(orderStatus, orderId);
+
+        return  "redirect:/getallorders";
+    }
+
+    @RequestMapping(value="/changeorderstatus/{orderId}",method = RequestMethod.GET)
+    public String selectOrderStatusPage (@PathVariable("orderId") int orderId, Model model) {
+        //TODO get order by id, make order attribute
+        Orders order = this.ordersService.findOrderById(orderId);
+        model.addAttribute("orderstatus", OrderStatus.values());
+        model.addAttribute("order", order);
+        return "order_status";
     }
 
     @RequestMapping(value="/payfortheorder/{userLogin}",method = RequestMethod.GET)
@@ -118,5 +137,15 @@ public class OrdersController {
         model.addAttribute("orderlist", list);
 
         return "user_orders";
+    }
+
+    @RequestMapping(value="/getallorders", method = RequestMethod.GET)
+    public String getAllOrders (Model model){
+
+        List<Orders> listAllOrders = this.ordersService.showAllOrdersForAdmin();
+
+        model.addAttribute("listallorders", listAllOrders);
+
+        return "all_orders";
     }
 }

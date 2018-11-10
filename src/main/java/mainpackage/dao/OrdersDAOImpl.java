@@ -2,6 +2,7 @@ package mainpackage.dao;
 
 import mainpackage.model.*;
 import mainpackage.type.DeliveryMethod;
+import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
 import org.springframework.stereotype.Repository;
 
@@ -212,22 +213,19 @@ public class OrdersDAOImpl implements OrdersDAO {
         return orderItems;
     }
 
-//    @Override
-//    public Params getParamsItemFromOrderByLogin(String userLogin){
-//        getUserCurrentOrder(userLogin);
-//    }
-
     @Override
     public Orders getCurrentOrder(String userLogin){
-        Query query = em.createQuery("from Logins");
-        List<Logins> logins = query.getResultList();
+        Query query = em.createQuery("from Logins where login = :login").setParameter("login", userLogin);
+        Logins login =(Logins) query.getSingleResult();
+//        List<Logins> logins = query.getFirstResult();
         Clients client = new Clients();
-        for (Logins l : logins) {
-            if ((l.getLogin()).equals(userLogin)) {
-                System.out.println(l.getLogin());
-                client = l.getClient();
-            }
-        }
+        client = login.getClient();
+//        for (Logins l : logins) {
+//            if ((l.getLogin()).equals(userLogin)) {
+//                System.out.println(l.getLogin());
+//                client = l.getClient();
+//            }
+//        }
 
         Orders currentOrder = new Orders();
         List<Orders> listUserOrders = new ArrayList<>();
@@ -262,6 +260,25 @@ public class OrdersDAOImpl implements OrdersDAO {
             }
         }
         return listOrders;
+    }
+
+    @Override
+    public List<Orders> showAllOrdersForAdmin(){
+        Query query = em.createQuery("from Orders");
+        List<Orders> listAllOrders = query.getResultList();
+        return listAllOrders;
+    }
+
+    @Override
+    public Orders findOrderById(int orderId){
+        Query query = em.createQuery("from Orders where order_id=:orderId");
+        return  (Orders) query.setParameter("orderId", orderId).getSingleResult();
+    }
+
+    @Override
+    public void selectOrderStatus(OrderStatus orderStatus, int orderId){
+        Orders order =findOrderById(orderId);
+        order.setOrderStatus(orderStatus);
     }
 //    @Override
 //    public OrderItems getOrderItemsById (int orderItemsId){

@@ -23,13 +23,6 @@ public class Logins {
     @Column(name = "enabled")
     private boolean enabled;
 
-//    @Column(name = "role")
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
-
-//    @OneToMany(mappedBy = "login")
-//    private List<Roles> roles;
-
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="login")
     private Roles role;

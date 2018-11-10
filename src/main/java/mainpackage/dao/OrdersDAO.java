@@ -33,4 +33,10 @@ public interface OrdersDAO {
     List<Orders> getOrders (String userLogin);//find client not delivered orders
 
     List<Orders> getAllOrders ();//find client not delivered orders
+
+    List<Orders> showAllOrdersForAdmin();
+
+    Orders findOrderById(int orderId);
+
+    void selectOrderStatus(OrderStatus orderStatus, int orderId);
 }

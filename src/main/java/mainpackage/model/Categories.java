@@ -26,7 +26,7 @@ public class Categories {
     @JoinColumn(name="parent_id")
     private Categories category;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category",cascade = { CascadeType.ALL })//
     private List<Categories> categories;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "category")//

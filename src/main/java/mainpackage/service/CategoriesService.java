@@ -20,4 +20,6 @@ public interface CategoriesService {
     void updateCategory (int categoryId,int parentId,String categoryName);
 
     List<Categories> showAllParentCategories();
+
+    void removeCategory(int categoryId);
 }

@@ -37,12 +37,6 @@ public class ParamsDAOImpl implements ParamsDAO {
     }
 
     @Override
-    public List<Items> listItems(int categoryId) {
-        Query query = em.createQuery("from Items where item_category=:categoryId");
-        return (List<Items>) query.setParameter("categoryId", categoryId).getResultList();
-    }
-
-    @Override
     public List<String> listLanguages() {
         Query query = em.createQuery("from Params");
         List<Params> listParams = query.getResultList();
@@ -72,30 +66,11 @@ public class ParamsDAOImpl implements ParamsDAO {
         return listWithoutDuplicates;
     }
 
-//    @Override
-//    public List<Items> searchItemsbyAuthor(String paramAuthor){
-//
-//        Query query = em.createQuery("from Params where author=:paramAuthor");
-//        List<Params> listParams = query.setParameter("paramAuthor", paramAuthor).getResultList();
-//        System.out.println("ну и где это дерьмо");
-//        List<Items> list=new ArrayList<>();
-//        for(Params p:listParams){
-//            list.add(p.getItem());
-//        }
-//        return list;
-//    }
-
-    @Override
-    public List<Params> listParams() {
-        Query query = em.createQuery("from Params");
-        return query.getResultList();
-    }
-
     @Override
     public List<Items> listItemsByParam(String paramAuthor) {
         Query query = em.createQuery("from Params");
         List<Params> listParams = query.getResultList();
-        System.out.println(listParams);
+
         List<Items> listItems = new ArrayList<>();
         for (Params p : listParams) {
             //System.out.println(p.getAuthor());
@@ -111,7 +86,7 @@ public class ParamsDAOImpl implements ParamsDAO {
     public List<Items> searchItemsByLanguageParam(String paramLanguage) {
         Query query = em.createQuery("from Params");
         List<Params> listParams = query.getResultList();
-        System.out.println(listParams);
+
         List<Items> listItems = new ArrayList<>();
         for (Params p : listParams) {
 
@@ -121,5 +96,18 @@ public class ParamsDAOImpl implements ParamsDAO {
             }
         }
         return listItems;
+    }
+
+    @Override
+    public List<Items> searchItemsByFormatParam (String paramFormat){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Items> query = builder.createQuery(Items.class);
+        Root<Items> r = query.from(Items.class);
+        Predicate predicate = builder.conjunction();
+        predicate = builder.and(predicate, builder.like(r.get("params").get("format"), paramFormat));
+        query.where(predicate);
+
+        List<Items> listItemsByFormat = em.createQuery(query).getResultList();
+        return listItemsByFormat;
     }
 }
