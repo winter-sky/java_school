@@ -7,6 +7,7 @@ import mainpackage.type.PaymentState;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import static mainpackage.type.OrderStatus.PAYMENT_AWAITING;
@@ -43,7 +44,7 @@ public class Orders {
     private Timestamp orderDate;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "order")
-    private List<OrderItems> orderItems;
+    List<OrderItems> orderItems = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="orders_client_address")
@@ -137,5 +138,9 @@ public class Orders {
 
     public void setOrderItems(List<OrderItems> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public void addOrderItem(OrderItems orderItems) {
+        this.orderItems.add(orderItems);
     }
 }

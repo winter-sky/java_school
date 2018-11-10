@@ -39,13 +39,6 @@ public class CartController {
         this.itemsService = is;
     }
 
-//    @RequestMapping(value = "/getguestcart", method = RequestMethod.GET)//doesn't work properly
-//    public String getGuestShoppingCart(Model model) {
-//        List<Items> guestCart = this.cartService.getGuestShoppingCart();
-//        model.addAttribute("guest_cart", guestCart);
-//        return "guest_cart";
-//    }
-
     @RequestMapping(value = "/guestcart", method = RequestMethod.GET)
     public String guestShoppingCart(HttpSession session,Model model) {
 

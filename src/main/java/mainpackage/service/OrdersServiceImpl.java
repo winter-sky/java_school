@@ -29,7 +29,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public void  addNewOrder(String userLogin, int itemId){this.ordersDAO.addNewOrder(userLogin,itemId);}
+    public void  addNewOrder(String userLogin, List<Items> itemsFromCart){this.ordersDAO.addNewOrder(userLogin,itemsFromCart);}
 
     @Override
     @Transactional

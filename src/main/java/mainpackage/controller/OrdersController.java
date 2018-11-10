@@ -97,14 +97,24 @@ public class OrdersController {
         return  "complete_order";
     }
 
-    @RequestMapping(value="/addtoorder/{userlogin}/{itemId}", method = RequestMethod.GET)
+    @RequestMapping(value="/addtoorder/{userlogin}", method = RequestMethod.GET)
     public String addItemToOrder (SessionStatus status, HttpSession session, Model model, Principal principal, @PathVariable("userlogin")
-            String userLogin , @PathVariable("itemId") int itemId ){
-        String login = principal.getName();
-        this.ordersService.addNewOrder(login,itemId);
-        session.removeAttribute("guestcart");
+            String userLogin){
+
+        String login = principal.getName();//?
+
+        Cart usercart = (Cart)session.getAttribute("initialusercart");
+        List<Items> listItemFromUserCart = usercart.getItems();
+
+        //TODO this.ordersService.addNewOrder(login,listItemFromUserCart);
+        this.ordersService.addNewOrder(userLogin,listItemFromUserCart);
+
+        List<Items> usercartlist = usercart.getItems();
+        model.addAttribute("user_cart", usercartlist);//user cart
+
+        session.removeAttribute("guestcart");//???
         session.removeAttribute("initialusercart");
-        //status.setComplete();//?
+
         return "redirect:/hello";
     }
 

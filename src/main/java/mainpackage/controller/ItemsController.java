@@ -52,6 +52,13 @@ public class ItemsController {
         this.cartService = cs;
     }
 
+    @RequestMapping(value = "/topitem", method = RequestMethod.GET)
+    public String getTopItem (Model model) {
+        List<Items> listTopItems = this.itemsService.getTopItems();
+        model.addAttribute("topitems", listTopItems);
+        return "statistic";
+    }
+
     @RequestMapping(value = "/edititempage", method = RequestMethod.GET)
     public String editItemPage (Model model) {
         List<Items> listAllItems = this.itemsService.showListAllItems();

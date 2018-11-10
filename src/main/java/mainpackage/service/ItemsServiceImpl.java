@@ -12,7 +12,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service("ItemsService")
+@Transactional
 public class ItemsServiceImpl implements ItemsService {
 
     @Autowired//???
@@ -23,23 +25,17 @@ public class ItemsServiceImpl implements ItemsService {
     private MappingService mappingService;
 
     @Override
-    @Transactional
+    public List<Items> getTopItems(){return this.itemsDAO.getTopItems();}
+
+    @Override
     public List<ItemDTO> listItems() {
         List<Items> entitiesList = this.itemsDAO.listItems();
         List<ItemDTO> itemDTOList = entitiesList.stream().map(it -> mappingService.itemEntityToItemDTO(it)).collect(Collectors.toList());
         return itemDTOList;
     }
 
-//    @Override
-//    @Transactional
-//    public List<Items> guestShoppingCart(){return  this.itemsDAO.guestShoppingCart();}
-//
-//    @Override
-//    @Transactional
-//    public List<Items> userShoppingCart(String userLogin){return  this.itemsDAO.getUsersShoppingCart(userLogin);}
 
     @Override
-    @Transactional
     public Items findItemById(int itemId) {
         return this.itemsDAO.findItemById(itemId);
     }
@@ -55,28 +51,21 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    @Transactional
-    public void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
-                            String volume,int availableCount,String pic){
-        this.itemsDAO.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount, pic);
+    public void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,
+                            double weight,String volume,int availableCount,String pic){
+        this.itemsDAO.addNewItem(categoryId, author, format, language, itemName, price, weight, volume, availableCount,
+                pic);
     }
 
     @Override
-    @Transactional
     public List<Items> showListAllItems(){
         return this.itemsDAO.showListAllItems();
     }
 
     @Override
-    @Transactional
     public void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
                            String pic, int categoryId,String author,String format,String language){
-        this.itemsDAO.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author, format, language);
+        this.itemsDAO.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author,
+                format, language);
     }
-
-//    @Override
-//    @Transactional
-//    public void removeItem(int itemId){
-//        this.itemsDAO.removeItem(itemId);
-//    }
 }

@@ -5,6 +5,7 @@ import mainpackage.model.Logins;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 public interface ItemsDAO {
     List<Items> listItems();
@@ -19,5 +20,7 @@ public interface ItemsDAO {
     void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
                     String pic, int categoryId,String author,String format,String language);
 
-   // void removeItem(int itemId);
+    int getOrderItemsQuantity(Items item);//count the number of orders of a particular item
+
+    List<Items> getTopItems();
 }

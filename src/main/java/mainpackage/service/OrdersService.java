@@ -15,7 +15,7 @@ public interface OrdersService {
 
     void payForTheOrder(String userLogin);
 
-    void  addNewOrder(String userLogin, int itemId);
+    void  addNewOrder(String userLogin, List<Items> itemsFromCart);
 
     List<Items> getUserCurrentOrder (String userLogin);
 

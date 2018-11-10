@@ -17,19 +17,13 @@ public interface OrdersDAO {
 
     List<Orders> getUserOrders(String userLogin);//is not used
 
-    void  addNewOrder(String userLogin, int itemId);
+    void  addNewOrder(String userLogin, List<Items> itemsFromCart);
 
     List<Items> getUserCurrentOrder (String userLogin);//find client order with payment awaiting status
-
-   // Params getParamsItemFromOrderByLogin(String userLogin);
 
     Orders getCurrentOrder(String user);
 
     void payForTheOrder(String userLogin);
-
-//    OrderItems getOrderItemsById (int orderItemsId);
-//
-//    void updateOrderItemQuantity (OrderItems orderItem);
 
     List<Orders> getOrders (String userLogin);//find client not delivered orders
 
