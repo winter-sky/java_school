@@ -1,13 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 21.10.2018
-  Time: 3:13
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -122,8 +116,6 @@
             <p><b>Categories</b></p>
             <div class="container">
                 <c:forEach var="rootCategory" items="${rootCategory.categories}">
-                    <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
-                    <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
                     <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />">${rootCategory.categoryName}</a><br>
                     <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
                     <jsp:include page="categories.jsp"/>
@@ -133,7 +125,7 @@
                 <select name="author">
                     <c:forEach var="author" items="${listAuthors}">
                         <tr>
-                                <%--${author.author}<br>--%>
+
                             <option value="${author}">${author}</option>
                         </tr>
                     </c:forEach>
@@ -167,9 +159,7 @@
                         <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add
                             to user cart</a><br>
                     </security:authorize>
-                        <%--<c:if test="${!empty checkprincipal}">--%>
-                        <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
-                        <%--</c:if>--%>
+
                     <c:if test="${empty checkprincipal}">
                         <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to
                             guest cart</a><br>

@@ -1,13 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 21.10.2018
-  Time: 3:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -99,136 +92,259 @@
     </style>
 </head>
 <body>
-<div class="header">
+<%--<c:if test="${empty checkprincipal}"><div class="header">--%>
     <h1>Tir Na Nog Book Store</h1>
-<c:if test="${empty checkprincipal}">
+    <c:if test="${empty checkprincipal}">
         <a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>
-</c:if>
+    </c:if>
     <c:if test="${!empty checkprincipal}">
         <security:authorize access="hasRole('USER')">
-        <a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>
+            <a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>
         </security:authorize>
     </c:if>
 </div>
 
-<div class="topnav">
-    <a href="itemlist">Show all books</a>
-    <div class="topnav right">
-        <c:if test="${empty checkprincipal}">
-            <%--<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="20" height="20"></a>--%>
+    <div class="topnav">
+        <a href="itemlist">Show all books</a>
+        <div class="topnav right">
+            <c:if test="${empty checkprincipal}">
+                <%--<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="20" height="20"></a>--%>
                 <a href="/login">Log in</a>
-        </c:if>
-        <c:if test="${!empty checkprincipal}">
-            <security:authorize access="hasRole('USER')">
-                <%--<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>--%>
-                <a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>
-                <a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>
-            </security:authorize>
-            <a href="<c:url value='/logout'/>">Log out</a>
-        </c:if>
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column side">
-        <%--<div class="w3-panel w3-pink">--%>
-            <%--<h2 class="w3-opacity">Filter</h2>--%>
-        <%--</div>--%>
-        <p><b>Categories</b></p>
-        <div class="container">
-            <c:forEach var="rootCategory" items="${rootCategory.categories}">
-                <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>
-                <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
-                <jsp:include page="categories.jsp"/>
-            </c:forEach>
-
-            <p><b>Author</b></p>
-            <c:forEach var="author" items="${listAuthors}">
-                <tr>
-                    <a href="<c:url value='/searchbyauthor/${author}'/>">${author}</a><br>
-                </tr>
-            </c:forEach>
-
-            <p><b>Language</b></p>
-            <c:forEach var="language" items="${listLanguages}">
-                <tr>
-                            <a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>
-                </tr>
-            </c:forEach>
-
-            <p><b>Format</b></p>
-            <c:forEach var="format" items="${listFormats}">
-                <tr>
-                            <a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>
-                </tr>
-            </c:forEach>
+            </c:if>
+            <c:if test="${!empty checkprincipal}">
+                <security:authorize access="hasRole('USER')">
+                    <%--<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>--%>
+                    <a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>
+                    <a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>
+                </security:authorize>
+                <a href="<c:url value='/logout'/>">Log out</a>
+            </c:if>
+            </a>
         </div>
     </div>
-    <div class="column middle">
-        <c:forEach var="items" items="${listItems}">
-            <tr>
-                <p><img src="${items.pic}" alt="some pic"></p>
-                <%--<p>Book id: ${items.itemId} </p>--%>
-                <p>Book name: ${items.itemName}</p>
-                <p>Price: ${items.price}</p>
-                <security:authorize access="hasRole('USER')">
-                    <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
-                </security:authorize>
-                <c:if test="${empty checkprincipal}">
-                    <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
-                </c:if>
-            </tr>
-        </c:forEach>
 
-        <c:forEach var="items" items="${showallitems}">
-            <tr>
-                <p><img src="${items.pic}" alt="some pic"></p>
-                <%--<p>Book id: ${items.itemId} </p>--%>
-                <p>Book name: ${items.itemName}</p>
-                <p>Price: ${items.price}</p>
-                <security:authorize access="hasRole('USER')">
-                    <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
-                </security:authorize>
-                <c:if test="${empty checkprincipal}">
-                    <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
-                </c:if>
-            </tr>
-        </c:forEach>
+    <div class="row">
+        <div class="column side">
+            <p><b>Categories</b></p>
+            <div class="container">
+                <c:forEach var="rootCategory" items="${rootCategory.categories}">
+                    <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>
+                    <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
+                    <jsp:include page="categories.jsp"/>
+                </c:forEach>
 
-        <div class="container">
-            <c:if test="${empty category.categories}">
-                <c:forEach var="item" items="${category.items}">
+                <p><b>Author</b></p>
+                <c:forEach var="author" items="${listAuthors}">
                     <tr>
-                        <p><img src="${item.pic}" alt="some pic"></p>
-                            ${item.itemName}<br>
+                        <a href="<c:url value='/searchbyauthor/${author}'/>">${author}</a><br>
                     </tr>
                 </c:forEach>
-            </c:if>
-            <c:forEach var="category" items="${category.categories}">
-                <c:forEach var="item" items="${category.items}">
-                    <p><img src="${item.pic}" alt="some pic"></p>
-                    ${item.itemName}
+
+                <p><b>Language</b></p>
+                <c:forEach var="language" items="${listLanguages}">
+                    <tr>
+                        <a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>
+                    </tr>
                 </c:forEach>
-                <c:if test="${!empty category.categories}">
-                    <c:set var="category" value="${category}" scope="request"/>
-                    <jsp:include page="listitemsbycategory.jsp"/>
-                </c:if>
+
+                <p><b>Format</b></p>
+                <c:forEach var="format" items="${listFormats}">
+                    <tr>
+                        <a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>
+                    </tr>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="column middle">
+            <c:forEach var="items" items="${listItems}">
+                <tr>
+                    <p><img src="${items.pic}" alt="some pic" width="184" height="250"></p>
+                    <p>Book name: ${items.itemName}</p>
+                    <p>Price: ${items.price}</p>
+                    <security:authorize access="hasRole('USER')">
+                        <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                    </security:authorize>
+                    <c:if test="${empty checkprincipal}">
+                        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                    </c:if>
+                </tr>
             </c:forEach>
-        </div>
-        <div class="container">
+
+            <c:forEach var="items" items="${showallitems}">
+                <tr>
+                    <p><img src="${items.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
+                        <%--<p>Book id: ${items.itemId} </p>--%>
+                    <p>Book name: ${items.itemName}</p>
+                    <p>Price: ${items.price}</p>
+                    <security:authorize access="hasRole('USER')">
+                        <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                    </security:authorize>
+                    <c:if test="${empty checkprincipal}">
+                        <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                    </c:if>
+                </tr>
+            </c:forEach>
+
+            <div class="container">
+                <c:if test="${empty category.categories}">
+                    <c:forEach var="item" items="${category.items}">
+                        <tr>
+                            <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
+                                ${item.itemName}<br>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                <c:forEach var="category" items="${category.categories}">
+                    <c:forEach var="item" items="${category.items}">
+                        <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
+                        ${item.itemName}
+                    </c:forEach>
+                    <c:if test="${!empty category.categories}">
+                        <c:set var="category" value="${category}" scope="request"/>
+                        <jsp:include page="listitemsbycategory.jsp"/>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="container">
+
+            </div>
 
         </div>
+        <div class="column side">
 
+        </div>
     </div>
-    <div class="column side">
 
+    <div class="footer">
+        <p>Footer</p>
     </div>
-</div>
+<%--</c:if>--%>
+<%--<div class="header">--%>
+    <%--<h1>Tir Na Nog Book Store</h1>--%>
+<%--<c:if test="${empty checkprincipal}">--%>
+        <%--<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>--%>
+<%--</c:if>--%>
+    <%--<c:if test="${!empty checkprincipal}">--%>
+        <%--<security:authorize access="hasRole('USER')">--%>
+        <%--<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>--%>
+        <%--</security:authorize>--%>
+    <%--</c:if>--%>
+<%--</div>--%>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
+<%--<div class="topnav">--%>
+    <%--<a href="itemlist">Show all books</a>--%>
+    <%--<div class="topnav right">--%>
+        <%--<c:if test="${empty checkprincipal}">--%>
+            <%--&lt;%&ndash;<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="20" height="20"></a>&ndash;%&gt;--%>
+                <%--<a href="/login">Log in</a>--%>
+        <%--</c:if>--%>
+        <%--<c:if test="${!empty checkprincipal}">--%>
+            <%--<security:authorize access="hasRole('USER')">--%>
+                <%--&lt;%&ndash;<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>&ndash;%&gt;--%>
+                <%--<a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>--%>
+                <%--<a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>--%>
+            <%--</security:authorize>--%>
+            <%--<a href="<c:url value='/logout'/>">Log out</a>--%>
+        <%--</c:if>--%>
+        <%--</a>--%>
+    <%--</div>--%>
+<%--</div>--%>
+
+<%--<div class="row">--%>
+    <%--<div class="column side">--%>
+        <%--<p><b>Categories</b></p>--%>
+        <%--<div class="container">--%>
+            <%--<c:forEach var="rootCategory" items="${rootCategory.categories}">--%>
+                <%--<a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>--%>
+                <%--<c:set var="rootCategory" value="${rootCategory}" scope="request"/>--%>
+                <%--<jsp:include page="categories.jsp"/>--%>
+            <%--</c:forEach>--%>
+
+            <%--<p><b>Author</b></p>--%>
+            <%--<c:forEach var="author" items="${listAuthors}">--%>
+                <%--<tr>--%>
+                    <%--<a href="<c:url value='/searchbyauthor/${author}'/>">${author}</a><br>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+
+            <%--<p><b>Language</b></p>--%>
+            <%--<c:forEach var="language" items="${listLanguages}">--%>
+                <%--<tr>--%>
+                            <%--<a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+
+            <%--<p><b>Format</b></p>--%>
+            <%--<c:forEach var="format" items="${listFormats}">--%>
+                <%--<tr>--%>
+                            <%--<a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    <%--<div class="column middle">--%>
+        <%--<c:forEach var="items" items="${listItems}">--%>
+            <%--<tr>--%>
+                <%--<p><img src="${items.pic}" alt="some pic" width="184" height="250"></p>--%>
+                <%--<p>Book name: ${items.itemName}</p>--%>
+                <%--<p>Price: ${items.price}</p>--%>
+                <%--<security:authorize access="hasRole('USER')">--%>
+                    <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>--%>
+                <%--</security:authorize>--%>
+                <%--<c:if test="${empty checkprincipal}">--%>
+                    <%--<a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>--%>
+                <%--</c:if>--%>
+            <%--</tr>--%>
+        <%--</c:forEach>--%>
+
+        <%--<c:forEach var="items" items="${showallitems}">--%>
+            <%--<tr>--%>
+                <%--<p><img src="${items.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>--%>
+                <%--&lt;%&ndash;<p>Book id: ${items.itemId} </p>&ndash;%&gt;--%>
+                <%--<p>Book name: ${items.itemName}</p>--%>
+                <%--<p>Price: ${items.price}</p>--%>
+                <%--<security:authorize access="hasRole('USER')">--%>
+                    <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>--%>
+                <%--</security:authorize>--%>
+                <%--<c:if test="${empty checkprincipal}">--%>
+                    <%--<a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>--%>
+                <%--</c:if>--%>
+            <%--</tr>--%>
+        <%--</c:forEach>--%>
+
+        <%--<div class="container">--%>
+            <%--<c:if test="${empty category.categories}">--%>
+                <%--<c:forEach var="item" items="${category.items}">--%>
+                    <%--<tr>--%>
+                        <%--<p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>--%>
+                            <%--${item.itemName}<br>--%>
+                    <%--</tr>--%>
+                <%--</c:forEach>--%>
+            <%--</c:if>--%>
+            <%--<c:forEach var="category" items="${category.categories}">--%>
+                <%--<c:forEach var="item" items="${category.items}">--%>
+                    <%--<p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>--%>
+                    <%--${item.itemName}--%>
+                <%--</c:forEach>--%>
+                <%--<c:if test="${!empty category.categories}">--%>
+                    <%--<c:set var="category" value="${category}" scope="request"/>--%>
+                    <%--<jsp:include page="listitemsbycategory.jsp"/>--%>
+                <%--</c:if>--%>
+            <%--</c:forEach>--%>
+        <%--</div>--%>
+        <%--<div class="container">--%>
+
+        <%--</div>--%>
+
+    <%--</div>--%>
+    <%--<div class="column side">--%>
+
+    <%--</div>--%>
+<%--</div>--%>
+
+<%--<div class="footer">--%>
+    <%--<p>Footer</p>--%>
+<%--</div>--%>
 
 </body>
 </html>

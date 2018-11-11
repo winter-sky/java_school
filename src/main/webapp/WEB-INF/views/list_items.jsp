@@ -19,14 +19,11 @@
 <h3>All books</h3>
 <c:forEach var="items" items="${listItems}">
     <tr>
-        <p><img src="${items.pic}" alt="some pic"></p>
+        <p><img src="${items.pic}" alt="some pic" width="184" height="250"></p>
         <p>Book name: ${items.itemName}</p>
         <security:authorize access="hasRole('USER')">
             <a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
         </security:authorize>
-        <%--<c:if test="${!empty checkprincipal}">--%>
-            <%--<a href="<c:url value='/cart/additemtousercart/${items.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to cart</a><br>--%>
-        <%--</c:if>--%>
         <c:if test="${empty checkprincipal}">
         <a href="<c:url value='/cart/additem/${items.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
         </c:if>

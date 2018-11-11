@@ -16,11 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            /*background-color: hsl(0, 0%, 90%);*/
-            /*font-family: Arial;*/
             background-color: #f1f1f1;
             padding: 20px;
-            /*text-align: center;*/
         }
     </style>
 </head>
@@ -30,7 +27,7 @@ ${sessionScope.guestcart.items}
 <c:if test="${!empty guest_cart}">
 <c:forEach var="item" items="${guest_cart}">
     <tr>
-        <p><img src="${item.pic}" alt="some pic"></p>
+        <p><img src="${item.pic}" alt="some pic" width="184" height="250"></p>
         <p>Book name: ${item.itemName}</p>
 
     </tr>
