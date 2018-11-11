@@ -8,6 +8,7 @@ import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersDAO {
@@ -34,6 +35,8 @@ public interface OrdersDAO {
     List<Orders> getOrders (String userLogin);//find client not delivered orders
 
     List<Orders> getAllOrders ();//find client not delivered orders
+
+    List<Orders> getOrdersAfter (Timestamp ts);
 
     List<Orders> showAllOrdersForAdmin();
 

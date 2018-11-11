@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service("OrdersService")
@@ -75,5 +76,10 @@ public class OrdersServiceImpl implements OrdersService {
     @Transactional
     public void selectOrderStatus(OrderStatus orderStatus, int orderId){
         this.ordersDAO.selectOrderStatus(orderStatus, orderId);
+    }
+
+    @Override
+    public List<Orders> getOrdersAfter(Timestamp ts) {
+        return ordersDAO.getOrdersAfter(ts);
     }
 }

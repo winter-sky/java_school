@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -298,5 +299,12 @@ public class OrdersDAOImpl implements OrdersDAO {
     @SuppressWarnings("unchecked")
     public List<Orders> getAllOrders() {
         return em.createQuery("from Orders").getResultList();
+    }
+
+    @Override
+    public List<Orders> getOrdersAfter(Timestamp ts) {
+        Query query = em.createQuery("from Orders WHERE order_date >= :ts");
+
+        return query.setParameter("ts", ts).getResultList();
     }
 }

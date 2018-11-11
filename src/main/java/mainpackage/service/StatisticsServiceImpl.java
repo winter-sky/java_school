@@ -200,8 +200,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     private RevenueStatDTO getRevenueStat(Timestamp startTime) {
-        // TODO: filter by date in select statement!!!.
-        List<Orders> allOrders = ordersService.getAllOrders();
+        List<Orders> allOrders = ordersService.getOrdersAfter(startTime);
 
         double revenue = 0;
         int orders = 0;
@@ -211,15 +210,13 @@ public class StatisticsServiceImpl implements StatisticsService {
             log.info("All orders read [count=" + allOrders.size() + ']');
 
             for (Orders order : allOrders) {
-                if (startTime.compareTo(order.getOrderDate()) < 0) {
-                    orders++;
-                    items +=order.getOrderItems().size();
+                orders++;
+                items +=order.getOrderItems().size();
 
-                    List<OrderItems> orderItems = order.getOrderItems();
+                List<OrderItems> orderItems = order.getOrderItems();
 
-                    for (OrderItems orderItem : orderItems) {
-                        revenue += orderItem.getItem().getPrice() * orderItem.getItemQuantity();
-                    }
+                for (OrderItems orderItem : orderItems) {
+                    revenue += orderItem.getItem().getPrice() * orderItem.getItemQuantity();
                 }
             }
         }

@@ -34,7 +34,8 @@ public class Util {
         Calendar cal = Calendar.getInstance();
 
         cal.setTimeInMillis(currentTime);
-        cal.set(Calendar.DAY_OF_WEEK, 1);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.set(Calendar.DAY_OF_WEEK, 2);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
