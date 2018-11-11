@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface OrdersService {
 
-    double showMonthProceeds();
-
     List<Orders> getUserOrders(String userLogin);
 
     void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin);

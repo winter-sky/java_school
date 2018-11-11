@@ -23,5 +23,4 @@ public interface ItemsService {
     void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
                     String pic, int categoryId,String author,String format,String language);
 
-    List<Items> getTopItems();
 }

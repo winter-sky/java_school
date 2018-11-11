@@ -22,11 +22,6 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersDAO ordersDAO;
 
     @Override
-    public double showMonthProceeds(){
-        return this.ordersDAO.showMonthProceeds();
-    }
-
-    @Override
     public void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin){
         this.ordersDAO.selectPaymentMethod(paymentMethod,userLogin);
     }

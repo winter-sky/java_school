@@ -19,35 +19,6 @@ public class ItemsDAOImpl implements ItemsDAO {
     private EntityManager em;
 
     @Override
-    public List<Items> getTopItems(){
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-
-        CriteriaQuery<Items> q = cb.createQuery(Items.class);
-        Root<Items> root = q.from(Items.class);
-        q.select(root);
-        TypedQuery<Items> query = em.createQuery(q);
-        List<Items> listAllItems= query.getResultList();
-
-        Map<Items, Integer> orderItemQuantityMap = new HashMap();
-        for(Items item:listAllItems){
-            int orderItemQuantity = getOrderItemsQuantity(item);
-            orderItemQuantityMap.put(item,orderItemQuantity);
-        }
-
-        Map<Items, Integer> result = new LinkedHashMap<>();
-        orderItemQuantityMap.entrySet().stream()
-                .sorted(Map.Entry.<Items, Integer>comparingByValue().reversed()).limit(10)
-                .forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
-
-
-        Set<Items> set = result.keySet();
-
-        List<Items>list = new ArrayList<>(set);
-
-        return list;
-    }
-
-    @Override
     public int getOrderItemsQuantity(Items item){ //count the number of orders of a particular item
 
         List<OrderItems> orderItems = new ArrayList<>();

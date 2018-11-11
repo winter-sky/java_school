@@ -27,11 +27,4 @@ public class AdminController {
 
         return "admin_page";
     }
-
-    @RequestMapping(value = "/getmonthproceeds", method = RequestMethod.GET)
-    public String getMonthProceed(Model model) {
-        double monthProceeds=this.ordersService.showMonthProceeds();
-        model.addAttribute("monthproceeds", monthProceeds);
-        return "show_proceeds";
-    }
 }

@@ -22,5 +22,4 @@ public interface ItemsDAO {
 
     int getOrderItemsQuantity(Items item);//count the number of orders of a particular item
 
-    List<Items> getTopItems();
 }

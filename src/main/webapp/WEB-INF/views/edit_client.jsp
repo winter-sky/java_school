@@ -24,11 +24,8 @@
             padding: 10px;
         }
         body {
-            /*background-color: hsl(0, 0%, 90%);*/
-            /*font-family: Arial;*/
             background-color: #f1f1f1;
             padding: 20px;
-            /*text-align: center;*/
         }
     </style>
 </head>
@@ -37,13 +34,7 @@
 <form:form action="/updateclient" modelAttribute="client">
     <table>
             <tr>
-                <%--<td>--%>
-                    <%--<form:label path="clientId">--%>
-                        <%--<spring:message text="ID"/>--%>
-                    <%--</form:label>--%>
-                <%--</td>--%>
                 <td>
-                    <%--<form:input path="clientId" readonly="true" size="8"  disabled="true" />--%>
                     <form:hidden path="clientId" />
                 </td>
             </tr>
@@ -147,42 +138,25 @@
                 <form:input path="clientAddress.apartment" />
             </td>
         </tr>
-        <tr>
-            <td>
-                <form:label path="login.password">
-                    <spring:message text="password"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="login.password" />
-            </td>
-        </tr>
+        <%--<tr>--%>
+            <%--<td>--%>
+                <%--<form:label path="login.password">--%>
+                    <%--<spring:message text="password"/>--%>
+                <%--</form:label>--%>
+            <%--</td>--%>
+            <%--<td>--%>
+                <%--<form:input path="login.password" />--%>
+            <%--</td>--%>
+        <%--</tr>--%>
         <tr>
             <td colspan="2">
                 <c:if test="${!empty client.firstName}">
                     <input type="submit"
                            value="<spring:message text="Edit"/>" />
                 </c:if>
-                <%--<c:if test="${empty client.firstName}">--%>
-                    <%--<input type="submit"--%>
-                           <%--value="<spring:message text="Add client"/>" />--%>
-                <%--</c:if>--%>
             </td>
         </tr>
     </table>
 </form:form>
-<%--<h3>Client List</h3>--%>
-<%--<c:if test="${!empty listclients}">--%>
-    <%--<table class="tg">--%>
-        <%--<c:forEach items="${listclients}" var="client">--%>
-            <%--<tr>--%>
-                <%--&lt;%&ndash;<td>${client.clientId}</td>&ndash;%&gt;--%>
-                <%--<td>${client.firstName}</td>--%>
-                <%--<td>${client.lastName}</td>--%>
-                    <%--<td><a href="<c:url value='/edit/${client.clientId}'/>">Edit</a><td>--%>
-            <%--</tr>--%>
-        <%--</c:forEach>--%>
-    <%--</table>--%>
-<%--</c:if>--%>
 </body>
 </html>

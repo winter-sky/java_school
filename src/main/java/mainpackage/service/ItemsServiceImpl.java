@@ -25,9 +25,6 @@ public class ItemsServiceImpl implements ItemsService {
     private MappingService mappingService;
 
     @Override
-    public List<Items> getTopItems(){return this.itemsDAO.getTopItems();}
-
-    @Override
     public List<ItemDTO> listItems() {
         List<Items> entitiesList = this.itemsDAO.listItems();
         List<ItemDTO> itemDTOList = entitiesList.stream().map(it -> mappingService.itemEntityToItemDTO(it)).collect(Collectors.toList());

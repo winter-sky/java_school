@@ -4,7 +4,6 @@ import mainpackage.model.*;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
-import mainpackage.type.PaymentState;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -119,27 +118,6 @@ public class OrdersDAOImpl implements OrdersDAO {
         List<Orders> listAllClientOrders = typedQuery.getResultList();
 
         return listAllClientOrders;
-    }
-
-    @Override
-    public double showMonthProceeds(){
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Orders> query = builder.createQuery(Orders.class);
-        Root<Orders> o = query.from(Orders.class);
-        Predicate predicate=builder.conjunction();
-        predicate = builder.and(predicate, builder.equal(o.get("orderStatus"),DELIVERED));
-        query.where(predicate);
-        query.orderBy(builder.desc(o.get("orderDate")));
-
-        TypedQuery<Orders> typedQuery = em.createQuery(query);
-        List<Orders> listAllClientOrders = typedQuery.setMaxResults(30).getResultList();
-
-        double monthProceeds=0;
-        for(Orders order : listAllClientOrders){
-            monthProceeds+=order.getOrderPrice();
-        }
-
-        return monthProceeds;
     }
 
     @Override
