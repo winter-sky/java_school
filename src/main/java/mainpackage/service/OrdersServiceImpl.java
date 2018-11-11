@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service("OrdersService")
+@Transactional
 public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
@@ -21,52 +22,51 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersDAO ordersDAO;
 
     @Override
-    @Transactional
+    public double showMonthProceeds(){
+        return this.ordersDAO.showMonthProceeds();
+    }
+
+    @Override
     public void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin){
         this.ordersDAO.selectPaymentMethod(paymentMethod,userLogin);
     }
 
+    @Override
+    public List<Orders> getUserOrders(String userLogin){
+        return this.ordersDAO.getUserOrders(userLogin);
+    }
 
     @Override
-    @Transactional
     public void  addNewOrder(String userLogin, List<Items> itemsFromCart){this.ordersDAO.addNewOrder(userLogin,itemsFromCart);}
 
     @Override
-    @Transactional
     public List<Items> getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
 
     @Override
-    @Transactional
     public Orders getCurrentOrder(String userLogin){return this.ordersDAO.getCurrentOrder(userLogin);}
 
     @Override
-    @Transactional
     public void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin){
         this.ordersDAO.selectDeliveryMethod(deliveryMethod,userLogin);
     }
 
     @Override
-    @Transactional
     public void payForTheOrder(String userLogin){this.ordersDAO.payForTheOrder(userLogin);}
 
     @Override
-    @Transactional
     public List<Orders> getOrders (String userLogin){return this.ordersDAO.getOrders(userLogin);}
 
     @Override
-    @Transactional
     public List<Orders> showAllOrdersForAdmin(){
         return this.ordersDAO.showAllOrdersForAdmin();
     }
 
     @Override
-    @Transactional
     public Orders findOrderById(int orderId){
         return this.ordersDAO.findOrderById(orderId);
     }
 
     @Override
-    @Transactional
     public void selectOrderStatus(OrderStatus orderStatus, int orderId){
         this.ordersDAO.selectOrderStatus(orderStatus, orderId);
     }

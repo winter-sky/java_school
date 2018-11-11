@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
@@ -34,22 +35,26 @@ public class OrdersController {
         this.ordersService = os;
     }
 
-    @RequestMapping(value="/selectorderstatus/{orderStatus}/{orderId}", method = RequestMethod.GET)
-    public String selectOrderStatus (Model model,@PathVariable("orderStatus")
-            OrderStatus orderStatus,@PathVariable("orderId") int orderId ){
+    @RequestMapping(value="/selectorderstatus", method = RequestMethod.GET)
+    public String selectOrderStatus (Model model,@RequestParam("orderId") int orderId,
+                                     @RequestParam("status") int statusOrdinal ){
 
-        this.ordersService.selectOrderStatus(orderStatus, orderId);
+        OrderStatus status = OrderStatus.values()[statusOrdinal];
+
+        this.ordersService.selectOrderStatus(status, orderId);
 
         return  "redirect:/getallorders";
     }
 
-    @RequestMapping(value="/changeorderstatus/{orderId}",method = RequestMethod.GET)
-    public String selectOrderStatusPage (@PathVariable("orderId") int orderId, Model model) {
+    @RequestMapping(value="/changeorderstatus",method = RequestMethod.GET)
+    public String selectOrderStatusPage (@RequestParam("orderId") int orderId,
+                                         @RequestParam("status") OrderStatus status, Model model) {
         //TODO get order by id, make order attribute
         Orders order = this.ordersService.findOrderById(orderId);
         model.addAttribute("orderstatus", OrderStatus.values());
         model.addAttribute("order", order);
-        return "order_status";
+        //return "order_status";
+        return  "redirect:/all_orders";
     }
 
     @RequestMapping(value="/payfortheorder/{userLogin}",method = RequestMethod.GET)
@@ -137,12 +142,14 @@ public class OrdersController {
         return "current_user_order";
     }
 
-    @RequestMapping(value="/getuserorders/{userLogin}", method = RequestMethod.GET)//show user orders with not delivered status
+    @RequestMapping(value="/getuserorders/{userLogin}", method = RequestMethod.GET)
     public String getOrders (HttpSession session,Model model, Principal principal, @PathVariable("userLogin")
             String userLogin ){
-        String login = principal.getName();
+        //String login = principal.getName();
 
-        List<Orders> list = this.ordersService.getOrders(userLogin);
+        //List<Orders> list = this.ordersService.getOrders(userLogin);
+
+        List<Orders> list = this.ordersService.getUserOrders(userLogin);//show all user orders
 
         model.addAttribute("orderlist", list);
 
@@ -151,6 +158,10 @@ public class OrdersController {
 
     @RequestMapping(value="/getallorders", method = RequestMethod.GET)
     public String getAllOrders (Model model){
+
+       //Orders order = this.ordersService.findOrderById(orderId);
+        model.addAttribute("orderstatus", OrderStatus.values());
+       // model.addAttribute("order", order);
 
         List<Orders> listAllOrders = this.ordersService.showAllOrdersForAdmin();
 

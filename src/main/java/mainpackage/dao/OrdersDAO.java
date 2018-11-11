@@ -11,6 +11,8 @@ import mainpackage.type.PaymentMethod;
 import java.util.List;
 
 public interface OrdersDAO {
+    double showMonthProceeds();
+
     void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin);//set payment method in user order
 
     void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin);

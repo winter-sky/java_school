@@ -98,5 +98,11 @@ public class HelloController {
         session.setAttribute("sessionObject", "Value is session object");
         return "test";
     }
+//
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String homePage() {
+//
+//        return "redirect:/listcategories";
+//    }
 
 }

@@ -3,18 +3,56 @@ package mainpackage.dao;
 import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 import mainpackage.model.Logins;
+import mainpackage.model.Orders;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 @Repository("ClientsDAO")
 public class ClientsDAOImpl implements  ClientsDAO {
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    public int getClientOrderQuantity(Clients client){
+        List<Orders> listClientOrders = new ArrayList<>();
+        if (client.getOrders()!=null){
+            listClientOrders=client.getOrders();
+        }
+        int orderQuantity = listClientOrders.size();
+        return orderQuantity;
+    }
+
+    @Override
+    public List<Clients> getListTopClients(){
+        List<Clients> listAllClients=new ArrayList<>();
+        listAllClients = listClients();
+
+        Map<Clients, Integer> clientOrderQuantityMap = new HashMap();
+        for(Clients client:listAllClients){
+            int quantity = getClientOrderQuantity(client);
+            clientOrderQuantityMap.put(client,quantity);
+        }
+
+//        Map<Clients, Integer> result = new LinkedHashMap<>();
+//        orderItemQuantityMap.entrySet().stream()
+//                .sorted(Map.Entry.<Items, Integer>comparingByValue().reversed()).limit(10)
+//                .forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
+//
+//
+//        Set<Items> set = result.keySet();
+//
+//        List<Items>list = new ArrayList<>(set);
+
+        return null;
+    }
 
     @Override
     public Clients findClientByLogin(String clientLogin) {
@@ -74,7 +112,16 @@ public class ClientsDAOImpl implements  ClientsDAO {
 
     @Override
     public List<Clients> listClients(){
-        return em.createQuery("FROM Clients c").getResultList();
+
+        //return em.createQuery("FROM Clients c").getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Clients> q = cb.createQuery(Clients.class);
+        Root<Clients> root = q.from(Clients.class);
+        q.select(root);
+        TypedQuery<Clients> query = em.createQuery(q);
+        List<Clients> listAllClients= query.getResultList();
+
+        return listAllClients;
     }
 }
 
