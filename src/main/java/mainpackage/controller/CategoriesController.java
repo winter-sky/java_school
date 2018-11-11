@@ -109,29 +109,32 @@ public class CategoriesController {
             String userLogin = principal.getName();
             model.addAttribute("userLogin", userLogin);
             Clients client = this.clientsService.findClientByLogin(userLogin);
-           Roles clientRole =  client.getLogin().getRole();
-           Role role = clientRole.getRole();
-            if (role.equals(ROLE_USER)){
-                Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
-                if (initialusercart == null)
-                {
-                    initialusercart = new Cart();//create new user cart in session, not in DB
-                    //need to create guest cart if it not exist
-                    Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
-                    if (guestcart == null)
-                    {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
-                        guestcart = new Cart();//create new guest Cart in session, not in DB
-                    }
+            if(client!=null){
+                Roles clientRole =  client.getLogin().getRole();
+                Role role = clientRole.getRole();
+                if (role.equals(ROLE_USER)){
+                    Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
+                    if (initialusercart == null)
+                    {
+                        initialusercart = new Cart();//create new user cart in session, not in DB
+                        //need to create guest cart if it not exist
+                        Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
+                        if (guestcart == null)
+                        {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+                            guestcart = new Cart();//create new guest Cart in session, not in DB
+                        }
 
-                    List<Items> guestCartItems = new ArrayList<>();
-                    if(guestcart.getItems()!=null) {//check whether guest cart empty or not
-                        guestCartItems.addAll(guestcart.getItems());
-                        initialusercart.setItems(guestCartItems);
+                        List<Items> guestCartItems = new ArrayList<>();
+                        if(guestcart.getItems()!=null) {//check whether guest cart empty or not
+                            guestCartItems.addAll(guestcart.getItems());
+                            initialusercart.setItems(guestCartItems);
+                        }
+                        //initialusercart.setClient(client);
                     }
-                    //initialusercart.setClient(client);
+                    session.setAttribute("initialusercart",initialusercart);
                 }
-                session.setAttribute("initialusercart",initialusercart);
             }
+
         }
 
         model.addAttribute("checkprincipal", principal);
