@@ -65,4 +65,15 @@ public class ItemsServiceImpl implements ItemsService {
         this.itemsDAO.updateItem(itemId, itemName, price, weight, volume, availableCount, pic, categoryId, author,
                 format, language);
     }
+
+    @Override
+    public List<Items> findItemsByIds(List<Integer> itemIds) {
+        return itemsDAO.findItemsByIds(itemIds);
+    }
+
+//    @Override
+//    @Transactional
+//    public void removeItem(int itemId){
+//        this.itemsDAO.removeItem(itemId);
+//    }
 }
