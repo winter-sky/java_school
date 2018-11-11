@@ -38,12 +38,10 @@ public class OrdersDAOImpl implements OrdersDAO {
             }
         }
 
-        List<Orders> userOrders = client.getOrders();//is it more properly get the last order? must be improved
-        System.out.println("Orders client: " + client.getOrders());
+        List<Orders> userOrders = client.getOrders();
         Orders userOrder = new Orders();
         for(Orders o:userOrders){
             if(o.getPaymentStatus().equals(AWAITING_PAYMENT)){
-                System.out.println("Must be found: " + o);
                 userOrder=o;
             }
         }
@@ -197,7 +195,6 @@ public class OrdersDAOImpl implements OrdersDAO {
           for(Orders o:listUserOrders){
              if(o.getPaymentStatus().equals(AWAITING_PAYMENT))
                  currentOrder=o;
-             //TODO
           }
           if(currentOrder.getOrderItems()!=null) {//??
               for (OrderItems o : currentOrder.getOrderItems()) {
@@ -271,7 +268,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public void selectOrderStatus(OrderStatus orderStatus, int orderId){
-        Orders order =findOrderById(orderId);
+        Orders order = findOrderById(orderId);
         order.setOrderStatus(orderStatus);
     }
 }

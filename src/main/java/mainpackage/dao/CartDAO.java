@@ -8,7 +8,6 @@ import mainpackage.model.Orders;
 import java.util.List;
 
 public interface CartDAO {
-    List<Items> getGuestShoppingCart();//isn't used, should be deleted
 
     List<Items> getUsersShoppingCart(String userLogin);
 

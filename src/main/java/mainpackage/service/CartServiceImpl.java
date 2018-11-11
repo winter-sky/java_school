@@ -14,13 +14,9 @@ import java.util.List;
 @Service("CartService")
 public class CartServiceImpl implements  CartService{
 
-    @Autowired//???
+    @Autowired
     @Qualifier("CartDAO")
     private CartDAO cartDAO;
-
-    @Override
-    @Transactional
-    public List<Items> getGuestShoppingCart(){return this.cartDAO.getGuestShoppingCart();}
 
     @Override
     @Transactional

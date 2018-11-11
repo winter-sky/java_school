@@ -69,8 +69,6 @@ public class HelloController {
         Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
         if (initialusercart == null)
         {
-            //Clients client = this.clientsService.findClientByLogin(login);
-            //initialusercart = this.cartService.createUserCart(client);//persist Cart in DB
             initialusercart = new Cart();//create new user cart in session, not in DB
             //need to create guest cart if it not exist
             Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
@@ -98,11 +96,5 @@ public class HelloController {
         session.setAttribute("sessionObject", "Value is session object");
         return "test";
     }
-//
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String homePage() {
-//
-//        return "redirect:/listcategories";
-//    }
 
 }

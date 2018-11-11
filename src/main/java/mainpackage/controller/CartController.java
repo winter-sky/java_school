@@ -62,9 +62,8 @@ public class CartController {
 
     @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)
     public String userShoppingCart(HttpSession session,Model model,Principal principal, @PathVariable("userLogin") String userLogin) {
-        //List<Items> userCart = this.cartService.getUsersShoppingCart(userLogin);//user cart from DB
         Cart usercart = (Cart)session.getAttribute("initialusercart");
-        model.addAttribute("user_cart", usercart.getItems());//need to check for null items!!
+        model.addAttribute("user_cart", usercart.getItems());
 
         String login = principal.getName();
         model.addAttribute("userlogin", login);
@@ -75,11 +74,7 @@ public class CartController {
     @RequestMapping(value= "/additem/{itemId}/{guestCartId}", method = RequestMethod.GET)//add new book to session guest
     // cart, not  in DB and return guest cart
     public String addItem(HttpSession session,@PathVariable("itemId") int itemId, Model model,@PathVariable("guestCartId")int guestCartId){
-
-        //this.cartService.addItemToGuestCart(itemId,guestCartId);//if it need to save in database(then you must create
-        // new cart in database in listitems controller)
-
-        Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
+       Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
 
         Items item = this.itemsService.findItemById(itemId);
 
@@ -97,8 +92,7 @@ public class CartController {
     }
 
 
-    @RequestMapping(value="/additemtousercart/{itemId}/{userCartId}", method = RequestMethod.GET)//for User there must be
-    //special jsp page!
+    @RequestMapping(value="/additemtousercart/{itemId}/{userCartId}", method = RequestMethod.GET)
     public String addItemToUserCart(HttpSession session, Principal principal,@PathVariable("itemId") int itemId, Model model,
                                     @PathVariable("userCartId") int userCartId){
         Items item = this.itemsService.findItemById(itemId);
@@ -118,25 +112,5 @@ public class CartController {
 
         return "user_cart";
     }
-
-//    @RequestMapping(value = "/addItem/{itemId}", method = RequestMethod.GET)
-//    public void addItemToCart(Model model, @PathVariable("itemId") String itemId) {
-//        // get item by id from ItemDAO
-//        Items item = null; // example
-//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//        HttpSession session = attributes.getRequest().getSession();
-//        List<Items> cart = getCartFromSession(session);
-//        cart.add(item);
-//    }
-//
-//    private List<Items> getCartFromSession(HttpSession session) {
-//        List<Items> cart = (List<Items>) session.getAttribute("cart");
-//        if (cart == null) {
-//            cart = new ArrayList<Items>();
-//            session.setAttribute("cart", cart);
-//        }
-//        return cart;
-//    }
-
 
 }

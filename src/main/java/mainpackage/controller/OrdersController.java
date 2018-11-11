@@ -145,9 +145,6 @@ public class OrdersController {
     @RequestMapping(value="/getuserorders/{userLogin}", method = RequestMethod.GET)
     public String getOrders (HttpSession session,Model model, Principal principal, @PathVariable("userLogin")
             String userLogin ){
-        //String login = principal.getName();
-
-        //List<Orders> list = this.ordersService.getOrders(userLogin);
 
         List<Orders> list = this.ordersService.getUserOrders(userLogin);//show all user orders
 

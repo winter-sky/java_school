@@ -18,19 +18,6 @@ public class CartDAOImpl implements CartDAO {
     private EntityManager em;
 
     @Override
-    @Deprecated
-    public List<Items> getGuestShoppingCart() {//isn't used
-        Query query = em.createQuery("from  Cart");
-        List<Cart> listOrders = query.getResultList();
-        List<Items> cartItems = new ArrayList<>();
-        for (Cart o : listOrders) {
-            if (o.getClient() == null)
-                cartItems.addAll(o.getItems());
-        }
-        return cartItems;
-    }
-
-    @Override
     public List<Items> getUsersShoppingCart(String userLogin) {
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();
@@ -40,9 +27,7 @@ public class CartDAOImpl implements CartDAO {
         for (Logins l : logins) {
             {
                     if ((l.getLogin()).equals(userLogin)) {
-                        System.out.println(l.getLogin());
                         client = l.getClient();
-                        System.out.println(client.getFirstName());
                     }
             }
         }
