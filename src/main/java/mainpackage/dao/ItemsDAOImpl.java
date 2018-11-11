@@ -61,6 +61,7 @@ public class ItemsDAOImpl implements ItemsDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Items> listItems() {
         return em.createQuery("SELECT i FROM Items i").getResultList();
     }
@@ -113,6 +114,7 @@ public class ItemsDAOImpl implements ItemsDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Items> showListAllItems(){
         Query query = em.createQuery("from Items");
 
@@ -122,7 +124,7 @@ public class ItemsDAOImpl implements ItemsDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Items> findItemsByIds(List<Integer> itemIds) {
-         log.debug("Requesting items by \nids: " + itemIds);
+         log.debug("Requesting items by ids: " + itemIds);
 
         Query query = em.createQuery("from Items where item_id IN (:itemIds)");
 

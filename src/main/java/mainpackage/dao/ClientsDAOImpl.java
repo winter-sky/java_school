@@ -24,7 +24,7 @@ public class ClientsDAOImpl implements ClientsDAO {
     @Override
     @SuppressWarnings("unchecked")
     public Clients findClientByLogin(String clientLogin) {
-        Query query = em.createQuery("from logins WHERE login = :clientLogin");
+        Query query = em.createQuery("from Logins WHERE login = :clientLogin");
 
         Logins l = (Logins)query.setParameter("userLogin", clientLogin).getSingleResult();
 
@@ -62,10 +62,6 @@ public class ClientsDAOImpl implements ClientsDAO {
     @Override
     public Clients getClientById(int clientId) {
         Query query = em.createQuery("from Clients where client_id=:clientId");
-
-        // TODO: currently unused, delete?
-        List<Clients> res = query.setParameter("clientId", clientId).getResultList();//doesn't work if there more
-        //than one Cart for same client in Cart table
 
         return (Clients) query.setParameter("clientId", clientId).getSingleResult();
     }
