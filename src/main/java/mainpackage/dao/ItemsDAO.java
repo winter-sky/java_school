@@ -12,7 +12,7 @@ public interface ItemsDAO {
 
     Items findItemById(int itemId);
 
-    List<Items>  findItemsByIds(Integer[] itemId);
+    List<Items>  findItemsByIds(List<Integer> itemIds);
 
     void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
                      String volume,int availableCount,String pic);

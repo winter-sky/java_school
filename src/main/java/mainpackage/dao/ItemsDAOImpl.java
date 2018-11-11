@@ -109,12 +109,10 @@ public class ItemsDAOImpl implements ItemsDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Items> findItemsByIds(Integer[] itemIds) {
-        List<Integer> ids = Arrays.asList(itemIds);
+    public List<Items> findItemsByIds(List<Integer> itemIds) {
+         log.debug("Requesting items by \nids: " + itemIds);
 
-        log.debug("Requesting items by ids: " + ids);
-
-        Query query = em.createQuery("from Items where item_id IN (:ids)");
-        return  (List<Items>) query.setParameter("ids", ids).getResultList();
+        Query query = em.createQuery("from Items where item_id IN (:itemIds)");
+        return  (List<Items>) query.setParameter("itemIds", itemIds).getResultList();
     }
 }

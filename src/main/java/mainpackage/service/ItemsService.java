@@ -13,7 +13,7 @@ public interface ItemsService {
 
     Items findItemById(int itemId);
 
-    List<Items> findItemsByIds(Integer[] itemId);
+    List<Items> findItemsByIds(List<Integer> itemIds);
 
     void saveItem(ItemDTO item);
 

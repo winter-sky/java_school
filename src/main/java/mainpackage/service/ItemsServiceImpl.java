@@ -75,8 +75,8 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public List<Items> findItemsByIds(Integer[] itemId) {
-        return itemsDAO.findItemsByIds(itemId);
+    public List<Items> findItemsByIds(List<Integer> itemIds) {
+        return itemsDAO.findItemsByIds(itemIds);
     }
 
 //    @Override
