@@ -25,55 +25,60 @@ public class CartDAOImpl implements CartDAO {
         Clients client = new Clients();
 
         for (Logins l : logins) {
-            {
-                    if ((l.getLogin()).equals(userLogin)) {
-                        client = l.getClient();
-                    }
+            if ((l.getLogin()).equals(userLogin)) {
+                client = l.getClient();
             }
         }
-        if(client.getCart()==null) {
+
+        if (client.getCart() == null) {
             return null;
         }
-            if(client.getCart().getItems()==null){
-                return null;
-            }
 
-            return client.getCart().getItems();
+        if (client.getCart().getItems() == null) {
+            return null;
+        }
+
+        return client.getCart().getItems();
     }
 
     @Override
-    public void addItemToGuestCart (int itemId, int guestCartId){//add new item to DB guest Cart (if it exist in DB)
-
+    public void addItemToGuestCart(int itemId, int guestCartId) {//add new item to DB guest Cart (if it exist in DB)
         Query query = em.createQuery("from Cart where cart_id=:guestCartId");
-        Cart cart = (Cart)query.setParameter("guestCartId", guestCartId).getSingleResult();
+
+        Cart cart = (Cart) query.setParameter("guestCartId", guestCartId).getSingleResult();
 
         Query query2 = em.createQuery("from Items where item_id=:itemId");
-        Items item = (Items)query2.setParameter("itemId", itemId).getSingleResult();
 
-        if(cart.getItems()==null) {
+        Items item = (Items) query2.setParameter("itemId", itemId).getSingleResult();
+
+        if (cart.getItems() == null) {
             List<Items> items = new ArrayList<>();
+
             items.add(item);
+
             cart.setItems(items);
+        } else {
+            cart.addItem(item);
         }
-        else cart.addItem(item);
     }
 
     @Override
-    public Cart createGuestCart (){//add new guest Cart to database
-
+    public Cart createGuestCart() {//add new guest Cart to database
         Cart guestCart = new Cart();
+
         em.persist(guestCart);
 
-        return  guestCart;
+        return guestCart;
     }
 
     @Override
-    public Cart createUserCart (Clients client){//add new user Cart to database
-
+    public Cart createUserCart(Clients client) {//add new user Cart to database
         Cart userCart = new Cart();
+
         em.persist(userCart);
+
         userCart.setClient(client);
 
-        return  userCart;
+        return userCart;
     }
 }

@@ -17,6 +17,4 @@ public interface ClientsDAO {
     List<Clients> listClients();
 
     int getClientOrderQuantity(Clients client);
-
-    List<Clients> getListTopClients();
 }

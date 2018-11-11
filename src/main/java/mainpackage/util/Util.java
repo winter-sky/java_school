@@ -6,8 +6,7 @@ import mainpackage.model.Params;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class Util {
     public static double round(double value, int places) {
@@ -47,4 +46,7 @@ public class Util {
         return new Timestamp(cal.getTimeInMillis());
     }
 
+    public static ArrayList<String> removeDuplicates(List<String> listAuthors) {
+        return new ArrayList<>(new HashSet<>(listAuthors));
+    }
 }
