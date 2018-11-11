@@ -63,6 +63,10 @@ public class ParamsController {
     @RequestMapping(value = "/searchbyauthor/{author}", method = RequestMethod.GET)
     public String searchByAuthor(HttpSession session, Model model, @PathVariable("author") String author, Principal principal) {
 
+        if(principal!=null){
+            String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);}
+
         Categories rootCategory = this.categoriesService.getRootCategory();
         model.addAttribute("rootCategory", rootCategory);
 
@@ -88,6 +92,10 @@ public class ParamsController {
     @RequestMapping(value = "/searchbylanguage/{language}", method = RequestMethod.GET)
     public String searchByLanguage(HttpSession session, Model model, @PathVariable("language") String language, Principal principal) {
 
+        if(principal!=null){
+            String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);}
+
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
 
@@ -112,6 +120,10 @@ public class ParamsController {
 
     @RequestMapping(value = "/searchbyformat/{format}", method = RequestMethod.GET)
     public String searchByFormat(HttpSession session, Model model, @PathVariable("format") String format, Principal principal) {
+
+        if(principal!=null){
+            String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);}
 
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);

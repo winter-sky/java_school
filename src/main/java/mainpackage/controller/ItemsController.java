@@ -105,6 +105,9 @@ public class ItemsController {
     @RequestMapping(value = "/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest
     public String scopeExample(HttpSession session, Model model, Principal principal) {
 
+        if(principal!=null){
+            String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);}
         //check whether the somebody is logged in or not
         model.addAttribute("checkprincipal", principal);
         List<ItemDTO> list = this.itemsService.listItems();

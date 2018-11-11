@@ -2,6 +2,7 @@ package mainpackage.dao;
 
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
+import mainpackage.model.OrderItems;
 import mainpackage.model.Params;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

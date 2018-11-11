@@ -1,6 +1,5 @@
 package mainpackage.service;
 
-import mainpackage.controller.StatisticsController;
 import mainpackage.dto.ClientStatDTO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.dto.ItemStatDTO;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 

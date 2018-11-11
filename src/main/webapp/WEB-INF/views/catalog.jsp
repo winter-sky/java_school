@@ -103,22 +103,18 @@
 </div>
 
 <div class="topnav">
-    <a href="#">Link</a>
-    <a href="#">Link</a>
     <a href="itemlist">Show all books</a>
     <div class="topnav right">
-    <%--<a href="/hello">Log in</a>--%>
-        <%--<a href="/login">Log in</a>--%>
-        <%--<a href="/cart/guestcart">Cart</a>--%>
-        <%--<security:authorize access="hasRole('USER')">--%>
-            <%--<a href="<c:url value='/cart/usercart/${message}'/>">Cart</a><br>--%>
-            <%--<a href="<c:url value='/logout'/>">Log out</a><br>--%>
-        <%--</security:authorize>--%>
         <c:if test="${empty checkprincipal}">
-            <a href="/login">Log in</a>
             <a href="/cart/guestcart">Cart</a>
+            <a href="/login">Log in</a>
         </c:if>
         <c:if test="${!empty checkprincipal}">
+            <security:authorize access="hasRole('USER')">
+                <a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>
+                <a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>
+                <a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>
+            </security:authorize>
             <a href="<c:url value='/logout'/>">Log out</a>
         </c:if>
     </div>
@@ -132,8 +128,6 @@
         <p><b>Categories</b></p>
         <div class="container">
             <c:forEach var="rootCategory" items="${rootCategory.categories}">
-                <%--<a href="<c:url value='/listsubcategories/${category.categoryId}' />"--%>
-                <%--onclick="changeContent('hello.jsp')"> ${category.categoryName}</a><br>--%>
                 <a href="<c:url value='/showitemsbycategory/${rootCategory.categoryId}' />" >${rootCategory.categoryName}</a><br>
                 <c:set var="rootCategory" value="${rootCategory}" scope="request"/>
                 <jsp:include page="categories.jsp"/>
@@ -142,7 +136,6 @@
             <p><b>Author</b></p>
             <c:forEach var="author" items="${listAuthors}">
                 <tr>
-                        <%--${author.author}<br>--%>
                     <a href="<c:url value='/searchbyauthor/${author}'/>">${author}</a><br>
                 </tr>
             </c:forEach>
@@ -150,7 +143,6 @@
             <p><b>Language</b></p>
             <c:forEach var="language" items="${listLanguages}">
                 <tr>
-                        <%--${language}<br>--%>
                             <a href="<c:url value='/searchbylanguage/${language}'/>">${language}</a><br>
                 </tr>
             </c:forEach>
@@ -158,18 +150,16 @@
             <p><b>Format</b></p>
             <c:forEach var="format" items="${listFormats}">
                 <tr>
-                        <%--${format}<br>--%>
                             <a href="<c:url value='/searchbyformat/${format}'/>">${format}</a><br>
                 </tr>
             </c:forEach>
         </div>
     </div>
     <div class="column middle">
-        <h2>Books will be here</h2>
         <c:forEach var="items" items="${listItems}">
             <tr>
                 <p><img src="${items.pic}" alt="some pic"></p>
-                <p>Book id: ${items.itemId} </p>
+                <%--<p>Book id: ${items.itemId} </p>--%>
                 <p>Book name: ${items.itemName}</p>
                 <p>Price: ${items.price}</p>
                 <security:authorize access="hasRole('USER')">
@@ -184,7 +174,7 @@
         <c:forEach var="items" items="${showallitems}">
             <tr>
                 <p><img src="${items.pic}" alt="some pic"></p>
-                <p>Book id: ${items.itemId} </p>
+                <%--<p>Book id: ${items.itemId} </p>--%>
                 <p>Book name: ${items.itemName}</p>
                 <p>Price: ${items.price}</p>
                 <security:authorize access="hasRole('USER')">
@@ -217,17 +207,12 @@
             </c:forEach>
         </div>
         <div class="container">
-            <%--<c:forEach var="item" items="${listItems}">--%>
-                <%--<tr>--%>
-                        <%--${item.itemName}<br>--%>
-                <%--</tr>--%>
-            <%--</c:forEach>--%>
+
         </div>
 
     </div>
     <div class="column side">
-        <h2>Something another</h2>
-        <p>content</p>
+
     </div>
 </div>
 

@@ -104,8 +104,10 @@ public class CategoriesController {
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)//start page
     public String listCategories(HttpSession session, Model model, Principal principal) {
 
+
         if(principal!=null){
             String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);
             Clients client = this.clientsService.findClientByLogin(userLogin);
            Roles clientRole =  client.getLogin().getRole();
            Role role = clientRole.getRole();
@@ -133,6 +135,7 @@ public class CategoriesController {
         }
 
         model.addAttribute("checkprincipal", principal);
+
 
         Categories rootCategory = this.categoriesService.getRootCategory();
         model.addAttribute("rootCategory", rootCategory);

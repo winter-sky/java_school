@@ -32,21 +32,5 @@
 <a href="<c:url value='/getuserorder/${message}'/>">Show current order</a><br>
 <a href="<c:url value='/getuserorders/${message}'/>">Show all current orders</a><br>
 <a href="<c:url value='/logout'/>">Log out</a><br>
-<%--<select>--%>
-    <%--<c:forEach var="paymentItem" items="${payment}">--%>
-        <%--<option value="${paymentItem.ordinal()}">${paymentItem.toString()}</option>--%>
-        <%--&lt;%&ndash;<a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>&ndash;%&gt;--%>
-    <%--</c:forEach>--%>
-<%--</select>--%>
-<%--<input type="submit">--%>
-
-<%--<h3>Payment method</h3>--%>
-<%--<c:forEach var="paymentItem" items="${payment}">--%>
-    <%--<tr>--%>
-            <%--${paymentItem.toString()}<br>--%>
-                <%--<a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>--%>
-    <%--</tr>--%>
-<%--</c:forEach>--%>
-
 </body>
 </html>
