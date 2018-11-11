@@ -4,6 +4,7 @@ import mainpackage.controller.StatisticsController;
 import mainpackage.dto.ClientStatDTO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.dto.ItemStatDTO;
+import mainpackage.dto.RevenueStatDTO;
 import mainpackage.model.Items;
 import mainpackage.model.OrderItems;
 import mainpackage.model.Orders;
@@ -184,6 +185,16 @@ public class StatisticsServiceImpl implements StatisticsService {
 
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public RevenueStatDTO getMonthlyStat(long time) {
+        return null;
+    }
+
+    @Override
+    public RevenueStatDTO getWeeklyStat(long time) {
+        return null;
     }
 }
 

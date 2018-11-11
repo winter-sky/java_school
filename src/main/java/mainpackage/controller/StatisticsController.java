@@ -3,6 +3,7 @@ package mainpackage.controller;
 import mainpackage.dto.ClientStatDTO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.dto.ItemStatDTO;
+import mainpackage.dto.RevenueStatDTO;
 import mainpackage.model.Items;
 import mainpackage.model.OrderItems;
 import mainpackage.model.Orders;
@@ -65,5 +66,28 @@ public class StatisticsController {
         model.addAttribute("listItems", dtos);
 
         return "topitems";
+    }
+
+    /**
+     * Gets top clients by summary amount of sales.
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/monthrevenue", method = RequestMethod.GET)
+    public String monethRevenue(Model model) {
+        RevenueStatDTO dto = statService.getMonthlyStat(System.currentTimeMillis());
+
+        model.addAttribute("revenueStat", dto);
+
+        return "revenue";
+    }
+
+    @RequestMapping(value = "/weekrevenue", method = RequestMethod.GET)
+    public String weekRevenue(Model model) {
+        RevenueStatDTO dto = statService.getWeeklyStat(System.currentTimeMillis());
+
+        model.addAttribute("revenueStat", dto);
+
+        return "revenue";
     }
 }
