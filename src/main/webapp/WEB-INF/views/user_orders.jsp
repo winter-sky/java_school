@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Alisa
-  Date: 11/8/2018
-  Time: 18:48
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,7 +13,7 @@
     <p>Order Status: ${order.orderStatus.toString()}<br></p>
     <c:forEach var="orderitem" items="${order.orderItems}">
         <tr>
-            <p><img src="${orderitem.item.pic}" alt="some pic"></p>
+            <p><img src="${orderitem.item.pic}" alt="some pic" width="184" height="250"></p>
             <p>Book name: ${orderitem.item.itemName}</p>
         </tr>
     </c:forEach>

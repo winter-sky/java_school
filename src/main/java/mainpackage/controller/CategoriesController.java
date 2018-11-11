@@ -104,8 +104,10 @@ public class CategoriesController {
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)//start page
     public String listCategories(HttpSession session, Model model, Principal principal) {
 
+
         if(principal!=null){
             String userLogin = principal.getName();
+            model.addAttribute("userLogin", userLogin);
             Clients client = this.clientsService.findClientByLogin(userLogin);
            Roles clientRole =  client.getLogin().getRole();
            Role role = clientRole.getRole();
@@ -113,8 +115,6 @@ public class CategoriesController {
                 Cart initialusercart = (Cart)session.getAttribute("initialusercart");//create a nes user shopping cart
                 if (initialusercart == null)
                 {
-                    //Clients client = this.clientsService.findClientByLogin(login);
-                    //initialusercart = this.cartService.createUserCart(client);//persist Cart in DB
                     initialusercart = new Cart();//create new user cart in session, not in DB
                     //need to create guest cart if it not exist
                     Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
@@ -135,6 +135,7 @@ public class CategoriesController {
         }
 
         model.addAttribute("checkprincipal", principal);
+
 
         Categories rootCategory = this.categoriesService.getRootCategory();
         model.addAttribute("rootCategory", rootCategory);

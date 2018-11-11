@@ -7,7 +7,6 @@ import mainpackage.model.Items;
 import java.util.List;
 
 public interface CartService {
-    List<Items> getGuestShoppingCart();
 
     List<Items> getUsersShoppingCart(String userLogin);
 

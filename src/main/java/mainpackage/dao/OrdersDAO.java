@@ -17,7 +17,7 @@ public interface OrdersDAO {
 
     void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin);
 
-    List<Orders> getUserOrders(String userLogin);//is not used
+    List<Orders> getUserOrders(String userLogin);//show all user orders
 
     void  addNewOrder(String userLogin, List<Items> itemsFromCart);
 

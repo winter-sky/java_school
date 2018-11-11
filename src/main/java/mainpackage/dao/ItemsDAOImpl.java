@@ -20,6 +20,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.security.Principal;
 import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository("ItemsDAO")
 public class ItemsDAOImpl implements ItemsDAO {

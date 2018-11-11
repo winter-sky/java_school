@@ -33,10 +33,6 @@ public class ClientsController {
     @RequestMapping(value = "/editprofile", method = RequestMethod.GET)//
     public String listCustomers(Model model) {
         model.addAttribute("client", new Clients());
-        //List<Clients> listClients =this.clientsService.listClients();
-        //model.addAttribute("listclients",listClients);
-        //for(Clients c: listClients)
-        //System.out.println(c.getFirstName());
         return "edit_client";
     }
 
@@ -57,16 +53,14 @@ public class ClientsController {
     public String editClient(@PathVariable("clientId") int clientId,Model model){
 
         model.addAttribute("client", this.clientsService.getClientById(clientId));
-       //List<Clients> listClients =this.clientsService.listClients();
-        //model.addAttribute("listclients",listClients);
+
         return "edit_client";
     }
 
     @RequestMapping(value= "/updateclient", method = RequestMethod.POST)
     public String updateClient(@ModelAttribute("client") Clients c,Model model){
         this.clientsService.updateClient(c);
-        //List<Clients> listClients =this.clientsService.listClients();
-        //model.addAttribute("listclients",listClients);
+
         return "client_by_login";
     }
 }
