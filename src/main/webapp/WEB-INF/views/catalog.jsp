@@ -45,7 +45,7 @@
             display: block;
             color: #f2f2f2;
             text-align: center;
-            padding: 14px 16px;
+            padding: 20px 20px;
             text-decoration: none;
         }
 
@@ -94,37 +94,47 @@
         .topnav.right {
             position: absolute;
             right: 0px;
+            padding: 0px;
         }
     </style>
 </head>
 <body>
 <div class="header">
     <h1>Tir Na Nog Book Store</h1>
+<c:if test="${empty checkprincipal}">
+        <a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>
+</c:if>
+    <c:if test="${!empty checkprincipal}">
+        <security:authorize access="hasRole('USER')">
+        <a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="25" height="25"></a>
+        </security:authorize>
+    </c:if>
 </div>
 
 <div class="topnav">
     <a href="itemlist">Show all books</a>
     <div class="topnav right">
         <c:if test="${empty checkprincipal}">
-            <a href="/cart/guestcart">Cart</a>
-            <a href="/login">Log in</a>
+            <%--<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="20" height="20"></a>--%>
+                <a href="/login">Log in</a>
         </c:if>
         <c:if test="${!empty checkprincipal}">
             <security:authorize access="hasRole('USER')">
-                <a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>
+                <%--<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>--%>
                 <a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>
                 <a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>
             </security:authorize>
             <a href="<c:url value='/logout'/>">Log out</a>
         </c:if>
+        </a>
     </div>
 </div>
 
 <div class="row">
     <div class="column side">
-        <div class="w3-panel w3-pink">
-            <h2 class="w3-opacity">Filter</h2>
-        </div>
+        <%--<div class="w3-panel w3-pink">--%>
+            <%--<h2 class="w3-opacity">Filter</h2>--%>
+        <%--</div>--%>
         <p><b>Categories</b></p>
         <div class="container">
             <c:forEach var="rootCategory" items="${rootCategory.categories}">
