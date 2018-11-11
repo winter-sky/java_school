@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
@@ -26,6 +27,8 @@ import java.util.stream.Collectors;
 public class StatisticsServiceImpl implements StatisticsService {
     /** */
     private static final Logger log = LoggerFactory.getLogger(StatisticsServiceImpl.class);
+
+    public static final int PRECISION = 2;
 
     private class ItemQty implements Comparable<ItemQty> {
         ItemQty(int itemId, int qty) {
@@ -102,8 +105,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                     double price = orderItem.getItem().getPrice();
 
                     // Get amount of money for the item.
-                    // TODO: 2 to constants or config
-                    double amount = Util.round(price * qty, 2);
+                    double amount = Util.round(price * qty, PRECISION);
 
                     clientStatDTO.setAmount(clientStatDTO.getAmount() + amount);
                     clientStatDTO.setItemsCount(clientStatDTO.getItemsCount() + qty);
@@ -189,12 +191,49 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public RevenueStatDTO getMonthlyStat(long time) {
-        return null;
+        return getRevenueStat(Util.getMonthStart(time));
     }
 
     @Override
     public RevenueStatDTO getWeeklyStat(long time) {
-        return null;
+        return getRevenueStat(Util.getWeekStart(time));
+    }
+
+    private RevenueStatDTO getRevenueStat(Timestamp startTime) {
+        // TODO: filter by date in select statement!!!.
+        List<Orders> allOrders = ordersService.getAllOrders();
+
+        double revenue = 0;
+        int orders = 0;
+        int items = 0;
+
+        if (allOrders != null) {
+            log.info("All orders read [count=" + allOrders.size() + ']');
+
+            for (Orders order : allOrders) {
+                if (startTime.compareTo(order.getOrderDate()) < 0) {
+                    orders++;
+                    items +=order.getOrderItems().size();
+
+                    List<OrderItems> orderItems = order.getOrderItems();
+
+                    for (OrderItems orderItem : orderItems) {
+                        revenue += orderItem.getItem().getPrice() * orderItem.getItemQuantity();
+                    }
+                }
+            }
+        }
+
+        revenue = Util.round(revenue, PRECISION);
+
+        RevenueStatDTO dto = new RevenueStatDTO();
+
+        dto.setStartDate(startTime);
+        dto.setRevenue(revenue);
+        dto.setOrders(orders);
+        dto.setItems(items);
+
+        return dto;
     }
 }
 

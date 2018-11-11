@@ -16,5 +16,9 @@
 <a href="/topitems">Show top 10 items</a>
 <br/>
 <a href="/topclients">Show top 10 clients (by total amount)</a>
+<br/>
+<a href="/monthrevenue">Show revenue for current month</a>
+<br/>
+<a href="/weekrevenue">Show revenue for current week</a>
 </body>
 </html>
