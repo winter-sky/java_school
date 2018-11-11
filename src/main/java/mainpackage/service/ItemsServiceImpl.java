@@ -3,6 +3,7 @@ package mainpackage.service;
 import mainpackage.dao.ItemsDAO;
 import mainpackage.dto.ItemDTO;
 import mainpackage.model.Items;
+import mainpackage.util.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,10 @@ public class ItemsServiceImpl implements ItemsService {
     @Qualifier("ItemsDAO")
     private ItemsDAO itemsDAO;
 
-    @Autowired
-    private MappingService mappingService;
-
     @Override
     public List<ItemDTO> listItems() {
         List<Items> entitiesList = this.itemsDAO.listItems();
-        List<ItemDTO> itemDTOList = entitiesList.stream().map(it -> mappingService.itemEntityToItemDTO(it)).collect(Collectors.toList());
+        List<ItemDTO> itemDTOList = entitiesList.stream().map(DTOUtil::toDTO).collect(Collectors.toList());
         return itemDTOList;
     }
 
@@ -39,7 +37,7 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public void saveItem(ItemDTO item) {
-        Items itemEntity = mappingService.itemDTOtoItemEntity(item);
+        Items itemEntity = DTOUtil.fromDTO(item);
 //        if (itemEntity.getItemId() != null) {
 //            // Item already exists in DB since it has ID - so update item
 //        } else {

@@ -3,9 +3,11 @@ package mainpackage.util;
 import mainpackage.dto.CategoryDTO;
 import mainpackage.dto.ClientDTO;
 import mainpackage.dto.ItemDTO;
+import mainpackage.dto.ParamDTO;
 import mainpackage.model.Categories;
 import mainpackage.model.Clients;
 import mainpackage.model.Items;
+import mainpackage.model.Params;
 
 import java.util.stream.Collectors;
 
@@ -15,9 +17,11 @@ public class DTOUtil {
 
         dto.setItemId(item.getItemId());
         dto.setItemName(item.getItemName());
-        dto.setCategory(toDTO(item.getCategory()));
+        dto.setPrice(item.getPrice());
+        dto.setVolume(item.getVolume());
         dto.setWeight(item.getWeight());
         dto.setAvailableCount(item.getAvailableCount());
+        dto.setPic(item.getPic());
 
         return dto;
     }
@@ -46,5 +50,31 @@ public class DTOUtil {
         dto.setEmail(client.getEmail());
 
         return dto;
+    }
+
+    public static ParamDTO toDTO(Params param) {
+        return null;
+    }
+
+    public static Items fromDTO(ItemDTO dto) {
+        Items item = new Items();
+
+        item.setItemId(dto.getItemId());
+        item.setItemName(dto.getItemName());
+        item.setPrice(dto.getPrice());
+        item.setVolume(dto.getVolume());
+        item.setWeight(dto.getWeight());
+        item.setAvailableCount(dto.getAvailableCount());
+        item.setPic(dto.getPic());
+
+        return item;
+    }
+
+    public static Params fromDTO(ParamDTO param) {
+        return null;
+    }
+
+    public static Categories fromDTO(Categories category) {
+        return null;
     }
 }
