@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository("CategoriesDAO")
 public class CategoriesDAOImpl implements CategoriesDAO {
+    public static final int LEVEL_ROOT = 0;
     @PersistenceContext
     private EntityManager em;
 
@@ -53,11 +54,9 @@ public class CategoriesDAOImpl implements CategoriesDAO {
 
     @Override
     public Categories getRootCategory() {
-        int level = 0;
+        Query query = em.createQuery("from Categories where category_level=:categoryLevel");
 
-        Query query = em.createQuery("from Categories where category_level=:categoryLevel");//level field is rebundant
-
-        return (Categories) query.setParameter("categoryLevel", level).getSingleResult();
+        return (Categories) query.setParameter("categoryLevel", LEVEL_ROOT).getSingleResult();
     }
 
     @Override
@@ -68,11 +67,11 @@ public class CategoriesDAOImpl implements CategoriesDAO {
     }
 
     @Override
-    public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
+    public void addNewCategory(int parentId, String categoryName, int categoryLevel){
         //find category with id received
-        Query query = em.createQuery("from Categories where category_id=:categoryId");
+        Query query = em.createQuery("from Categories where category_id=:parentId");
 
-        Categories parentCategory= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
+        Categories parentCategory= (Categories) query.setParameter("parentId", parentId).getSingleResult();
 
         //create new Category
         Categories newCat = new Categories();

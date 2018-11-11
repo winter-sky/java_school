@@ -22,30 +22,13 @@ public class ClientsDAOImpl implements ClientsDAO {
     private EntityManager em;
 
     @Override
-    public int getClientOrderQuantity(Clients client) {
-        List<Orders> listClientOrders = new ArrayList<>();
-
-        if (client.getOrders() != null) {
-            listClientOrders = client.getOrders();
-        }
-
-        return listClientOrders.size();
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     public Clients findClientByLogin(String clientLogin) {
-        Query query = em.createQuery("from Logins");
+        Query query = em.createQuery("from logins WHERE login = :clientLogin");
 
-        List<Logins> logins = (List<Logins>)query.getResultList();
+        Logins l = (Logins)query.setParameter("userLogin", clientLogin).getSingleResult();
 
-        for (Logins l : logins) {
-            if ((l.getLogin()).equals(clientLogin)) {
-                return l.getClient();
-            }
-        }
-
-        return null;
+        return l.getClient();
     }
 
     @Override
