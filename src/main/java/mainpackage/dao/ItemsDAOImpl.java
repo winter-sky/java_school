@@ -1,6 +1,10 @@
 package mainpackage.dao;
 
-import mainpackage.model.*;
+import mainpackage.model.Categories;
+import mainpackage.model.Items;
+import mainpackage.model.Params;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,9 +16,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.security.Principal;
 import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository("ItemsDAO")
 public class ItemsDAOImpl implements ItemsDAO {
+    /** */
+    private static final Logger log = LoggerFactory.getLogger(ItemsDAOImpl.class);
+
     @PersistenceContext
     private EntityManager em;
 
@@ -107,5 +117,14 @@ public class ItemsDAOImpl implements ItemsDAO {
         Query query = em.createQuery("from Items");
         List<Items> listAllItems = query.getResultList();
         return  listAllItems;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Items> findItemsByIds(List<Integer> itemIds) {
+         log.debug("Requesting items by \nids: " + itemIds);
+
+        Query query = em.createQuery("from Items where item_id IN (:itemIds)");
+        return  (List<Items>) query.setParameter("itemIds", itemIds).getResultList();
     }
 }

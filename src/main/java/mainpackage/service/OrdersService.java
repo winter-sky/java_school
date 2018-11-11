@@ -6,6 +6,7 @@ import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersService {
@@ -25,6 +26,10 @@ public interface OrdersService {
     Orders getCurrentOrder(String userLogin);
 
     List<Orders> getOrders (String userLogin);
+
+    List<Orders> getAllOrders ();
+
+    List<Orders> getOrdersAfter (Timestamp ts);
 
     List<Orders> showAllOrdersForAdmin();
 

@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -270,5 +271,31 @@ public class OrdersDAOImpl implements OrdersDAO {
     public void selectOrderStatus(OrderStatus orderStatus, int orderId){
         Orders order = findOrderById(orderId);
         order.setOrderStatus(orderStatus);
+    }
+//    @Override
+//    public OrderItems getOrderItemsById (int orderItemsId){
+//        Query query = em.createQuery("from OrderItems where order_items_id=:orderItemsId");
+//        OrderItems orderItems = (OrderItems) query.setParameter("orderItemsId", orderItemsId).getSingleResult();
+//        return orderItems;
+//    }
+//
+//    @Override
+//    public void updateOrderItemQuantity (OrderItems orderItem){
+//        OrderItems orderItemsDb = (OrderItems) em.find(OrderItems.class, orderItem.getOrderItemsId());
+//        orderItemsDb.setItemQuantity(orderItem.getItemQuantity());
+//    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Orders> getAllOrders() {
+        return em.createQuery("from Orders").getResultList();
+    }
+
+    @Override
+    public List<Orders> getOrdersAfter(Timestamp ts) {
+        Query query = em.createQuery("from Orders WHERE order_date >= :ts");
+
+        return query.setParameter("ts", ts).getResultList();
     }
 }
