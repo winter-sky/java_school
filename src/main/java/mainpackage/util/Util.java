@@ -1,5 +1,8 @@
 package mainpackage.util;
 
+import mainpackage.dto.ParamDTO;
+import mainpackage.model.Params;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -43,4 +46,5 @@ public class Util {
 
         return new Timestamp(cal.getTimeInMillis());
     }
+
 }
