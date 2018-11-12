@@ -1,5 +1,6 @@
 package mainpackage.service;
 
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ClientsService {
     Clients getClientById(int clientId);
 
     List<Clients> listClients();
+
+    List<ClientAddresses> getClientAddresses(String userLogin);
 }

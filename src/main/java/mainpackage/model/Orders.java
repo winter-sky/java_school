@@ -143,4 +143,16 @@ public class Orders {
     public void addOrderItem(OrderItems orderItems) {
         this.orderItems.add(orderItems);
     }
+
+    public boolean isPaymentAwaiting(){
+        return orderStatus==PAYMENT_AWAITING;
+    }
+
+    public boolean getIsPaymentAwaiting() {
+        return orderStatus==PAYMENT_AWAITING;
+    }
+
+    public void setIsPaymentAwaiting(boolean isPaymentAwaiting) {
+
+    }
 }

@@ -1,5 +1,6 @@
 package mainpackage.dao;
 
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface ClientsDAO {
     int getClientOrderQuantity(Clients client);
 
     List<Clients> getListTopClients();
+
+    List<ClientAddresses> getClientAddresses(String userLogin);
 }

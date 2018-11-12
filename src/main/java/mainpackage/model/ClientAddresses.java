@@ -33,13 +33,6 @@ public class ClientAddresses {
     @OneToMany(mappedBy="clientAddresses")
     private List<Orders> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "clients_client_addresses",
-            joinColumns = { @JoinColumn(name = "id_client_addresses") },
-            inverseJoinColumns = { @JoinColumn(name = "id_clients") }
-    )
-    private List<Clients> clients;
 
     public int getClientAddressId() {
         return clientAddressId;
@@ -105,11 +98,4 @@ public class ClientAddresses {
         this.orders = orders;
     }
 
-    public List<Clients> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Clients> clients) {
-        this.clients = clients;
-    }
 }

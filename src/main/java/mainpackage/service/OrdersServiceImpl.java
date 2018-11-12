@@ -1,6 +1,7 @@
 package mainpackage.service;
 
 import mainpackage.dao.OrdersDAO;
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Items;
 import mainpackage.model.Orders;
 import mainpackage.type.DeliveryMethod;
@@ -21,6 +22,11 @@ public class OrdersServiceImpl implements OrdersService {
     @Autowired
     @Qualifier("OrdersDAO")
     private OrdersDAO ordersDAO;
+
+    @Override
+    public void selectOrderAddress(int addressId, int orderId){
+        this.ordersDAO.selectOrderAddress(addressId,orderId);
+    }
 
     @Override
     public void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin){

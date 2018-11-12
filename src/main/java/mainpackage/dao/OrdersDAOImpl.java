@@ -26,6 +26,12 @@ public class OrdersDAOImpl implements OrdersDAO {
     private EntityManager em;
 
     @Override
+    public void selectOrderAddress(int addressId,int orderId){
+        Query query = em.createQuery("from ClientAddresses where client_address_id = :addressId").setParameter("addressId", addressId);
+        findOrderById(orderId).setClientAddresses((ClientAddresses) query.getSingleResult());
+    }
+
+    @Override
     public void payForTheOrder(String userLogin){
         Query query = em.createQuery("from Logins");
         List<Logins> logins = query.getResultList();

@@ -1,5 +1,6 @@
 package mainpackage.service;
 
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Items;
 import mainpackage.model.Orders;
 import mainpackage.type.DeliveryMethod;
@@ -10,6 +11,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersService {
+
+    void selectOrderAddress(int addressId, int orderId);
 
     List<Orders> getUserOrders(String userLogin);
 

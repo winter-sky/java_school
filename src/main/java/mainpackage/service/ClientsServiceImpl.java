@@ -1,6 +1,7 @@
 package mainpackage.service;
 
 import mainpackage.dao.ClientsDAO;
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,10 @@ public class ClientsServiceImpl  implements ClientsService {
     @Autowired
     @Qualifier("ClientsDAO")
     private ClientsDAO clientsDAO;
+
+    public List<ClientAddresses> getClientAddresses(String userLogin){
+        return this.clientsDAO.getClientAddresses(userLogin);
+    }
 
     @Override
     @Transactional

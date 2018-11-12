@@ -18,6 +18,7 @@
             <option value="${address}">${address.country}</option>
         </c:forEach>
     </select>
+    <input type="hidden" value="${order.orderId}" name="orderId"/>
     <input type="submit">
 </form>
 

@@ -3,6 +3,7 @@ package mainpackage.model;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="clients")
@@ -28,13 +29,13 @@ public class Clients {
     @JoinColumn(name ="client_login")
     private Logins login;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "clients_client_addresses",
             joinColumns = { @JoinColumn(name = "id_clients") },
             inverseJoinColumns = { @JoinColumn(name = "id_client_addresses") }
     )
-    private List<ClientAddresses> clientAddresses;
+    private Set<ClientAddresses> clientAddresses;
 
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
@@ -110,11 +111,11 @@ public class Clients {
         this.clientId = clientId;
     }
 
-    public List<ClientAddresses> getClientAddresses() {
+    public Set<ClientAddresses> getClientAddresses() {
         return clientAddresses;
     }
 
-    public void setClientAddresses(List<ClientAddresses> clientAddresses) {
+    public void setClientAddresses(Set<ClientAddresses> clientAddresses) {
         this.clientAddresses = clientAddresses;
     }
 }

@@ -23,21 +23,7 @@ public class ClientsController {
         this.clientsService = cs;
     }
 
-    @RequestMapping(value="/selectaddresspage", method = RequestMethod.GET)
-    public String selectAddressPage (Model model, Principal principal){
-        String login = principal.getName();
-        Clients client = this.clientsService.findClientByLogin(login);
-        model.addAttribute("client",client);
-        return  "select_address";
-    }
 
-    @RequestMapping(value="/selectaddress", method = RequestMethod.GET)
-    public String selectAddress (Model model, Principal principal, @RequestParam("address")ClientAddresses address){
-        String login = principal.getName();
-        Clients client = this.clientsService.findClientByLogin(login);
-        model.addAttribute("client",client);
-        return  "select_address";
-    }
 
     @RequestMapping(value="/searchclientbylogin/{clientLogin}",method = RequestMethod.GET)
     public String searchClientByLogin(Model model, @PathVariable("clientLogin") String clientLogin){

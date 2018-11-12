@@ -18,7 +18,11 @@
         </tr>
     </c:forEach>
     </tr>
+<c:if test="${order.isPaymentAwaiting()}">
+    <p><a href="<c:url value='/getuserorder/${clientLogin}'/>">Go to current order</a></p>
+</c:if>
 </c:forEach>
+
 <p><a href="/paymentmethod">Complete order</a></p>
 </body>
 </html>

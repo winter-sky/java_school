@@ -22,6 +22,15 @@
         <br><br>
     </tr>
 </c:forEach>
+    <form action="/selectaddress" method="GET">
+        <select name="address">
+            <c:forEach var="address" items="${listAddresses}">
+                <option value="${address.clientAddressId}">${address.country}</option>
+            </c:forEach>
+        </select>
+        <input type="hidden" value="${currentorder.orderId}" name="orderId"/>
+        <input type="submit">
+    </form>
 <p><a href="/paymentmethod">Complete order</a></p>
 </c:if>
 </body>

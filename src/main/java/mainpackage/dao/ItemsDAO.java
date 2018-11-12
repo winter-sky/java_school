@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ItemsDAO {
+    //List<Items> searchItemsByString
+
     List<Items> listItems();
 
     Items findItemById(int itemId);

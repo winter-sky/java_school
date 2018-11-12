@@ -1,9 +1,6 @@
 package mainpackage.dao;
 
-import mainpackage.model.Items;
-import mainpackage.model.OrderItems;
-import mainpackage.model.Orders;
-import mainpackage.model.Params;
+import mainpackage.model.*;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
@@ -38,4 +35,6 @@ public interface OrdersDAO {
     Orders findOrderById(int orderId);
 
     void selectOrderStatus(OrderStatus orderStatus, int orderId);
+
+    void selectOrderAddress(int addressId,int orderId);
 }

@@ -1,9 +1,7 @@
 package mainpackage.controller;
 
-import mainpackage.model.Cart;
-import mainpackage.model.Items;
-import mainpackage.model.OrderItems;
-import mainpackage.model.Orders;
+import mainpackage.model.*;
+import mainpackage.service.ClientsService;
 import mainpackage.service.OrdersService;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
@@ -33,6 +31,30 @@ public class OrdersController {
     @Qualifier(value = "OrdersService")
     public void setOrdersService(OrdersService os) {
         this.ordersService = os;
+    }
+
+    private ClientsService clientsService;
+
+    @Autowired
+    @Qualifier(value="ClientsService")
+    public void setClientsService(ClientsService cs){
+        this.clientsService = cs;
+    }
+
+    @RequestMapping(value="/selectaddresspage", method = RequestMethod.GET)
+    public String selectAddressPage (Model model, Principal principal){
+        String login = principal.getName();
+        Clients client = this.clientsService.findClientByLogin(login);
+        model.addAttribute("client",client);
+        return  "select_address";
+    }
+
+    @RequestMapping(value="/selectaddress", method = RequestMethod.GET)
+    public String selectAddress (@RequestParam("address")int addressId,
+                                 @RequestParam("orderId") int orderId){
+
+        this.ordersService.selectOrderAddress(addressId,orderId);
+        return  "select_address";
     }
 
     @RequestMapping(value="/selectorderstatus", method = RequestMethod.GET)
@@ -136,6 +158,13 @@ public class OrdersController {
         if(currentOrder!=null)
         orderItem=currentOrder.getOrderItems();
 
+        Clients client = this.clientsService.findClientByLogin(login);
+
+        List<ClientAddresses> listAddresses = this.clientsService.getClientAddresses(login);
+
+        model.addAttribute("listAddresses",listAddresses);
+
+        model.addAttribute("client",client);
         model.addAttribute("orderitem", orderItem);
         model.addAttribute("listorderitems", list);
         model.addAttribute("currentorder", currentOrder);
@@ -145,6 +174,10 @@ public class OrdersController {
     @RequestMapping(value="/getuserorders/{userLogin}", method = RequestMethod.GET)
     public String getOrders (HttpSession session,Model model, Principal principal, @PathVariable("userLogin")
             String userLogin ){
+
+        String clientLogin = principal.getName();
+
+        model.addAttribute("clientLogin",clientLogin);
 
         List<Orders> list = this.ordersService.getUserOrders(userLogin);//show all user orders
 
