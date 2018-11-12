@@ -209,9 +209,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
         TypedQuery<Orders> query = em.createQuery(q);
 
-        List<Orders> listAllOrders = query.getResultList();
-
-        return listAllOrders;
+        return query.getResultList();
     }
 
     @Override
