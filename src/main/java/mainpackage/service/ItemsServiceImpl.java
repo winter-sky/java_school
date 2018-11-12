@@ -23,6 +23,11 @@ public class ItemsServiceImpl implements ItemsService {
     private ItemsDAO itemsDAO;
 
     @Override
+    public List<Items> searchItemsByString(String str){
+        return this.itemsDAO.searchItemsByString(str);
+    }
+
+    @Override
     public List<ItemDTO> listItems() {
         List<Items> entitiesList = this.itemsDAO.listItems();
         List<ItemDTO> itemDTOList = entitiesList.stream().map(DTOUtil::toDTO).collect(Collectors.toList());

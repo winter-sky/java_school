@@ -52,6 +52,14 @@ public class ItemsController {
         this.cartService = cs;
     }
 
+    @RequestMapping(value = "/searchitems", method = RequestMethod.GET)
+    public String searchItems (Model model,@RequestParam("str") String str,Principal principal) {
+        List<Items> searchItemsByStr = this.itemsService.searchItemsByString(str);
+        model.addAttribute("listitemsbystr", searchItemsByStr);
+        model.addAttribute("checkprincipal", principal);
+        return "catalog";
+    }
+
     @RequestMapping(value = "/edititempage", method = RequestMethod.GET)
     public String editItemPage (Model model) {
         List<Items> listAllItems = this.itemsService.showListAllItems();

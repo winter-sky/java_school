@@ -108,8 +108,8 @@
 <a href="/monthrevenue">Show revenue for current month</a>
 <br/>
 <a href="/weekrevenue">Show revenue for current week</a>
-</body>
 </security:authorize>
+
 <security:authorize access="hasRole('USER')">
     <div class="header">
         <h1>Tir Na Nog Book Store</h1>
@@ -124,6 +124,9 @@
     </div>
 
     <div class="topnav">
+        <form action="/searchitems" method="GET">
+            Search: <input type = "text"  name = "str" /><input type = "submit" value = "Search" />
+        </form>
         <a href="itemlist">Show all books</a>
         <div class="topnav right">
             <c:if test="${empty checkprincipal}">
@@ -175,6 +178,18 @@
             </div>
         </div>
         <div class="column middle">
+
+            <c:forEach var="itembystr" items="${listitemsbystr}">
+                <tr>
+                    <p><img src="${itembystr.pic}" alt="some pic" width="184" height="250"></p>
+                    <p>Book name: ${itembystr.itemName}</p>
+                    <p>Price: ${itembystr.price}</p>
+                    <p>Author: ${itembystr.params.author}</p>
+                    <p>Language: ${itembystr.params.language}</p>
+                    <p>Format: ${itembystr.params.format}</p>
+                </tr>
+            </c:forEach>
+
             <c:forEach var="items" items="${listItems}">
                 <tr>
                     <p><img src="${items.pic}" alt="some pic" width="184" height="250"></p>
@@ -240,6 +255,7 @@
         <p>Footer</p>
     </div>
 </security:authorize>
+
 <c:if test="${empty checkprincipal}">
 <div class="header">
     <h1>Tir Na Nog Book Store</h1>
@@ -254,6 +270,9 @@
 </div>
 
     <div class="topnav">
+        <form action="/searchitems" method="GET">
+            Search: <input type = "text"  name = "str" /><input type = "submit" value = "Search" />
+        </form>
         <a href="itemlist">Show all books</a>
         <div class="topnav right">
             <c:if test="${empty checkprincipal}">
@@ -305,6 +324,16 @@
             </div>
         </div>
         <div class="column middle">
+            <c:forEach var="itembystr" items="${listitemsbystr}">
+                <tr>
+                    <p><img src="${itembystr.pic}" alt="some pic" width="184" height="250"></p>
+                    <p>Book name: ${itembystr.itemName}</p>
+                    <p>Price: ${itembystr.price}</p>
+                    <p>Author: ${itembystr.params.author}</p>
+                    <p>Language: ${itembystr.params.language}</p>
+                    <p>Format: ${itembystr.params.format}</p>
+                </tr>
+            </c:forEach>
             <c:forEach var="items" items="${listItems}">
                 <tr>
                     <p><img src="${items.pic}" alt="some pic" width="184" height="250"></p>

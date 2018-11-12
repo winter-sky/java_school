@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.security.Principal;
 import java.util.*;
@@ -31,6 +32,29 @@ public class ItemsDAOImpl implements ItemsDAO {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    public List<Items> searchItemsByString(String str){
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Items> query = builder.createQuery(Items.class);
+        Root<Items> r = query.from(Items.class);
+        Predicate predicateCat = builder.conjunction();
+        predicateCat = builder.and(predicateCat, builder.like(r.get("category").get("categoryName"), "%"+str+"%"));
+        Predicate predicateName = builder.conjunction();
+        predicateName = builder.and(predicateName, builder.like(r.get("itemName"), "%"+str+"%"));
+        Predicate predicateAuthor = builder.conjunction();
+        predicateAuthor = builder.and(predicateAuthor, builder.like(r.get("params").get("author"), "%"+str+"%"));
+        Predicate predicateLanguage = builder.conjunction();
+        predicateLanguage = builder.and(predicateLanguage, builder.like(r.get("params").get("language"), "%"+str+"%"));
+        Predicate predicateFormat = builder.conjunction();
+        predicateFormat = builder.and(predicateFormat, builder.like(r.get("params").get("format"), "%"+str+"%"));
+
+        Predicate or = builder.or(predicateCat, predicateName, predicateAuthor,predicateLanguage,predicateFormat);
+        query.where(or);
+
+       return em.createQuery(query).getResultList();
+    }
 
     @Override
     public int getOrderItemsQuantity(Items item){ //count the number of orders of a particular item

@@ -9,7 +9,7 @@ import java.util.List;
 public interface ItemsService {
     List<ItemDTO> listItems();
 
-//    void removeItem(int itemId);
+    List<Items> searchItemsByString(String str);
 
     Items findItemById(int itemId);
 
