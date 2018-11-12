@@ -21,6 +21,13 @@ public class ClientsDAOImpl implements  ClientsDAO {
     private EntityManager em;
 
     @Override
+    public List<ClientAddresses> getClientAddresses(String userLogin){
+        return  new ArrayList<>(findClientByLogin(userLogin).getClientAddresses());
+    }
+
+
+
+    @Override
     public int getClientOrderQuantity(Clients client){
         List<Orders> listClientOrders = new ArrayList<>();
         if (client.getOrders()!=null){
