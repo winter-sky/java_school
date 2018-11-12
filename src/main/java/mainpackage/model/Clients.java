@@ -34,7 +34,7 @@ public class Clients {
             joinColumns = { @JoinColumn(name = "id_clients") },
             inverseJoinColumns = { @JoinColumn(name = "id_client_addresses") }
     )
-    private List<ClientAddresses> clientAddress;
+    private List<ClientAddresses> clientAddresses;
 
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
@@ -110,11 +110,11 @@ public class Clients {
         this.clientId = clientId;
     }
 
-    public List<ClientAddresses> getClientAddress() {
-        return clientAddress;
+    public List<ClientAddresses> getClientAddresses() {
+        return clientAddresses;
     }
 
-    public void setClientAddress(List<ClientAddresses> clientAddress) {
-        this.clientAddress = clientAddress;
+    public void setClientAddresses(List<ClientAddresses> clientAddresses) {
+        this.clientAddresses = clientAddresses;
     }
 }
