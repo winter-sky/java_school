@@ -5,6 +5,7 @@
     <title>Create category</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h3>All categories</h3>
 <c:forEach var="cat" items="${listallcategories}">
 <tr>

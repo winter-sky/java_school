@@ -122,7 +122,7 @@ public class OrdersDAOImpl implements OrdersDAO {
     @Override
     public void  addNewOrder(String userLogin, List<Items> itemsFromCart){//must be renamed
         //find client
-        Query query = em.createQuery("from Logins");
+        Query query = em.createQuery("from Logins");//must be changed
         List<Logins> logins = query.getResultList();
         Clients client = new Clients();
         for (Logins l : logins) {
@@ -160,8 +160,8 @@ public class OrdersDAOImpl implements OrdersDAO {
         }
         newOrder.setOrderPrice(orderPrice);
 
-        ClientAddresses clientAddresses = client.getClientAddress();//??
-        newOrder.setClientAddresses(clientAddresses);
+        //ClientAddresses clientAddresses = client.getClientAddress();//?
+        //newOrder.setClientAddresses(clientAddresses);
 
         List<OrderItems> listOrdersItems = new ArrayList<>();
 

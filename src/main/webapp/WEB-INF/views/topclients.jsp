@@ -6,6 +6,7 @@
     <title>Top clients</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h1>Best clients (by total amount)</h1>
 <table>
     <tr>

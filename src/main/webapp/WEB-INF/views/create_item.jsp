@@ -5,6 +5,7 @@
     <title>Create new item</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h3>Lowermost categories</h3>
 <form action="/createitem" method="POST">
     <select name="categoryId">

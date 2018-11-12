@@ -5,6 +5,7 @@
     <title>Edit item page</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h3>List All Items</h3>
 <c:forEach var="item" items="${listallItems}">
     <tr>

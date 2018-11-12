@@ -36,5 +36,6 @@
             </form></td>
         </c:forEach>
 </table>
+<a href="/adminpage">Back to admin page</a>
 </body>
 </html>

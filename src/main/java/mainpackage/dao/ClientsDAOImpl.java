@@ -78,25 +78,25 @@ public class ClientsDAOImpl implements  ClientsDAO {
 
     @Override
     public void updateClient (Clients client){//must be improved
-       Clients clientDb = (Clients) em.find(Clients.class, client.getClientId());
-       clientDb.setFirstName(client.getFirstName());
-       clientDb.setLastName(client.getLastName());
-       clientDb.setBirthDate(client.getBirthDate());
-       clientDb.setEmail(client.getEmail());
-
-        ClientAddresses clientAddress = new ClientAddresses();
-        clientAddress=client.getClientAddress();
-        ClientAddresses clientAddressesDb = clientDb.getClientAddress();
-        clientAddressesDb.setCountry(clientAddress.getCountry());
-        clientAddressesDb.setCity(clientAddress.getCity());
-        clientAddressesDb.setZipCode(clientAddress.getZipCode());
-        clientAddressesDb.setStreet(clientAddress.getStreet());
-        clientAddressesDb.setBuilding(clientAddress.getBuilding());
-        clientAddressesDb.setApartment(clientAddress.getApartment());
-
-        Logins login = client.getLogin();
-        Logins loginDb = clientDb.getLogin();
-        loginDb.setPassword(login.getPassword());
+//       Clients clientDb = (Clients) em.find(Clients.class, client.getClientId());//must be changed
+//       clientDb.setFirstName(client.getFirstName());
+//       clientDb.setLastName(client.getLastName());
+//       clientDb.setBirthDate(client.getBirthDate());
+//       clientDb.setEmail(client.getEmail());
+//
+//        ClientAddresses clientAddress = new ClientAddresses();
+//        clientAddress=client.getClientAddress();
+//        ClientAddresses clientAddressesDb = clientDb.getClientAddress();
+//        clientAddressesDb.setCountry(clientAddress.getCountry());
+//        clientAddressesDb.setCity(clientAddress.getCity());
+//        clientAddressesDb.setZipCode(clientAddress.getZipCode());
+//        clientAddressesDb.setStreet(clientAddress.getStreet());
+//        clientAddressesDb.setBuilding(clientAddress.getBuilding());
+//        clientAddressesDb.setApartment(clientAddress.getApartment());
+//
+//        Logins login = client.getLogin();
+//        Logins loginDb = clientDb.getLogin();
+//        loginDb.setPassword(login.getPassword());
     }
 
     @Override

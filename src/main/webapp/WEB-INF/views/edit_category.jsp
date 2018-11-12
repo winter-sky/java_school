@@ -5,6 +5,7 @@
     <title>Edit Category Page</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h3>List All Categories</h3>
 <c:forEach var="cat" items="${listallcategories}">
         Item ID: ${cat.categoryId}) ${cat.categoryName}

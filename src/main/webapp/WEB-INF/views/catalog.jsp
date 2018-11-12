@@ -210,6 +210,7 @@
                         <tr>
                             <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                                 ${item.itemName}<br>
+
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -217,6 +218,7 @@
                     <c:forEach var="item" items="${category.items}">
                         <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                         ${item.itemName}
+
                     </c:forEach>
                     <c:if test="${!empty category.categories}">
                         <c:set var="category" value="${category}" scope="request"/>

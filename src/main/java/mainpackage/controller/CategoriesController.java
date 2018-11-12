@@ -103,8 +103,6 @@ public class CategoriesController {
 
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)//start page
     public String listCategories(HttpSession session, Model model, Principal principal) {
-
-
         if(principal!=null){
             String userLogin = principal.getName();
             model.addAttribute("userLogin", userLogin);

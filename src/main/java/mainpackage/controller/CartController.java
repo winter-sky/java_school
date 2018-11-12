@@ -63,6 +63,7 @@ public class CartController {
     @RequestMapping(value = "/usercart/{userLogin}", method = RequestMethod.GET)
     public String userShoppingCart(HttpSession session,Model model,Principal principal, @PathVariable("userLogin") String userLogin) {
         Cart usercart = (Cart)session.getAttribute("initialusercart");
+        if(usercart!=null)
         model.addAttribute("user_cart", usercart.getItems());
 
         String login = principal.getName();

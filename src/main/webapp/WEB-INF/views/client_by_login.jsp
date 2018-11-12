@@ -32,7 +32,7 @@
     <p>Last name: ${client.lastName}</p>
     <p>Birth date: ${client.birthDate}</p>
     <p>email: ${client.email}</p>
-    <p>Address: ${client.clientAddress.country}, ${client.clientAddress.zipCode}, ${client.clientAddress.city}, ${client.clientAddress.street}, ${client.clientAddress.building}-${client.clientAddress.apartment}</p>
+    <%--<p>Address: ${client.clientAddress.country}, ${client.clientAddress.zipCode}, ${client.clientAddress.city}, ${client.clientAddress.street}, ${client.clientAddress.building}-${client.clientAddress.apartment}</p>--%>
     <p><a href="<c:url value='/edit/${client.clientId}'/>">Edit profile</a></p>
 </div>
 </body>

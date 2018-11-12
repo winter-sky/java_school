@@ -134,7 +134,6 @@ public class ItemsController {
         model.addAttribute("listFormats",listFormats);
 
         return "catalog";
-        //return "redirect:/listcategories";
     }
 
     @RequestMapping(value = "/searchbyauthor/itemlist", method = RequestMethod.GET)//show list all items, create new Cart for guest

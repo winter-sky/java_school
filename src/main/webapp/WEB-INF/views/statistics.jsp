@@ -5,6 +5,7 @@
     <title>Statistics</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h1>Statistics</h1>
 <br/>
 <a href="/topitems">Show top 10 items</a>
