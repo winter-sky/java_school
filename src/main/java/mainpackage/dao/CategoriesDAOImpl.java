@@ -1,19 +1,17 @@
 package mainpackage.dao;
 
 import mainpackage.model.Categories;
-import mainpackage.model.Items;
-import mainpackage.model.Params;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Repository("CategoriesDAO")
 public class CategoriesDAOImpl implements CategoriesDAO {
+    public static final int LEVEL_ROOT = 0;
     @PersistenceContext
     private EntityManager em;
 
@@ -26,77 +24,90 @@ public class CategoriesDAOImpl implements CategoriesDAO {
     @Override
     public List<Categories> showAllParentCategories(){
         Query query = em.createQuery("from Categories");
+
         List<Categories> listAllCategories = query.getResultList();
 
         List<Categories> listAllParentCategories = new ArrayList<>();
 
         for (Categories c:listAllCategories){
-            if(!c.getCategories().isEmpty())
+            if(!c.getCategories().isEmpty()) {
                 listAllParentCategories.add(c);
+            }
         }
+
         return listAllParentCategories;
     }
 
     @Override
-    public void updateCategory (int categoryId,int parentId,String categoryName){
+    public void updateCategory (int categoryId, int parentId, String categoryName){
         //find a category to be changed
-        Categories categoryDB = findCategoryById(categoryId);
+        Categories cat = findCategoryById(categoryId);
 
         //find category to be parent category
         Categories parentCategory = findCategoryById(parentId);
 
         //update category in DB
-        categoryDB.setCategoryName(categoryName);
-        categoryDB.setCategoryLevel(parentCategory.getCategoryLevel()+1);
-        categoryDB.setCategory(parentCategory);
+        cat.setCategoryName(categoryName);
+        cat.setCategoryLevel(parentCategory.getCategoryLevel()+1);
+        cat.setCategory(parentCategory);
     }
 
     @Override
     public Categories getRootCategory() {
-        int level = 0;
-        Query query = em.createQuery("from Categories where category_level=:categoryLevel");//level field is rebundant
-        return (Categories) query.setParameter("categoryLevel", level).getSingleResult();
+        Query query = em.createQuery("from Categories where category_level=:categoryLevel");
+
+        return (Categories) query.setParameter("categoryLevel", LEVEL_ROOT).getSingleResult();
     }
 
     @Override
     public Categories findCategoryById(int categoryId) {
         Query query = em.createQuery("from Categories where category_id=:categoryId");
+
         return (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
     }
 
     @Override
-    public void addNewCategory(int categoryId,String categoryName,int categoryLevel){
+    public void addNewCategory(int parentId, String categoryName, int categoryLevel){
         //find category with id received
-        Query query = em.createQuery("from Categories where category_id=:categoryId");
-        Categories parentCategory= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
+        Query query = em.createQuery("from Categories where category_id=:parentId");
+
+        Categories parentCategory= (Categories) query.setParameter("parentId", parentId).getSingleResult();
 
         //create new Category
-        Categories newCategory = new Categories();
-        newCategory.setCategoryName(categoryName);
-        newCategory.setCategoryLevel(categoryLevel);
-        newCategory.setCategory(parentCategory);
+        Categories newCat = new Categories();
 
-        em.persist(newCategory);
+        newCat.setCategoryName(categoryName);
+        newCat.setCategoryLevel(categoryLevel);
+        newCat.setCategory(parentCategory);
+
+        em.persist(newCat);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Categories> showLowermostSubCategories(){
         Query query = em.createQuery("from Categories");
 
         List<Categories> result = new ArrayList<>();
-        List<Categories> listAllCategories = query.getResultList();
+
+        List<Categories> listAllCategories = (List<Categories>)query.getResultList();
+
         for (Categories c:listAllCategories){
-            if(c.getCategories().isEmpty())
+            if(c.getCategories().isEmpty()) {
                 result.add(c);
+            }
         }
 
         return  result;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Categories> showAllCategories(){
         Query query = em.createQuery("from Categories");
-        List<Categories> listAllCategories = query.getResultList();
+
+        List<Categories> listAllCategories = (List<Categories>)query.getResultList();
+
         return  listAllCategories;
     }
 }

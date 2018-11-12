@@ -2,7 +2,6 @@ package mainpackage.dao;
 
 import mainpackage.model.Categories;
 import mainpackage.model.Items;
-import mainpackage.model.OrderItems;
 import mainpackage.model.Params;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,6 @@ import java.security.Principal;
 import java.util.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository("ItemsDAO")
 public class ItemsDAOImpl implements ItemsDAO {
@@ -57,30 +55,28 @@ public class ItemsDAOImpl implements ItemsDAO {
     }
 
     @Override
-    public int getOrderItemsQuantity(Items item){ //count the number of orders of a particular item
-
-        List<OrderItems> orderItems = new ArrayList<>();
-        if(item.getOrderItems()!=null)
-        orderItems = item.getOrderItems();
-
-        int quantity = orderItems.size();
-
-
-
-        return quantity;
-    }
-
-    @Override
-    public void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
-                           String pic, int categoryId,String author,String format,String language){
+    public void updateItem(
+        int itemId,
+        String itemName,
+        double price,
+        double weight,
+        String volume,
+        int availableCount,
+        String pic,
+        int categoryId,
+        String author,
+        String format,
+        String language
+    ){
         //find item with id received
-
         Query query1 = em.createQuery("from Items where item_id=:itemId");
+
         Items itemDB =  (Items) query1.setParameter("itemId", itemId).getSingleResult();
 
         //find category by id received
         Query query = em.createQuery("from Categories where category_id=:categoryId");
-        Categories cat= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
+
+        Categories cat = (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
 
         //get itemDB params
         Params paramDB = itemDB.getParams();
@@ -96,37 +92,47 @@ public class ItemsDAOImpl implements ItemsDAO {
         itemDB.setVolume(volume);
         itemDB.setAvailableCount(availableCount);
         itemDB.setPic(pic);
-
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Items> listItems() {
         return em.createQuery("SELECT i FROM Items i").getResultList();
     }
 
-
     @Override
     public Items findItemById(int itemId){
         Query query = em.createQuery("from Items where item_id=:itemId");
+
         return  (Items) query.setParameter("itemId", itemId).getSingleResult();
     }
 
-
     @Override
-    public void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
-                            String volume,int availableCount,String pic){
+    public void addNewItem(
+        int categoryId,
+        String author,
+        String format,
+        String language,
+        String itemName,
+        double price,
+        double weight,
+        String volume,
+        int availableCount,
+        String pic
+    ){
         Params newItemParam = new Params();
-
 
         newItemParam.setAuthor(author);
         newItemParam.setFormat(format);
         newItemParam.setLanguage(language);
+
         em.persist(newItemParam);
 
         Items newItem = new Items();
         newItem.setParams(newItemParam);
 
         Query query = em.createQuery("from Categories where category_id=:categoryId");
+
         Categories cat= (Categories) query.setParameter("categoryId", categoryId).getSingleResult();
 
         newItem.setCategory(cat);
@@ -137,22 +143,25 @@ public class ItemsDAOImpl implements ItemsDAO {
         newItem.setVolume(volume);
         newItem.setAvailableCount(availableCount);
         newItem.setPic(pic);
+
         em.persist(newItem);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Items> showListAllItems(){
         Query query = em.createQuery("from Items");
-        List<Items> listAllItems = query.getResultList();
-        return  listAllItems;
+
+        return query.getResultList();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Items> findItemsByIds(List<Integer> itemIds) {
-         log.debug("Requesting items by \nids: " + itemIds);
+         log.debug("Requesting items by ids: " + itemIds);
 
         Query query = em.createQuery("from Items where item_id IN (:itemIds)");
+
         return  (List<Items>) query.setParameter("itemIds", itemIds).getResultList();
     }
 }

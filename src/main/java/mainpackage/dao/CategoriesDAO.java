@@ -6,7 +6,6 @@ import mainpackage.model.Items;
 import java.util.List;
 
 public interface CategoriesDAO {
-
     Categories getRootCategory();
 
     Categories findCategoryById(int categoryId);

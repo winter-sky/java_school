@@ -9,22 +9,15 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersDAO {
+    void selectPaymentMethod(Orders o, PaymentMethod paymentMethod);//set payment method in user order
 
-    void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin);//set payment method in user order
-
-    void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin);
+    void selectDeliveryMethod(Orders o, DeliveryMethod deliveryMethod);
 
     List<Orders> getUserOrders(String userLogin);//show all user orders
 
-    void  addNewOrder(String userLogin, List<Items> itemsFromCart);
+    void  addNewOrder(Clients client, List<Items> itemsFromCart);
 
-    List<Items> getUserCurrentOrder (String userLogin);//find client order with payment awaiting status
-
-    Orders getCurrentOrder(String user);
-
-    void payForTheOrder(String userLogin);
-
-    List<Orders> getOrders (String userLogin);//find client not delivered orders
+    void payForTheOrder(Orders o);
 
     List<Orders> getAllOrders ();//find client not delivered orders
 

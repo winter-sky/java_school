@@ -9,23 +9,56 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("CartService")
-public class CartServiceImpl implements  CartService{
-
-    @Autowired
-    @Qualifier("CartDAO")
+public class CartServiceImpl implements  CartService {
     private CartDAO cartDAO;
 
-    @Override
-    @Transactional
-    public List<Items> getUsersShoppingCart(String userLogin){
-        return  this.cartDAO.getUsersShoppingCart(userLogin);}
+    private ItemsService itemsService;
+
+    private ClientsService clientsService;
+
+    @Autowired
+    public void setCartDAO(CartDAO cartDAO) {
+        this.cartDAO = cartDAO;
+    }
+
+    @Autowired
+    public void setItemsService(ItemsService itemsService) {
+        this.itemsService = itemsService;
+    }
+
+    @Autowired
+    public void setClientsService(ClientsService clientsService) {
+        this.clientsService = clientsService;
+    }
 
     @Override
     @Transactional
-    public void addItemToGuestCart(Integer itemId, int guestCartId){this.cartDAO.addItemToGuestCart(itemId,guestCartId);}
+    public List<Items> getUsersShoppingCart(String userLogin) {
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        return client.getCart() != null ? client.getCart().getItems() : null;
+    }
+
+    @Override
+    @Transactional
+    public void addItemToGuestCart(Integer itemId, int guestCartId){
+        Cart cart = cartDAO.getCart(guestCartId);
+
+        Items item = itemsService.findItemById(itemId);
+
+        if (cart.getItems() == null) {
+            cart.setItems(Arrays.asList(item));
+        } else {
+            cart.addItem(item);
+        }
+
+        // TODO: update DB?
+    }
 
     @Override
     @Transactional

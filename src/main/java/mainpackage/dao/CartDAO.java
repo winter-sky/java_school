@@ -8,12 +8,9 @@ import mainpackage.model.Orders;
 import java.util.List;
 
 public interface CartDAO {
+    Cart getCart(int cardId);
 
-    List<Items> getUsersShoppingCart(String userLogin);
-
-    void addItemToGuestCart (int itemId, int guestCartId);
-
-    Cart createGuestCart ();
+    Cart createGuestCart();
 
     Cart createUserCart(Clients client);
 

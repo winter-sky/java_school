@@ -18,14 +18,32 @@ public interface ItemsDAO {
 
     List<Items>  findItemsByIds(List<Integer> itemIds);
 
-    void addNewItem( int categoryId, String author,String format,String language,String itemName, double price,double weight,
-                     String volume,int availableCount,String pic);
+    void addNewItem(
+        int categoryId,
+        String author,
+        String format,
+        String language,
+        String itemName,
+        double price,
+        double weight,
+        String volume,
+        int availableCount,
+        String pic
+    );
 
     List<Items> showListAllItems();
 
-    void updateItem(int itemId,String itemName,double price,double weight,String volume,int availableCount,
-                    String pic, int categoryId,String author,String format,String language);
-
-    int getOrderItemsQuantity(Items item);//count the number of orders of a particular item
-
+    void updateItem(
+        int itemId,
+        String itemName,
+        double price,
+        double weight,
+        String volume,
+        int availableCount,
+        String pic,
+        int categoryId,
+        String author,
+        String format,
+        String language
+    );
 }
