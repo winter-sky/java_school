@@ -35,7 +35,8 @@
                 </select>
                 <input type="hidden" value="${order.orderId}" name="orderId"/>
                 <input type="submit">
-            </form></td>
+            </form>
+            </td>
         </c:forEach>
 </table>
 <a href="/adminpage">Back to admin page</a>

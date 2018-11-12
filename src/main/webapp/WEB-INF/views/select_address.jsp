@@ -12,11 +12,15 @@
     <title>Title</title>
 </head>
 <body>
-<select name="address">
-    <c:forEach var="address" items="${client.clientAddresses}">
-    <option value="${address}">${address.country}</option>
-    </c:forEach>
-</select>
-<input type="submit">
+<form action="/selectaddress" method="GET">
+    <select name="address">
+        <c:forEach var="address" items="${client.clientAddresses}">
+            <option value="${address}">${address.country}</option>
+        </c:forEach>
+    </select>
+    <input type="submit">
+</form>
+
+
 </body>
 </html>

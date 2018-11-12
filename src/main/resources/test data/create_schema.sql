@@ -1,3 +1,7 @@
+DROP DATABASE `online_store`;
+
+create schema online_store;
+
 use online_store;
 
 drop table IF EXISTS logins;
@@ -50,12 +54,22 @@ create table clients (
                        birthdate DATE NOT NULL, -- TODO: maybe not null, discuss
                        email VARCHAR(256) NOT NULL,
                        client_login INTEGER(18) NOT NULL,
-                       client_address INTEGER(18) NOT NULL,
+                       #                        client_address INTEGER(18) NOT NULL,
                        CONSTRAINT client_id_pk PRIMARY KEY (client_id),
-                       FOREIGN KEY (client_login) REFERENCES logins (login_id),
-                       FOREIGN KEY (client_address) REFERENCES client_addresses (client_address_id)
+                       FOREIGN KEY (client_login) REFERENCES logins (login_id)
+                         #                         FOREIGN KEY (client_address) REFERENCES client_addresses (client_address_id)
 );
 
+create table clients_client_addresses (
+                                        clients_client_addresses_id INTEGER(18) NOT NULL AUTO_INCREMENT,
+                                        id_client_addresses INTEGER(18) NOT NULL,
+                                        id_clients  INTEGER(18) NOT NULL,
+                                        CONSTRAINT clients_client_addresses_id_pk PRIMARY KEY (clients_client_addresses_id),
+                                        FOREIGN KEY (id_client_addresses) REFERENCES client_addresses (client_address_id),
+                                        FOREIGN KEY (id_clients) REFERENCES clients (client_id)
+);
+
+#need to add order data, quantity and price
 create table orders (
                       order_id  INTEGER (18) NOT NULL AUTO_INCREMENT,
                       orders_client INTEGER(18)  DEFAULT NULL,
