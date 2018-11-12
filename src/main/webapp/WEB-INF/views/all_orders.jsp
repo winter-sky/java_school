@@ -21,8 +21,10 @@
             <td>${order.client.firstName} ${order.client.lastName}</td>
             <td>${order.orderStatus.toString()}</td>
             <td>${order.paymentStatus.toString()}</td>
-            <td><select><c:forEach var="orderitem" items="${order.orderItems}">
-                <option value="${orderitem.item.itemName}">${orderitem.item.itemName}</option></c:forEach></select>
+            <td>
+                <select><c:forEach var="orderitem" items="${order.orderItems}">
+                <option value="${orderitem.item.itemName}">${orderitem.item.itemName}</option></c:forEach>
+            </select>
             </td>
             <td>${order.orderPrice}</td>
             <td><form action="/selectorderstatus" method="GET">
@@ -36,5 +38,6 @@
             </form></td>
         </c:forEach>
 </table>
+<a href="/adminpage">Back to admin page</a>
 </body>
 </html>

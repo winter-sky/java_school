@@ -19,5 +19,6 @@
     </c:forEach>
     </tr>
 </c:forEach>
+<p><a href="/paymentmethod">Complete order</a></p>
 </body>
 </html>

@@ -28,9 +28,13 @@ public class Clients {
     @JoinColumn(name ="client_login")
     private Logins login;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="client_address")
-    private ClientAddresses clientAddress;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "clients_client_addresses",
+            joinColumns = { @JoinColumn(name = "id_clients") },
+            inverseJoinColumns = { @JoinColumn(name = "id_client_addresses") }
+    )
+    private List<ClientAddresses> clientAddresses;
 
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
@@ -86,14 +90,6 @@ public class Clients {
         this.login = login;
     }
 
-    public ClientAddresses getClientAddress() {
-        return clientAddress;
-    }
-
-    public void setClientAddress(ClientAddresses clientAddress) {
-        this.clientAddress = clientAddress;
-    }
-
     public List<Orders> getOrders() {
         return orders;
     }
@@ -108,5 +104,17 @@ public class Clients {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public List<ClientAddresses> getClientAddresses() {
+        return clientAddresses;
+    }
+
+    public void setClientAddresses(List<ClientAddresses> clientAddresses) {
+        this.clientAddresses = clientAddresses;
     }
 }

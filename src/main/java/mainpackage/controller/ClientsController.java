@@ -1,15 +1,16 @@
 package mainpackage.controller;
 
+import mainpackage.model.ClientAddresses;
 import mainpackage.model.Clients;
 import mainpackage.service.ClientsService;
+import mainpackage.type.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 public class ClientsController {
@@ -22,6 +23,13 @@ public class ClientsController {
         this.clientsService = cs;
     }
 
+    @RequestMapping(value="/selectaddress", method = RequestMethod.GET)
+    public String selectOrderStatus (Model model, Principal principal, @RequestParam("address")ClientAddresses address){
+        String login = principal.getName();
+        Clients client = this.clientsService.findClientByLogin(login);
+        model.addAttribute("client",client);
+        return  "select_address";
+    }
 
     @RequestMapping(value="/searchclientbylogin/{clientLogin}",method = RequestMethod.GET)
     public String searchClientByLogin(Model model, @PathVariable("clientLogin") String clientLogin){

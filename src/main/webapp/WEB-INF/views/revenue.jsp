@@ -5,6 +5,7 @@
     <title>Revenue statistics</title>
 </head>
 <body>
+<a href="/adminpage">Back to admin page</a><br>
 <h1>Revenue statistics</h1>
 <table>
     <tr>

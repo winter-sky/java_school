@@ -11,9 +11,6 @@ public class Cart {
     @Column(name = "cart_id")
     private int cartId;
 
-//    @Column(name = "id_client",insertable = false, updatable = false)
-//    private Integer idClient;
-
     @ManyToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(
             name = "cart_items",
@@ -33,12 +30,6 @@ public class Cart {
     public void setCartId(int cartId) {
         this.cartId = cartId;
     }
-//
-//    public Integer getIdClient() {
-//        return idClient;
-//    }
-//
-
 
     public List<Items> getItems() {
         return items;

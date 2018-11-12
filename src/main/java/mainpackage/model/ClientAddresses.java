@@ -1,6 +1,7 @@
 package mainpackage.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="client_addresses")
@@ -28,6 +29,17 @@ public class ClientAddresses {
 
     @Column(name = "apartment")
     private int apartment;
+
+    @OneToMany(mappedBy="clientAddresses")
+    private List<Orders> orders;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "clients_client_addresses",
+            joinColumns = { @JoinColumn(name = "id_client_addresses") },
+            inverseJoinColumns = { @JoinColumn(name = "id_clients") }
+    )
+    private List<Clients> clients;
 
     public int getClientAddressId() {
         return clientAddressId;
@@ -83,5 +95,21 @@ public class ClientAddresses {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public List<Clients> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Clients> clients) {
+        this.clients = clients;
     }
 }
