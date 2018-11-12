@@ -43,6 +43,7 @@ insert into params (author, language, format)
 values ('Linda Cateura','English','Hardcover');
 insert into params (author, language, format)
 values ('Robert O\'Byrne','English','Hardcover');
+
 insert into params (author, language, format)
 values ('Huw Lewis-Jones','English','Hardcover');
 insert into params (author, language, format)
