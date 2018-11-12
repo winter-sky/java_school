@@ -74,7 +74,6 @@ public class ParamsDAOImpl implements ParamsDAO {
         List<Items> listItems = new ArrayList<>();
 
         for (Params p : listParams) {
-            //System.out.println(p.getAuthor());
             if ((p.getAuthor()).equals(paramAuthor)) {
                 listItems.add(p.getItem());
             }
