@@ -3,7 +3,6 @@ package mainpackage.dto;
 import mainpackage.model.Categories;
 
 public class ItemDTO {
-
     private int itemId;
     private String itemName;
     private double price;
