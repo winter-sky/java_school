@@ -197,46 +197,6 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public List<Items> getUserCurrentOrder(String userLogin) {//get items from current user order
-        //find user
-        Query query = em.createQuery("from Logins");
-
-        List<Logins> logins = query.getResultList();
-
-        Clients client = new Clients();
-
-        for (Logins l : logins) {
-            if ((l.getLogin()).equals(userLogin)) {
-                System.out.println(l.getLogin());
-                client = l.getClient();
-            }
-        }
-
-        Orders currentOrder = new Orders();
-
-        List<Orders> listUserOrders = new ArrayList<>();
-
-        List<Items> orderItems = new ArrayList<>();
-
-        if (client.getOrders() != null) {
-            listUserOrders = client.getOrders();
-
-            for (Orders o : listUserOrders) {
-                if (o.getPaymentStatus().equals(AWAITING_PAYMENT))
-                    currentOrder = o;
-            }
-
-            if (currentOrder.getOrderItems() != null) {//??
-                for (OrderItems o : currentOrder.getOrderItems()) {
-                    orderItems.add(o.getItem());
-                }
-            }
-        }
-
-        return orderItems;
-    }
-
-    @Override
     public List<Orders> showAllOrdersForAdmin() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
 

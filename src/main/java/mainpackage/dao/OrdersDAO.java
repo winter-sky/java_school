@@ -21,8 +21,6 @@ public interface OrdersDAO {
 
     void  addNewOrder(String userLogin, List<Items> itemsFromCart);
 
-    List<Items> getUserCurrentOrder (String userLogin);//find client order with payment awaiting status
-
     void payForTheOrder(String userLogin);
 
     List<Orders> getAllOrders ();//find client not delivered orders

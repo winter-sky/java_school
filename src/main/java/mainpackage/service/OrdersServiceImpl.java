@@ -1,10 +1,7 @@
 package mainpackage.service;
 
 import mainpackage.dao.OrdersDAO;
-import mainpackage.model.Clients;
-import mainpackage.model.Items;
-import mainpackage.model.Logins;
-import mainpackage.model.Orders;
+import mainpackage.model.*;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
@@ -53,7 +50,11 @@ public class OrdersServiceImpl implements OrdersService {
     public void  addNewOrder(String userLogin, List<Items> itemsFromCart){this.ordersDAO.addNewOrder(userLogin,itemsFromCart);}
 
     @Override
-    public List<Items> getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
+    public List<Items> getUserCurrentOrder (String userLogin){
+        Orders o = getCurrentOrder(userLogin);
+
+        return o!= null ? o.getOrderItems().stream().map(OrderItems::getItem).collect(Collectors.toList()) : null;
+    }
 
     @Override
     public Orders getCurrentOrder(String userLogin){
