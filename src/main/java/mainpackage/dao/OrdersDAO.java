@@ -23,11 +23,7 @@ public interface OrdersDAO {
 
     List<Items> getUserCurrentOrder (String userLogin);//find client order with payment awaiting status
 
-    Orders getCurrentOrder(String user);
-
     void payForTheOrder(String userLogin);
-
-    List<Orders> getOrders (String userLogin);//find client not delivered orders
 
     List<Orders> getAllOrders ();//find client not delivered orders
 

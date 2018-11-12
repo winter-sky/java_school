@@ -1,7 +1,9 @@
 package mainpackage.service;
 
 import mainpackage.dao.OrdersDAO;
+import mainpackage.model.Clients;
 import mainpackage.model.Items;
+import mainpackage.model.Logins;
 import mainpackage.model.Orders;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
@@ -11,16 +13,31 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static mainpackage.type.OrderStatus.DELIVERED;
+import static mainpackage.type.PaymentState.AWAITING_PAYMENT;
 
 @Service("OrdersService")
 @Transactional
 public class OrdersServiceImpl implements OrdersService {
+    private OrdersDAO ordersDAO;
+
+    private ClientsService clientsService;
 
     @Autowired
-    @Qualifier("OrdersDAO")
-    private OrdersDAO ordersDAO;
+    public void setOrdersDAO(OrdersDAO ordersDAO) {
+        this.ordersDAO = ordersDAO;
+    }
+
+    @Autowired
+    public void setClientsService(ClientsService clientsService) {
+        this.clientsService = clientsService;
+    }
 
     @Override
     public void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin){
@@ -39,7 +56,19 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Items> getUserCurrentOrder (String userLogin){return this.ordersDAO.getUserCurrentOrder(userLogin);}
 
     @Override
-    public Orders getCurrentOrder(String userLogin){return this.ordersDAO.getCurrentOrder(userLogin);}
+    public Orders getCurrentOrder(String userLogin){
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        // Assume only one order for client awaiting payment.
+        if (client.getOrders() != null) {
+            for (Orders o : client.getOrders()) {
+                if (o.getPaymentStatus().equals(AWAITING_PAYMENT))
+                    return o;
+            }
+        }
+
+        return null;
+    }
 
     @Override
     public void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin){
@@ -50,7 +79,12 @@ public class OrdersServiceImpl implements OrdersService {
     public void payForTheOrder(String userLogin){this.ordersDAO.payForTheOrder(userLogin);}
 
     @Override
-    public List<Orders> getOrders (String userLogin){return this.ordersDAO.getOrders(userLogin);}
+    public List<Orders> getOrders (String userLogin){
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        return client.getOrders() != null ? client.getOrders().stream().filter(
+            o -> !o.getOrderStatus().equals(DELIVERED)).collect(Collectors.toList()) : new ArrayList<>();
+    }
 
     @Override
     @Transactional

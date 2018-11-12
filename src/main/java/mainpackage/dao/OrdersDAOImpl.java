@@ -237,52 +237,6 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public Orders getCurrentOrder(String userLogin) {
-        Query query = em.createQuery("from Logins where login = :login").setParameter("login", userLogin);
-
-        Logins login = (Logins) query.getSingleResult();
-
-        Clients client = login.getClient();
-
-        Orders currentOrder = new Orders();
-
-        if (client.getOrders() != null) {
-            for (Orders o : client.getOrders()) {
-                if (o.getPaymentStatus().equals(AWAITING_PAYMENT))
-                    currentOrder = o;
-            }
-        }
-
-        return currentOrder;
-    }
-
-    @Override
-    public List<Orders> getOrders(String userLogin) {
-        Query query = em.createQuery("from Logins");
-
-        List<Logins> logins = query.getResultList();
-
-        Clients client = new Clients();
-
-        for (Logins l : logins) {
-            if ((l.getLogin()).equals(userLogin)) {
-                client = l.getClient();
-            }
-        }
-
-        List<Orders> listOrders = new ArrayList<>();
-
-        if (client.getOrders() != null) {
-            for (Orders o : client.getOrders()) {
-                if (!o.getOrderStatus().equals(DELIVERED))
-                    listOrders.add(o);
-            }
-        }
-
-        return listOrders;
-    }
-
-    @Override
     public List<Orders> showAllOrdersForAdmin() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
@@ -322,6 +276,7 @@ public class OrdersDAOImpl implements OrdersDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Orders> getOrdersAfter(Timestamp ts) {
         Query query = em.createQuery("from Orders WHERE order_date >= :ts");
 
