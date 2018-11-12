@@ -1,9 +1,6 @@
 package mainpackage.dao;
 
-import mainpackage.model.Items;
-import mainpackage.model.OrderItems;
-import mainpackage.model.Orders;
-import mainpackage.model.Params;
+import mainpackage.model.*;
 import mainpackage.type.DeliveryMethod;
 import mainpackage.type.OrderStatus;
 import mainpackage.type.PaymentMethod;
@@ -12,16 +9,15 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrdersDAO {
+    void selectPaymentMethod(Orders o, PaymentMethod paymentMethod);//set payment method in user order
 
-    void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin);//set payment method in user order
-
-    void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin);
+    void selectDeliveryMethod(Orders o, DeliveryMethod deliveryMethod);
 
     List<Orders> getUserOrders(String userLogin);//show all user orders
 
-    void  addNewOrder(String userLogin, List<Items> itemsFromCart);
+    void  addNewOrder(Clients client, List<Items> itemsFromCart);
 
-    void payForTheOrder(String userLogin);
+    void payForTheOrder(Orders o);
 
     List<Orders> getAllOrders ();//find client not delivered orders
 

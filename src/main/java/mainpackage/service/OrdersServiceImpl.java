@@ -38,7 +38,13 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void selectPaymentMethod(PaymentMethod paymentMethod, String userLogin){
-        this.ordersDAO.selectPaymentMethod(paymentMethod,userLogin);
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        for (Orders o : client.getOrders()) {
+            if (o.getPaymentStatus().equals(AWAITING_PAYMENT)) {
+                ordersDAO.selectPaymentMethod(o, paymentMethod);
+            }
+        }
     }
 
     @Override
@@ -47,7 +53,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void  addNewOrder(String userLogin, List<Items> itemsFromCart){this.ordersDAO.addNewOrder(userLogin,itemsFromCart);}
+    public void  addNewOrder(String userLogin, List<Items> itemsFromCart){
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        this.ordersDAO.addNewOrder(client,itemsFromCart);
+    }
 
     @Override
     public List<Items> getUserCurrentOrder (String userLogin){
@@ -72,12 +82,26 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void selectDeliveryMethod (DeliveryMethod deliveryMethod, String userLogin){
-        this.ordersDAO.selectDeliveryMethod(deliveryMethod,userLogin);
+    public void selectDeliveryMethod(DeliveryMethod deliveryMethod, String userLogin){
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        for (Orders o : client.getOrders()) {
+            if (o.getPaymentStatus().equals(AWAITING_PAYMENT)) {
+                ordersDAO.selectDeliveryMethod(o, deliveryMethod);
+            }
+        }
     }
 
     @Override
-    public void payForTheOrder(String userLogin){this.ordersDAO.payForTheOrder(userLogin);}
+    public void payForTheOrder(String userLogin){
+        Clients client = clientsService.findClientByLogin(userLogin);
+
+        for (Orders o : client.getOrders()) {
+            if (o.getPaymentStatus().equals(AWAITING_PAYMENT)) {
+                ordersDAO.payForTheOrder(o);
+            }
+        }
+    }
 
     @Override
     public List<Orders> getOrders (String userLogin){
