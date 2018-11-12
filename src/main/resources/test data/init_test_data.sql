@@ -1,3 +1,56 @@
+insert into categories ( category_name, category_level,parent_id )
+values ('',0,null);
+insert into categories ( category_name, category_level,parent_id )
+values ('Art',1,1);
+insert into categories ( category_name, category_level,parent_id )
+values ('Literature & Fiction',1,1);
+insert into categories ( category_name, category_level,parent_id )
+values ('Architecture',2,2);
+insert into categories ( category_name, category_level,parent_id )
+values ('Drawing',2,2);
+insert into categories ( category_name, category_level,parent_id )
+values ('Painting',2,2);
+insert into categories ( category_name, category_level,parent_id )
+values ('British & Irish',2,3);
+insert into categories ( category_name, category_level,parent_id )
+values ('Genre Fiction',2,3);
+insert into categories ( category_name, category_level,parent_id )
+values ('Mythology & Folk Tales',2,3);
+insert into categories ( category_name, category_level,parent_id )
+values ('Fairy Tales',3,9);
+insert into categories ( category_name, category_level,parent_id )
+values ('Folklore',3,9);
+insert into categories ( category_name, category_level,parent_id )
+values ('Mythology',3,9);
+insert into categories ( category_name, category_level,parent_id )
+values ('Pen & Ink Drawing',3,5);
+insert into categories ( category_name, category_level,parent_id )
+values ('Oil Painting',3,6);
+insert into categories ( category_name, category_level,parent_id )
+values ('Architecture History',3,4);
+insert into categories ( category_name, category_level,parent_id )
+values ('Romantic',4,15);
+insert into categories ( category_name, category_level,parent_id )
+values ('Gothic',3,8);
+
+insert into params (author, language, format)
+values ('Lewis Carroll','English','Hardcover');
+insert into params (author, language, format)
+values ('Pic Candle','English','Paperback');
+insert into params (author, language, format)
+values ('Ivan Bilibin','Russian','Hardcover');
+insert into params (author, language, format)
+values ('Linda Cateura','English','Hardcover');
+insert into params (author, language, format)
+values ('Robert O\'Byrne','English','Hardcover');
+
+insert into params (author, language, format)
+values ('Huw Lewis-Jones','English','Hardcover');
+insert into params (author, language, format)
+values ('Gaston Leroux','French','Paperback');
+insert into params (author, language, format)
+values ('Jiaqi Guan','Chinese','Paperback');
+
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
 values ('Alice in Wonderland',10,1500,2,'20x80x10',5,'/resources/alice_in_the_wonderland.jpg',1);
 insert into items(item_name,item_category,price,weight, volume,available_count,pic,params_id)
