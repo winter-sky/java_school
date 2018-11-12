@@ -26,7 +26,7 @@ public class ClientsDAOImpl implements ClientsDAO {
     public Clients findClientByLogin(String clientLogin) {
         Query query = em.createQuery("from Logins WHERE login = :clientLogin");
 
-        Logins l = (Logins)query.setParameter("userLogin", clientLogin).getSingleResult();
+        Logins l = (Logins)query.setParameter("clientLogin", clientLogin).getSingleResult();
 
         return l.getClient();
     }
