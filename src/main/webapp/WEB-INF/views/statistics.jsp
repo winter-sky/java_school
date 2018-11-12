@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -16,4 +17,5 @@
 <br/>
 <a href="/weekrevenue">Show revenue for current week</a>
 </body>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </html>

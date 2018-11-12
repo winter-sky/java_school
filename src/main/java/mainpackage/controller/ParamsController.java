@@ -63,6 +63,12 @@ public class ParamsController {
     @RequestMapping(value = "/searchbyauthor/{author}", method = RequestMethod.GET)
     public String searchByAuthor(HttpSession session, Model model, @PathVariable("author") String author, Principal principal) {
 
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
+
         if(principal!=null){
             String userLogin = principal.getName();
             model.addAttribute("userLogin", userLogin);}
@@ -92,6 +98,12 @@ public class ParamsController {
     @RequestMapping(value = "/searchbylanguage/{language}", method = RequestMethod.GET)
     public String searchByLanguage(HttpSession session, Model model, @PathVariable("language") String language, Principal principal) {
 
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
+
         if(principal!=null){
             String userLogin = principal.getName();
             model.addAttribute("userLogin", userLogin);}
@@ -120,6 +132,12 @@ public class ParamsController {
 
     @RequestMapping(value = "/searchbyformat/{format}", method = RequestMethod.GET)
     public String searchByFormat(HttpSession session, Model model, @PathVariable("format") String format, Principal principal) {
+
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
 
         if(principal!=null){
             String userLogin = principal.getName();

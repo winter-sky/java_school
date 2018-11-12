@@ -187,6 +187,12 @@
                     <p>Author: ${itembystr.params.author}</p>
                     <p>Language: ${itembystr.params.language}</p>
                     <p>Format: ${itembystr.params.format}</p>
+                    <security:authorize access="hasRole('USER')">
+                        <a href="<c:url value='/cart/additemtousercart/${itembystr.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                    </security:authorize>
+                    <c:if test="${empty checkprincipal}">
+                        <a href="<c:url value='/cart/additem/${itembystr.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                    </c:if>
                 </tr>
             </c:forEach>
 
@@ -225,7 +231,12 @@
                         <tr>
                             <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                                 ${item.itemName}<br>
-
+                            <security:authorize access="hasRole('USER')">
+                                <a href="<c:url value='/cart/additemtousercart/${item.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                            </security:authorize>
+                            <c:if test="${empty checkprincipal}">
+                                <a href="<c:url value='/cart/additem/${item.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -233,7 +244,12 @@
                     <c:forEach var="item" items="${category.items}">
                         <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                         ${item.itemName}
-
+                        <security:authorize access="hasRole('USER')">
+                            <a href="<c:url value='/cart/additemtousercart/${item.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                        </security:authorize>
+                        <c:if test="${empty checkprincipal}">
+                            <a href="<c:url value='/cart/additem/${item.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                        </c:if>
                     </c:forEach>
                     <c:if test="${!empty category.categories}">
                         <c:set var="category" value="${category}" scope="request"/>
@@ -276,12 +292,11 @@
         <a href="itemlist">Show all books</a>
         <div class="topnav right">
             <c:if test="${empty checkprincipal}">
-                <%--<a href="/cart/guestcart">Cart <img src="https://cdn4.iconfinder.com/data/icons/shopping-21/64/shopping-06-512.png" alt="some pic" width="20" height="20"></a>--%>
                 <a href="/login">Log in</a>
             </c:if>
             <c:if test="${!empty checkprincipal}">
                 <security:authorize access="hasRole('USER')">
-                    <%--<a href="<c:url value='/cart/usercart/${userLogin}'/>">Cart</a>--%>
+
                     <a href="<c:url value='/getuserorders/${userLogin}'/>">Orders</a>
                     <a href="<c:url value='/searchclientbylogin/${userLogin}'/>">Show profile</a>
                 </security:authorize>
@@ -332,6 +347,12 @@
                     <p>Author: ${itembystr.params.author}</p>
                     <p>Language: ${itembystr.params.language}</p>
                     <p>Format: ${itembystr.params.format}</p>
+                    <security:authorize access="hasRole('USER')">
+                        <a href="<c:url value='/cart/additemtousercart/${itembystr.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                    </security:authorize>
+                    <c:if test="${empty checkprincipal}">
+                        <a href="<c:url value='/cart/additem/${itembystr.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                    </c:if>
                 </tr>
             </c:forEach>
             <c:forEach var="items" items="${listItems}">
@@ -369,6 +390,12 @@
                         <tr>
                             <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                                 ${item.itemName}<br>
+                            <security:authorize access="hasRole('USER')">
+                                <a href="<c:url value='/cart/additemtousercart/${item.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                            </security:authorize>
+                            <c:if test="${empty checkprincipal}">
+                                <a href="<c:url value='/cart/additem/${item.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -376,6 +403,12 @@
                     <c:forEach var="item" items="${category.items}">
                         <p><img src="${item.pic}" alt="some pic" alt="some pic" width="184" height="250"></p>
                         ${item.itemName}
+                        <security:authorize access="hasRole('USER')">
+                            <a href="<c:url value='/cart/additemtousercart/${item.itemId}/${sessionScope.initialusercart.cartId}'/>">Add to user cart</a><br>
+                        </security:authorize>
+                        <c:if test="${empty checkprincipal}">
+                            <a href="<c:url value='/cart/additem/${item.itemId}/${sessionScope.guestcart.cartId}'/>">Add to guest cart</a><br>
+                        </c:if>
                     </c:forEach>
                     <c:if test="${!empty category.categories}">
                         <c:set var="category" value="${category}" scope="request"/>

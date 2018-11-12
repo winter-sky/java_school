@@ -5,14 +5,14 @@
     <title>Edit item page</title>
 </head>
 <body>
-<a href="/adminpage">Back to admin page</a><br>
 <h3>List All Items</h3>
 <c:forEach var="item" items="${listallItems}">
     <tr>
-        <p>Item ID: ${item.itemId}) ${item.itemName}</p>
-        <a href="<c:url value='/edititem/${item.itemId}'/>">Edit</a><br>
+        <p>${item.itemName} <a href="<c:url value='/edititem/${item.itemId}'/>">Edit</a><br></p>
+
     </tr>
 </c:forEach>
+<c:if test="${!empty listlowermostcategories}">
 <form action="/updateitem" method="POST">
     <p>Choose category: </p>
     <select name="categoryId">
@@ -32,5 +32,7 @@
     <p>Item pic: <input type = "text" value="${item.pic}" name = "pic" /></p>
     <input type = "submit" value = "Submit" />
 </form>
+</c:if>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

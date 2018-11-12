@@ -14,6 +14,5 @@
         <a href="<c:url value='/selectpaymentmethod/${paymentItem}/${message}'/>">select</a><br>
     </tr>
     </c:forEach>
-    <p><a href="/deliverymethod">Select delivery method</a></p>
 </body>
 </html>

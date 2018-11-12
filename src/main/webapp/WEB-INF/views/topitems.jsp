@@ -6,7 +6,6 @@
     <title>Top items</title>
 </head>
 <body>
-<a href="/adminpage">Back to admin page</a><br>
 <h1>Best selling items</h1>
 <table>
     <tr>
@@ -30,5 +29,6 @@
     </tr>
 </c:forEach>
 </table>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

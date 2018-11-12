@@ -5,13 +5,13 @@
     <title>Edit Category Page</title>
 </head>
 <body>
-<a href="/adminpage">Back to admin page</a><br>
 <h3>List All Categories</h3>
 <c:forEach var="cat" items="${listallcategories}">
-        Item ID: ${cat.categoryId}) ${cat.categoryName}
-            <a href="<c:url value='/editcategory/${cat.categoryId}'/>">Edit</a>
-        <br>
+    <c:if test="${cat.categoryId!=1}">
+            ${cat.categoryName} <a href="<c:url value='/editcategory/${cat.categoryId}'/>">Edit</a><br>
+        <br></c:if>
 </c:forEach>
+<c:if test="${!empty listallparentcategories}">
 <form action="/updatecategory" method="POST">
     <p>Choose parent category: </p>
     <select name="parentId">
@@ -24,5 +24,7 @@
     <p>Category name: <input type = "text" value="${category.categoryName}" name = "categoryName"/></p>
     <input type = "submit" value = "Submit" />
 </form>
+</c:if>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

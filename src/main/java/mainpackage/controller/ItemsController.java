@@ -53,7 +53,13 @@ public class ItemsController {
     }
 
     @RequestMapping(value = "/searchitems", method = RequestMethod.GET)
-    public String searchItems (Model model,@RequestParam("str") String str,Principal principal) {
+    public String searchItems (HttpSession session, Model model,@RequestParam("str") String str,Principal principal) {
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
+
         List<Items> searchItemsByStr = this.itemsService.searchItemsByString(str);
         model.addAttribute("listitemsbystr", searchItemsByStr);
         model.addAttribute("checkprincipal", principal);

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -5,7 +6,6 @@
     <title>Revenue statistics</title>
 </head>
 <body>
-<a href="/adminpage">Back to admin page</a><br>
 <h1>Revenue statistics</h1>
 <table>
     <tr>
@@ -21,5 +21,6 @@
         <td>${revenueStat.getRevenue()}</td>
     </tr>
 </table>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

@@ -13,4 +13,7 @@
     </tr>
 </c:forEach>
 </body>
+<br>
+<br>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </html>

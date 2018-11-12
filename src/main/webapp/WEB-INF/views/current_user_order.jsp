@@ -23,15 +23,16 @@
     </tr>
 </c:forEach>
     <form action="/selectaddress" method="GET">
-        <select name="address">
+        Select address: <select name="address">
             <c:forEach var="address" items="${listAddresses}">
-                <option value="${address.clientAddressId}">${address.country}</option>
+                <option value="${address.clientAddressId}">${address.country},${address.city},${address.street},${address.building},${address.apartment}</option>
             </c:forEach>
         </select>
         <input type="hidden" value="${currentorder.orderId}" name="orderId"/>
         <input type="submit">
     </form>
-<p><a href="/paymentmethod">Complete order</a></p>
+<p>
 </c:if>
+<p><a href="<c:url value='/backtomainpage'/>">Main page</a></p>
 </body>
 </html>

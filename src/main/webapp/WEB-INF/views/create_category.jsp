@@ -5,13 +5,12 @@
     <title>Create category</title>
 </head>
 <body>
-<a href="/adminpage">Back to admin page</a><br>
-<h3>All categories</h3>
-<c:forEach var="cat" items="${listallcategories}">
-<tr>
-${cat.categoryName}<br>
-</tr>
-</c:forEach>
+<%--<h3>All categories</h3>--%>
+<%--<c:forEach var="cat" items="${listallcategories}">--%>
+<%--<tr>--%>
+<%--${cat.categoryName}<br>--%>
+<%--</tr>--%>
+<%--</c:forEach>--%>
 <p>Choose parent category</p>
 <form action="/addnewcategory" method="POST">
     <select name="categoryId">
@@ -24,5 +23,6 @@ ${cat.categoryName}<br>
     <p>New category level: <input type = "text" name = "categoryLevel"/></p>
     <input type = "submit" value = "Submit" />
 </form>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

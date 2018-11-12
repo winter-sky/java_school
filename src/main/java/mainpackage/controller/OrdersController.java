@@ -51,10 +51,10 @@ public class OrdersController {
 
     @RequestMapping(value="/selectaddress", method = RequestMethod.GET)
     public String selectAddress (@RequestParam("address")int addressId,
-                                 @RequestParam("orderId") int orderId){
-
+                                 @RequestParam("orderId") int orderId,Principal principal){
+        String login = principal.getName();
         this.ordersService.selectOrderAddress(addressId,orderId);
-        return  "select_address";
+        return  "redirect:/deliverymethod";
     }
 
     @RequestMapping(value="/selectorderstatus", method = RequestMethod.GET)
@@ -82,10 +82,9 @@ public class OrdersController {
     @RequestMapping(value="/payfortheorder/{userLogin}",method = RequestMethod.GET)
     public String payForTheOrder (HttpSession session, Model model, Principal principal,
                                   @PathVariable("userLogin") String userLogin) {//??
-        String login = principal.getName();//??
+        String login = principal.getName();
         this.ordersService.payForTheOrder(login);
-        //return "redirect:/getuserorder/"+login;
-        return "redirect:/hello";
+        return "redirect:/getuserorders/"+login;
     }
 
     @RequestMapping(value="/paymentmethod",method = RequestMethod.GET)
@@ -100,10 +99,11 @@ public class OrdersController {
     public String selectPaymentMethod (HttpSession session, Model model, Principal principal, @PathVariable("paymentMethod")
     PaymentMethod paymentMethod,@PathVariable("userLogin") String userLogin ){
         String login = principal.getName();
+        model.addAttribute("message", login);
         //model.addAttribute("message", login);
         this.ordersService.selectPaymentMethod(paymentMethod,login);
         //model.addAttribute("payment", PaymentMethod.values());
-        return  "redirect:/deliverymethod";
+        return  "complete_order";
     }
 
     @RequestMapping(value="/deliverymethod",method = RequestMethod.GET)
@@ -121,7 +121,7 @@ public class OrdersController {
         model.addAttribute("message", login);
         this.ordersService.selectDeliveryMethod(deliveryMethod,login);
         //model.addAttribute("payment", PaymentMethod.values());
-        return  "complete_order";
+        return  "redirect:/paymentmethod";
     }
 
     @RequestMapping(value="/addtoorder/{userlogin}", method = RequestMethod.GET)
@@ -142,7 +142,7 @@ public class OrdersController {
         session.removeAttribute("guestcart");//???
         session.removeAttribute("initialusercart");
 
-        return "redirect:/hello";
+        return "redirect:/getuserorders/"+login;
     }
 
     @RequestMapping(value="/getuserorder/{userlogin}", method = RequestMethod.GET)//get items in current order,

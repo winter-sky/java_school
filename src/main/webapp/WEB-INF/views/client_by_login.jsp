@@ -26,14 +26,12 @@
     </style>
 </head>
 <body>
-<div class="center" >
     <h3>Profile info: </h3>
     <p>First name: ${client.firstName}</p>
     <p>Last name: ${client.lastName}</p>
     <p>Birth date: ${client.birthDate}</p>
     <p>email: ${client.email}</p>
-    <%--<p>Address: ${client.clientAddress.country}, ${client.clientAddress.zipCode}, ${client.clientAddress.city}, ${client.clientAddress.street}, ${client.clientAddress.building}-${client.clientAddress.apartment}</p>--%>
     <p><a href="<c:url value='/edit/${client.clientId}'/>">Edit profile</a></p>
-</div>
+    <p><a href="<c:url value='/backtomainpage'/>">Main page</a></p>
 </body>
 </html>

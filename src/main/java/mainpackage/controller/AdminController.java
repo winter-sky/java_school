@@ -36,6 +36,12 @@ public class AdminController {
         this.statService = statService;
     }
 
+    @RequestMapping(value = "/backtoadminpage", method = RequestMethod.GET)
+    public String backToMainPage() {
+
+        return "redirect:/adminpage";
+    }
+
     @RequestMapping(value = "/adminpage", method = RequestMethod.GET)
     public String adminPage() {
 

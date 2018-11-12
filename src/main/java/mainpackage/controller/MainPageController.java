@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainPageController {
     @RequestMapping(value = "/backtomainpage", method = RequestMethod.GET)
     public String backToMainPage() {
+
         return "redirect:/listcategories";
     }
 }

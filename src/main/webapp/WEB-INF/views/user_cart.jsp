@@ -15,5 +15,6 @@
     </tr>
 </c:forEach>
 </c:if>
+<p><a href="<c:url value='/backtomainpage'/>">Main page</a></p>
 </body>
 </html>

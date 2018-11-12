@@ -137,7 +137,6 @@ public class CategoriesController {
 
         model.addAttribute("checkprincipal", principal);
 
-
         Categories rootCategory = this.categoriesService.getRootCategory();
         model.addAttribute("rootCategory", rootCategory);
 

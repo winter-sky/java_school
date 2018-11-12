@@ -39,6 +39,6 @@
             </td>
         </c:forEach>
 </table>
-<a href="/adminpage">Back to admin page</a>
+<p><a href="<c:url value='/backtoadminpage'/>">Main page</a></p>
 </body>
 </html>

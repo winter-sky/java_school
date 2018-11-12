@@ -5,7 +5,7 @@
     <title>Current orders</title>
 </head>
 <body>
-<h3>Your current orders</h3>
+<h3>Order history</h3>
 <c:forEach var="order" items="${orderlist}">
     <tr>
     <p>Order Id: ${order.orderId}<br></p>
@@ -15,14 +15,17 @@
         <tr>
             <p><img src="${orderitem.item.pic}" alt="some pic" width="184" height="250"></p>
             <p>Book name: ${orderitem.item.itemName}</p>
+            <p>Author: ${orderitem.item.params.author}</p>
+            <p>Language: ${orderitem.item.params.language}</p>
+            <p>Format: ${orderitem.item.params.format}</p>
+            <p>Quantity: ${orderitem.itemQuantity}</p>
         </tr>
     </c:forEach>
     </tr>
 <c:if test="${order.isPaymentAwaiting()}">
-    <p><a href="<c:url value='/getuserorder/${clientLogin}'/>">Go to current order</a></p>
+    <p><a href="<c:url value='/getuserorder/${clientLogin}'/>">Complete order</a></p>
 </c:if>
 </c:forEach>
-
-<p><a href="/paymentmethod">Complete order</a></p>
+<p><a href="<c:url value='/backtomainpage'/>">Main page</a></p>
 </body>
 </html>
