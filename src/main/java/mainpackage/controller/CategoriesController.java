@@ -103,6 +103,11 @@ public class CategoriesController {
 
     @RequestMapping(value = "/listcategories", method = RequestMethod.GET)//start page
     public String listCategories(HttpSession session, Model model, Principal principal) {
+        Cart guestcart = (Cart) session.getAttribute("guestcart");
+        if (guestcart == null) {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
+            guestcart = new Cart();
+            session.setAttribute("guestcart", guestcart);//place it into if block (properly or not??)
+        }
         if(principal!=null){
             String userLogin = principal.getName();
             model.addAttribute("userLogin", userLogin);
@@ -116,15 +121,15 @@ public class CategoriesController {
                     {
                         initialusercart = new Cart();//create new user cart in session, not in DB
                         //need to create guest cart if it not exist
-                        Cart guestcart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
-                        if (guestcart == null)
+                        Cart guestCart = (Cart)session.getAttribute("guestcart");//guest cart from session, not from DB
+                        if (guestCart == null)
                         {//guestcart = this.cartService.createGuestCart();//persist Cart in DB
-                            guestcart = new Cart();//create new guest Cart in session, not in DB
+                            guestCart = new Cart();//create new guest Cart in session, not in DB
                         }
 
                         List<Items> guestCartItems = new ArrayList<>();
-                        if(guestcart.getItems()!=null) {//check whether guest cart empty or not
-                            guestCartItems.addAll(guestcart.getItems());
+                        if(guestCart.getItems()!=null) {//check whether guest cart empty or not
+                            guestCartItems.addAll(guestCart.getItems());
                             initialusercart.setItems(guestCartItems);
                         }
                         //initialusercart.setClient(client);
